@@ -10,18 +10,19 @@ This section contains the foundational concepts for starting with React.
 - [04 React DOM Basics](./concepts/04-react-dom-basics.md)
 - [05 Components Basics](./concepts/05-components-basics.md)
 - [06 Events and State Basics](./concepts/06-events-and-state-basics.md)
+- [07 React Styles Basics](./concepts/07-react-styles-basics.md)
+- [08 Component Reusability](./concepts/08-component-reusability.md)
+- [09 Layout Container Styling](./concepts/09-layout-container-styling.md)
+- [10 Boolean and Function Props](./concepts/10-boolean-and-function-props.md)
+- [11 Elements as Props](./concepts/11-elements-as-props.md)
+- [12 Components vs Elements](./concepts/12-components-vs-elements.md)
+- [13 Props Are Immutable](./concepts/13-props-are-immutable.md)
 
 ## Next Topics (Planned)
 
 Status: Planned (may change as the course progresses)
 
-- Styles in React
-- Component reuse with props
-- Boolean props
-- Function props
-- Elements as props
-- Element vs component
-- Props are immutable
 - `children` prop
 - Objects as props
 - State in React (deeper)
+- First practical project with React
