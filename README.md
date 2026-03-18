@@ -32,6 +32,17 @@ projects/
   03-...
 ```
 
+## Learning Progress 📈
+
+| Module | Title | Status | Details |
+| :--- | :--- | :---: | :--- |
+| **01** | **React Basics** | 🟢 Done | [View Progress](./sections/01-react-basics/README.md) |
+| **02** | *Upcoming...* | ⚪ Pending | - |
+
+## Current Focus 🎯
+
+- Building and polishing the Section 01 integrative project (Follow Card UI)
+
 ## Goal 🎯
 
 Build a solid understanding of React fundamentals and improve my frontend development skills while documenting the learning process.
