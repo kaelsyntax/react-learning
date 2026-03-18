@@ -17,12 +17,17 @@ This section contains the foundational concepts for starting with React.
 - [11 Elements as Props](./concepts/11-elements-as-props.md)
 - [12 Components vs Elements](./concepts/12-components-vs-elements.md)
 - [13 Props Are Immutable](./concepts/13-props-are-immutable.md)
+- [14 The Special `children` Prop](./concepts/14-children-prop.md)
+- [15 Passing Objects as Props](./concepts/15-passing-object-as-prop.md)
+- [16 Imperative vs Declarative](./concepts/16-imperative-vs-declarative.md)
+- [17 Virtual DOM and Re-render Basics](./concepts/17-virtual-dom-and-rerender.md)
+- [18 Rendering Lists and Keys](./concepts/18-rendering-lists-and-keys.md)
+- [19 State Management Basics (Deeper)](./concepts/19-state-management-basics.md)
+- [20 Hooks Basics](./concepts/20-hooks-basics.md)
 
 ## Next Topics (Planned)
 
 Status: Planned (may change as the course progresses)
 
-- `children` prop
-- Objects as props
-- State in React (deeper)
 - First practical project with React
+- Tic-Tac-Toe exercise
