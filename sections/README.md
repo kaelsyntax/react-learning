@@ -1,18 +1,35 @@
 ﻿# 📚 Sections
 
-This directory contains the learning sections of the React study path.
+This directory contains the organized learning path for React, divided into thematic modules.
 
-Each section includes:
+---
 
-- `concepts/` -> notes about React concepts
-- `exercises/` -> practice exercises related to the section
+## 📂 Directory Structure
 
-Example structure:
+Each section is designed to balance theory and practice:
+
+| Directory | Description |
+| :--- | :--- |
+| `concepts/` | Deep-dive notes and technical theory. |
+| `exercises/` | Practice exercises to reinforce the module's concepts. |
+
+---
+
+## 📈 Learning Path Progress
+
+| Section | Title | Concepts | Exercises | Status |
+| :--- | :--- | :---: | :---: | :---: |
+| **01** | **React Basics** | 20 / 20 | 3 / 3 | 🟢 Completed |
+| **02** | *Coming Soon...* | - | - | ⚪ Planned |
+
+---
+
+## 🛠 Project Organization
 
 ```text
 sections/
-  01-react-basics/
-    concepts/
-    exercises/
-  02-...
+├── 01-react-basics/
+│   ├── concepts/
+│   └── exercises/
+└── 02-.../ 
 ```
