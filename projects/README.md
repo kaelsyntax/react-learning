@@ -1,14 +1,12 @@
 ﻿# 🚀 Projects
 
-This directory contains the small projects built while learning React.
+This directory contains practical React projects built during the learning process.
 
-Each project focuses on applying concepts from the sections in practical scenarios.
+Each project applies concepts from the sections in a real implementation.
 
-Example structure:
+## Project List
 
-```text
-projects/
-  01-...
-  02-...
-  03-...
-```
+| # | Project | Status | Links |
+| :--- | :--- | :---: | :--- |
+| **01** | **Twitter Follow Card** | 🟢 Completed | [README](./01-twitter-follow-card/README.md) · [Live Demo](https://01-twitter-follow-card.pages.dev/) |
+| **02** | *Tic-Tac-Toe* | ⚪ Planned | - |
