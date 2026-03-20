@@ -23,14 +23,7 @@ sections/
 **projects/**
 Small projects built while learning React concepts.
 
-Example projects:
-
-```text
-projects/
-  01-...
-  02-...
-  03-...
-```
+See the full list in [projects/README.md](./projects/README.md).
 
 ## Learning Progress 📈
 
@@ -41,8 +34,14 @@ projects/
 
 ## Current Focus 🎯
 
-- Building and polishing the Section 01 integrative project (Follow Card UI)
+- Start Section 02 after completing the Section 01 project
+- Build Project 02 (Tic-Tac-Toe)
+
+## Featured Project 🚀
+
+- [Twitter Follow Card (Project 01)](./projects/01-twitter-follow-card/README.md)
+- Live: [01-twitter-follow-card.pages.dev](https://01-twitter-follow-card.pages.dev/)
 
 ## Goal 🎯
 
-Build a solid understanding of React fundamentals and improve my frontend development skills while documenting the learning process.
+Build a solid understanding of React fundamentals and improve frontend skills while documenting the learning process.
