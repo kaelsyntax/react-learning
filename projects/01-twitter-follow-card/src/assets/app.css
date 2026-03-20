@@ -1,0 +1,198 @@
+.tw-follow-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: clamp(280px, 92vw, 420px);
+    padding: 10px 16px;
+    border: 1px solid #2f3336;
+    border-radius: 14px;
+    background: #16181c;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tw-follow-card__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.tw-follow-card__avatar {
+    display: block;
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 999px;
+}
+
+.tw-follow-card__info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.tw-follow-card__name {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+    line-height: 1.2;
+}
+
+.tw-follow-card__verified {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 17px;
+    height: 17px;
+    border-radius: 999px;
+    color: #fff;
+    background: #1d9bf0;
+}
+
+.tw-follow-card__verified-icon {
+    width: 11px;
+    height: 11px;
+}
+
+.tw-follow-card__meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 3px;
+}
+
+.tw-follow-card__user {
+    font-size: 14px;
+    line-height: 1.2;
+    color: #6e767d;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.tw-follow-card__follows-you {
+    font-size: 12px;
+    line-height: 1;
+    color: #8b98a5;
+    border: 1px solid #2f3336;
+    border-radius: 999px;
+    padding: 3px 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.tw-follow-card__actions {
+    display: flex;
+    align-items: center;
+}
+
+.tw-follow-card__button {
+    border: 0;
+    min-width: 110px;
+    text-align: center;
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #0f1419;
+    background: #eff3f4;
+    cursor: pointer;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tw-follow-card__button-label--unfollow {
+    display: none;
+}
+
+.tw-follow-card__button--following {
+    background: transparent;
+    color: #fff;
+    border: 1px solid #6e767d;
+}
+
+.tw-follow-card__button--following:focus-visible {
+    color: #f4212e;
+    border-color: #f4212e;
+    background: rgba(244, 33, 46, 0.12);
+}
+
+.tw-follow-card__button--following:focus-visible .tw-follow-card__button-label--following {
+    display: none;
+}
+
+.tw-follow-card__button--following:focus-visible .tw-follow-card__button-label--unfollow {
+    display: inline;
+}
+
+.tw-follow-card__button--not-following {
+    background: #eff3f4;
+    color: #0f1419;
+}
+
+.tw-follow-card__button--not-following:hover {
+    background: #d7dbdc;
+}
+
+.tw-follow-card__button:focus-visible {
+    outline: 2px solid #1d9bf0;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(29, 155, 240, 0.25);
+}
+
+.tw-follow-card__button--not-following:focus-visible {
+    background: #ffffff;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .tw-follow-card:hover {
+        background: #1a1d22;
+        border-color: #3a3f46;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+    }
+
+    .tw-follow-card__button--following.tw-follow-card__button--hover-ready:hover {
+        color: #f4212e;
+        border-color: #f4212e;
+        background: rgba(244, 33, 46, 0.12);
+    }
+
+    .tw-follow-card__button--following.tw-follow-card__button--hover-ready:hover .tw-follow-card__button-label--following {
+        display: none;
+    }
+
+    .tw-follow-card__button--following.tw-follow-card__button--hover-ready:hover .tw-follow-card__button-label--unfollow {
+        display: inline;
+    }
+}
+
+@media (min-width: 640px) {
+    .tw-follow-card__meta {
+        flex-direction: row;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .tw-follow-card__follows-you {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0;
+        border: 0;
+        font-size: 14px;
+        line-height: 1.2;
+        color: #6e767d;
+    }
+
+    .tw-follow-card__follows-you::before {
+        content: "\00B7";
+        opacity: 0.8;
+    }
+}

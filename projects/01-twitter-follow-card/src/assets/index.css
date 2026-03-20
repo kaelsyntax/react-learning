@@ -1,0 +1,40 @@
+:root {
+    color-scheme: dark;
+    font-family: "Segoe UI", "Inter", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.4;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    color: #e7e9ea;
+    background:
+        radial-gradient(900px 500px at 15% -20%, #1d2f4f 0%, transparent 55%),
+        radial-gradient(800px 460px at 100% 120%, #2b1a33 0%, transparent 52%),
+        #0f1419;
+}
+
+#root {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 20px 14px;
+}
+
+.App {
+    width: min(460px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
