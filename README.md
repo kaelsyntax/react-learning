@@ -30,12 +30,12 @@ See the full list in [projects/README.md](./projects/README.md).
 | Module | Title | Status | Details |
 | :--- | :--- | :---: | :--- |
 | **01** | **React Basics** | 🟢 Done | [View Progress](./sections/01-react-basics/README.md) |
-| **02** | **React State and Effects** | 🟡 In Progress | [View Progress](./sections/02-react-state-and-effects/README.md) |
+| **02** | **React State and Effects** | 🟢 Done | [View Progress](./sections/02-react-state-and-effects/README.md) |
 
 ## Current Focus 🎯
 
-- Consolidate Section 02 concept notes
 - Continue Project 02 (Tic-Tac-Toe)
+- Start Section 03
 
 ## Featured Project 🚀
 
