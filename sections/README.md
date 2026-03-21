@@ -20,7 +20,7 @@ Each section balances theory and practice:
 | Section | Title | Status | Details |
 | :--- | :--- | :---: | :--- |
 | **01** | **React Basics** | 🟢 Completed | [View Section](./01-react-basics/README.md) |
-| **02** | **React State and Effects** | 🟡 In Progress | [View Section](./02-react-state-and-effects/README.md) |
+| **02** | **React State and Effects** | 🟢 Completed | [View Section](./02-react-state-and-effects/README.md) |
 
 ---
 
