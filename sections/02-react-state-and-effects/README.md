@@ -17,9 +17,13 @@ This section focuses on React state flow, effects, persistence, and debugging pr
 - [x] [09 Full-State Validation with `every()`](./concepts/09-full-state-validation-with-every.md)
 - [x] [10 Reset UI by Restoring Initial State](./concepts/10-reset-ui-by-restoring-initial-state.md)
 - [x] [11 One Event Can Update Multiple State Slices](./concepts/11-one-event-updates-multiple-state-slices.md)
-- [x] [12 useEffect Synchronizes React with External Systems](./concepts/12-useeffect-sync-with-external-systems.md)
-- [x] [13 Effect Dependency Arrays](./concepts/13-effect-dependency-arrays.md)
-- [x] [14 localStorage JSON Serialization and Lazy State Initialization](./concepts/14-localstorage-json-and-lazy-initialization.md)
+- [x] [12 Side Effects in React](./concepts/12-side-effects-in-react.md)
+- [x] [13 useEffect as a Synchronization Tool](./concepts/13-useeffect-as-synchronization.md)
+- [x] [14 Effect Dependency Arrays](./concepts/14-effect-dependency-arrays.md)
+- [x] [15 localStorage JSON Serialization and Lazy State Initialization](./concepts/15-localstorage-json-and-lazy-initialization.md)
+- [x] [16 Effect Cleanup](./concepts/16-effect-cleanup.md)
+- [x] [17 StrictMode Double Execution in Development](./concepts/17-strictmode-double-execution-in-development.md)
+- [x] [18 Client vs Server APIs (`window`, `localStorage`)](./concepts/18-client-vs-server-apis-window-and-localstorage.md)
 
 > [View all detailed notes](./concepts/)
 
@@ -27,7 +31,6 @@ This section focuses on React state flow, effects, persistence, and debugging pr
 
 ## 🧩 Next Concepts
 
-- [ ] Strict Mode double execution
 - [ ] DevTools and debugging
 - [ ] Linter and code quality
 
@@ -43,4 +46,4 @@ This section focuses on React state flow, effects, persistence, and debugging pr
 ## 📌 Section Status
 
 - **Overall:** 🟡 In Progress
-- **Next:** Complete remaining concept notes and continue project implementation
+- **Next:** Continue project implementation and add final tooling/debugging notes

@@ -1,4 +1,4 @@
-﻿# useEffect Synchronizes React with External Systems
+﻿# useEffect as a Synchronization Tool
 
 ## Goal
 
@@ -30,3 +30,4 @@ useEffect(() => {
 ## Common Mistake
 
 Putting external synchronization logic directly inside render flow.
+

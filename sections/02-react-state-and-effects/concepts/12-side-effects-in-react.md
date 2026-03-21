@@ -34,4 +34,5 @@ useEffect(() => {
 
 ## Related Concept
 
-See also: `12-useeffect-sync-with-external-systems.md`
+See also: `13-useeffect-as-synchronization.md`
+
