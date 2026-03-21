@@ -38,4 +38,4 @@ Practice-focused exercises that bridge theory and implementation:
 ## 📌 Section Status
 
 - **Overall:** ✅ Completed
-- **Next:** 🛠 Continue with Section 03
+- **Next:** 🛠 Continue with Section 02
