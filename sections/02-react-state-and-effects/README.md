@@ -19,7 +19,11 @@ State-driven patterns, effect lifecycle, persistence, and environment-awareness 
 
 ## 🧩 Integrative Exercises
 
-Practice-focused exercises for this section will be added as project-driven tasks.
+Practice-focused exercises that bridge theory and implementation:
+
+- [x] **01** [State and Turn Flow](./exercises/01-state-and-turns-exercise.md)
+- [x] **02** [Winner Logic and Reset](./exercises/02-winner-logic-and-reset-exercise.md)
+- [x] **03** [Persistence and Effects](./exercises/03-persistence-and-effects-exercise.md)
 
 ---
 
