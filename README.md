@@ -34,13 +34,14 @@ See the full list in [projects/README.md](./projects/README.md).
 
 ## Current Focus 🎯
 
-- Continue Project 02 (Tic-Tac-Toe)
 - Start Section 03
 
 ## Featured Project 🚀
 
 - [Twitter Follow Card (Project 01)](./projects/01-twitter-follow-card/README.md)
 - Live: [01-twitter-follow-card.pages.dev](https://01-twitter-follow-card.pages.dev/)
+- [Tic-Tac-Toe (Project 02)](./projects/02-tic-tac-toe/README.md)
+- Live: [02-tic-tac-toe.pages.dev](https://02-tic-tac-toe.pages.dev/)
 
 ## Goal 🎯
 
