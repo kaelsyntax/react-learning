@@ -29,8 +29,9 @@ Practice-focused exercises that bridge theory and implementation:
 
 ## 🚀 Section Project
 
-- **Project:** Tic-Tac-Toe (Project 02)
-- **Status:** ✅ Core implementation completed
+- **Project:** [Tic-Tac-Toe (Project 02)](../../projects/02-tic-tac-toe/README.md)
+- **Live Demo:** [02-tic-tac-toe.pages.dev](https://02-tic-tac-toe.pages.dev/)
+- **Status:** ✅ Completed
 
 ---
 
