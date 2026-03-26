@@ -24,22 +24,22 @@ Instead of isolated exercises, concepts are applied to a single evolving project
 
 ---
 
-## 📚 Planned Concepts
+## 📚 Concept Roadmap
 
-- 01 Controlled Forms and Search State
-- 02 Fetch Lifecycle with useEffect
-- 03 Loading, Error, Empty, Success States
-- 04 useEffect with Fetch and AbortController
-- 05 Derived UI State vs Stored State
-- 06 Custom Hooks Basics (`useFetch`)
-- 07 Debouncing and Race Conditions
-- 08 SPA vs MPA Concept
-- 09 Link Component and `children`
-- 10 Basic Client-Side Routing
-- 11 Dynamic Routes and Params
-- 12 404 and Default Routes
-- 13 Lazy Loading Routes
-- 14 `useMemo` and `useCallback` (Pragmatic)
+- [x] 01 Controlled Forms and Search State
+- [x] 02 Fetch Lifecycle with useEffect
+- [x] 03 Core UI States for Async Screens
+- [x] 04 useEffect with Fetch and AbortController
+- [x] 05 Derived UI State vs Stored State
+- [ ] 06 Custom Hooks Basics (`useFetch`)
+- [ ] 07 Debouncing and Race Conditions
+- [ ] 08 SPA vs MPA Concept
+- [ ] 09 Link Component and `children`
+- [ ] 10 Basic Client-Side Routing
+- [ ] 11 Dynamic Routes and Params
+- [ ] 12 404 and Default Routes
+- [ ] 13 Lazy Loading Routes
+- [ ] 14 `useMemo` and `useCallback` (Pragmatic)
 
 ---
 
@@ -56,4 +56,5 @@ Features will be progressively implemented as concepts are learned.
 ## 📌 Section Status
 
 - **Overall:** 🛠 In Progress
-- **Next:** Controlled Forms and Search State
+- **Completed Concepts:** 5/14
+- **Next:** Custom Hooks Basics (`useFetch`)
