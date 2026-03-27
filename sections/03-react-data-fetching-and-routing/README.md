@@ -31,11 +31,11 @@ Instead of isolated exercises, concepts are applied to a single evolving project
 - [x] 03 Core UI States for Async Screens
 - [x] 04 useEffect with Fetch and AbortController
 - [x] 05 Derived UI State vs Stored State
-- [ ] 06 Custom Hooks Basics (`useFetch`)
-- [ ] 07 Debouncing and Race Conditions
-- [ ] 08 SPA vs MPA Concept
-- [ ] 09 Link Component and `children`
-- [ ] 10 Basic Client-Side Routing
+- [x] 06 Custom Hooks Basics (`useFetch`)
+- [x] 07 Debouncing and Race Conditions
+- [x] 08 SPA vs MPA Concept
+- [x] 09 Link Component and `children`
+- [x] 10 Basic Client-Side Routing
 - [ ] 11 Dynamic Routes and Params
 - [ ] 12 404 and Default Routes
 - [ ] 13 Lazy Loading Routes
@@ -56,5 +56,5 @@ Features will be progressively implemented as concepts are learned.
 ## 📌 Section Status
 
 - **Overall:** 🛠 In Progress
-- **Completed Concepts:** 5/14
-- **Next:** Custom Hooks Basics (`useFetch`)
+- **Completed Concepts:** 10/14
+- **Next:** Dynamic Routes and Params
