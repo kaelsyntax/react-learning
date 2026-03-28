@@ -4,14 +4,32 @@ State-driven patterns, effect lifecycle, persistence, and environment-awareness 
 
 ---
 
+## 🧠 Overview
+
+This section focuses on state-driven UI logic and side effects in real React workflows.
+
+You’ll learn how to model interactions, control effect execution, and handle browser/runtime constraints safely.
+
+---
+
+## 🎯 What You’ll Learn
+
+- Model shared and derived state correctly
+- Structure event handlers using guard clauses
+- Control side effects with `useEffect`
+- Persist state using `localStorage`
+- Handle cleanup, StrictMode behavior, and client-only APIs
+
+---
+
 ## ✅ Completed Concepts
 
-| # | Topic | Status |
+| Range | Area | Status |
 | :--- | :--- | :---: |
-| 01-04 | **State Flow Foundations** (`map`, lift state, data flow, immutability) | [x] |
-| 05-09 | **Turn and Interaction Logic** (boolean turns, guard clauses, derived checks) | [x] |
-| 10-14 | **Reset and Effect Foundations** (reset patterns, side effects, dependency arrays) | [x] |
-| 15-18 | **Persistence and Runtime Context** (localStorage, cleanup, StrictMode, client/server APIs) | [x] |
+| 01–04 | **State Flow Foundations** (`map`, lifting state, data flow, immutability) | [x] |
+| 05–09 | **Interaction Logic** (boolean turns, guard clauses, derived checks) | [x] |
+| 10–14 | **Effects and Reset Patterns** (side effects, dependency arrays, reset logic) | [x] |
+| 15–18 | **Persistence and Runtime Context** (localStorage, cleanup, StrictMode, client/server APIs) | [x] |
 
 > [View all detailed notes](./concepts/)
 
@@ -29,13 +47,24 @@ Practice-focused exercises that bridge theory and implementation:
 
 ## 🚀 Section Project
 
-- **Project:** [Tic-Tac-Toe (Project 02)](../../projects/02-tic-tac-toe/README.md)
-- **Live Demo:** [02-tic-tac-toe.pages.dev](https://02-tic-tac-toe.pages.dev/)
+- **Project:** Tic-Tac-Toe  
+- **Description:** Interactive game with derived state, persistence, and controlled side effects  
+- **Repository:** [View Project README](../../projects/02-tic-tac-toe/README.md)  
+- **Live Demo:** [02-tic-tac-toe.pages.dev](https://02-tic-tac-toe.pages.dev/)  
 - **Status:** ✅ Completed
+
+---
+
+## 🧭 Key Takeaways
+
+- State is the single source of truth
+- Effects should be controlled and predictable
+- Derive state instead of duplicating it
+- Always clean up side effects when necessary
 
 ---
 
 ## 📌 Section Status
 
-- **Overall:** ✅ Completed
+- **Overall:** ✅ Completed  
 - **Next:** 🛠 Continue with Section 03
