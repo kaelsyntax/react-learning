@@ -1,12 +1,12 @@
-﻿# 📚 Sections
+# 📚 Sections
 
-This directory contains the organized React learning path, divided into focused modules.
+This directory defines the structured React learning path, organized into focused modules that combine theory and practice.
 
 ---
 
 ## 📂 Directory Structure
 
-Each section balances theory and practice:
+Each section is structured to balance theory and practice:
 
 | Directory | Description |
 | :--- | :--- |
@@ -21,11 +21,11 @@ Each section balances theory and practice:
 | :--- | :--- | :---: | :--- |
 | **01** | **React Basics** | 🟢 Completed | [View Section](./01-react-basics/README.md) |
 | **02** | **React State and Effects** | 🟢 Completed | [View Section](./02-react-state-and-effects/README.md) |
-| **03** | **React Data Fetching and Routing** | 🟡 In Progress | Concepts completed, exercises/project pending. [View Section](./03-react-data-fetching-and-routing/README.md) |
+| **03** | **React Data Fetching and Routing** | 🟡 In Progress | Concepts completed (14/14), exercises and project in progress. [View Section](./03-react-data-fetching-and-routing/README.md) |
 
 ---
 
-## 🛠 Project Organization
+## 🗂️ Folder Structure
 
 ```text
 sections/
