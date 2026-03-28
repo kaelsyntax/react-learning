@@ -4,14 +4,32 @@ Foundational concepts and integrative practices to master core React fundamental
 
 ---
 
+## 🧠 Overview
+
+This section establishes the core mental model of React.
+
+You’ll learn how to think in components, manage state, and build reusable UI systems from the ground up.
+
+---
+
+## 🎯 What You’ll Learn
+
+- Structure UI using JSX and component composition
+- Build reusable components with props and children
+- Handle user interaction with events and state
+- Render dynamic lists with stable keys
+- Organize scalable styling patterns
+
+---
+
 ## ✅ Completed Concepts
 
-| # | Topic | Status |
+| Range | Area | Status |
 | :--- | :--- | :---: |
-| 01-04 | **Foundations** (JSX, Vite, DOM) | [x] |
-| 05-09 | **Components and Styles** (Reusability, Layout) | [x] |
-| 10-15 | **Deep Dive into Props** (Functions, Elements, Children) | [x] |
-| 16-20 | **Logic and State** (Virtual DOM, Lists, Hooks) | [x] |
+| 01–04 | **Foundations** (JSX, Vite, DOM) | [x] |
+| 05–09 | **Components and Styles** (Reusability, Layout) | [x] |
+| 10–15 | **Deep Dive into Props** (Functions, Elements, Children) | [x] |
+| 16–20 | **Logic and State** (Virtual DOM, Lists, Hooks) | [x] |
 
 > [View all detailed notes](./concepts/)
 
@@ -29,13 +47,23 @@ Practice-focused exercises that bridge theory and implementation:
 
 ## 🚀 Section Project
 
-- **Project:** [Twitter Follow Card (Project 01)](../../projects/01-twitter-follow-card/README.md)
-- **Live Demo:** [01-twitter-follow-card.pages.dev](https://01-twitter-follow-card.pages.dev/)
+- **Project:** Twitter Follow Card  
+- **Description:** Reusable component with dynamic follow state and UI feedback  
+- **Repository:** [View Project README](../../projects/01-twitter-follow-card/README.md)  
+- **Live Demo:** [01-twitter-follow-card.pages.dev](https://01-twitter-follow-card.pages.dev/)  
 - **Status:** ✅ Completed
+
+---
+
+## 🧭 Key Takeaways
+
+- Think in components, not pages
+- Keep state minimal and predictable
+- Derive UI instead of duplicating state
 
 ---
 
 ## 📌 Section Status
 
-- **Overall:** ✅ Completed
+- **Overall:** ✅ Completed  
 - **Next:** 🛠 Continue with Section 02
