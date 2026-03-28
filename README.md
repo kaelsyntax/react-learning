@@ -31,10 +31,12 @@ See the full list in [projects/README.md](./projects/README.md).
 | :--- | :--- | :---: | :--- |
 | **01** | **React Basics** | 🟢 Done | [View Progress](./sections/01-react-basics/README.md) |
 | **02** | **React State and Effects** | 🟢 Done | [View Progress](./sections/02-react-state-and-effects/README.md) |
+| **03** | **React Data Fetching and Routing** | 🟡 In Progress | Concepts completed (14/14), exercises/project pending. [View Progress](./sections/03-react-data-fetching-and-routing/README.md) |
 
 ## Current Focus 🎯
 
-- Start Section 03
+- Section 03 exercises
+- Project 03 (GitHub User Finder) to v1
 
 ## Featured Project 🚀
 
