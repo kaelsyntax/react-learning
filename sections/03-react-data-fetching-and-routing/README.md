@@ -8,7 +8,7 @@ Async data patterns, custom hooks, and client-side routing foundations in React.
 
 This section connects async data workflows with route-driven UI architecture.
 
-You’ll learn how to build reliable fetch patterns, extract reusable logic, and structure scalable navigation systems beyond simple demos.
+You will learn how to build reliable fetch patterns, extract reusable logic, and structure scalable navigation systems beyond simple demos.
 
 ---
 
@@ -38,9 +38,9 @@ You’ll learn how to build reliable fetch patterns, extract reusable logic, and
 
 Practice-focused exercises that bridge theory and implementation:
 
-- [ ] **01** Planned
-- [ ] **02** Planned
-- [ ] **03** Planned
+- [x] **01** [Controlled Search and Fetch Flow](./exercises/01-controlled-search-and-fetch-flow-exercise.md)
+- [x] **02** [Routing, Dynamic Params, and 404](./exercises/02-routing-dynamic-params-and-404-exercise.md)
+- [x] **03** [Custom Hooks, Debounce, and Lazy Routes](./exercises/03-custom-hooks-debounce-and-lazy-routes-exercise.md)
 
 > [Exercises workspace](./exercises/README.md)
 
@@ -48,11 +48,11 @@ Practice-focused exercises that bridge theory and implementation:
 
 ## 🚀 Section Project
 
-- **Project:** GitHub User Finder  
-- **Description:** Async data app with debounced search, controlled fetch lifecycle, and reusable hooks  
-- **Repository:** [View Project README](../../projects/03-github-user-finder/)
-- **Live Demo:** Coming soon  
-- **Status:** 🛠 In Progress
+- **Project:** GitHub User Finder
+- **Description:** Async data app with debounced search, controlled fetch lifecycle, and reusable hooks
+- **Repository:** [View Project Folder](../../projects/03-github-user-finder/)
+- **Live Demo:** Coming soon
+- **Status:** In Progress
 
 ---
 
@@ -68,6 +68,7 @@ Practice-focused exercises that bridge theory and implementation:
 
 ## 📌 Section Status
 
-- **Overall:** 🛠 In Progress  
-- **Completed Concepts:** ✅ 14/14  
-- **Next:** 🧩 Integrative Exercises + Project 03 v1
+- **Overall:** 🟡 In Progress
+- **Completed Concepts:** 14/14
+- **Exercises Published:** 3/3
+- **Next:** Project 03 v1
