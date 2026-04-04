@@ -12,7 +12,7 @@ You will learn how to build reliable fetch patterns, extract reusable logic, and
 
 ---
 
-## 🎯 What You’ll Learn
+## 🎯 What You'll Learn
 
 - Model async UI states (idle, loading, success, error)
 - Fetch data safely with `useEffect` and `AbortController`
@@ -51,8 +51,8 @@ Practice-focused exercises that bridge theory and implementation:
 - **Project:** GitHub User Finder
 - **Description:** Async data app with debounced search, controlled fetch lifecycle, and reusable hooks
 - **Repository:** [View Project Folder](../../projects/03-github-user-finder/)
-- **Live Demo:** Coming soon
-- **Status:** In Progress
+- **Live Demo:** [Open Demo](https://03-github-user-finder.pages.dev/)
+- **Status:** Completed
 
 ---
 
@@ -68,7 +68,7 @@ Practice-focused exercises that bridge theory and implementation:
 
 ## 📌 Section Status
 
-- **Overall:** 🟡 In Progress
+- **Overall:** 🟢 Completed
 - **Completed Concepts:** 14/14
 - **Exercises Published:** 3/3
-- **Next:** Project 03 v1
+- **Next:** Section 04
