@@ -1,4 +1,4 @@
-﻿# ⚛️ React Learning
+# ⚛️ React Learning
 
 This repository contains my personal notes, exercises, and projects while learning React.
 
@@ -37,14 +37,14 @@ Small projects built to apply and reinforce React concepts.
 | :--- | :--- | :---: | :--- |
 | **01** | **React Basics** | 🟢 Completed | [View Section](./sections/01-react-basics/README.md) |
 | **02** | **React State and Effects** | 🟢 Completed | [View Section](./sections/02-react-state-and-effects/README.md) |
-| **03** | **React Data Fetching and Routing** | 🟡 In Progress | Concepts completed (14/14), exercises and project in progress. [View Section](./sections/03-react-data-fetching-and-routing/README.md) |
+| **03** | **React Data Fetching and Routing** | 🟢 Completed | Concepts, exercises, and Project 03 completed. [View Section](./sections/03-react-data-fetching-and-routing/README.md) |
 
 ---
 
 ## 🎯 Current Focus
 
-- Complete Section 03 integrative exercises  
-- Ship Project 03 (GitHub User Finder v1)
+- Start Section 04
+- Continue building larger React projects with stronger architecture and testing
 
 ---
 
@@ -57,6 +57,10 @@ Small projects built to apply and reinforce React concepts.
 - **Tic-Tac-Toe**  
   → [View Project README](./projects/02-tic-tac-toe/README.md)  
   → Live: [Open Demo](https://02-tic-tac-toe.pages.dev/)
+
+- **GitHub User Finder**  
+  → [View Project README](./projects/03-github-user-finder/README.md)  
+  → Live: [Open Demo](https://03-github-user-finder.pages.dev/)
 
 ---
 
