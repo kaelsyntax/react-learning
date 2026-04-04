@@ -21,7 +21,7 @@ Each section is structured to balance theory and practice:
 | :--- | :--- | :---: | :--- |
 | **01** | **React Basics** | 🟢 Completed | [View Section](./01-react-basics/README.md) |
 | **02** | **React State and Effects** | 🟢 Completed | [View Section](./02-react-state-and-effects/README.md) |
-| **03** | **React Data Fetching and Routing** | 🟡 In Progress | Concepts completed (14/14), exercises and project in progress. [View Section](./03-react-data-fetching-and-routing/README.md) |
+| **03** | **React Data Fetching and Routing** | 🟢 Completed | Concepts, exercises, and Project 03 completed. [View Section](./03-react-data-fetching-and-routing/README.md) |
 
 ---
 
