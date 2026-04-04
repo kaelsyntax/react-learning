@@ -12,7 +12,9 @@
   <a href="https://vitejs.dev/">
     <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite Badge" />
   </a>
-  <img src="https://img.shields.io/badge/Live-Demo-Coming%20Soon-64748b?style=for-the-badge" alt="Live Demo Coming Soon Badge" />
+  <a href="https://03-github-user-finder.pages.dev/">
+    <img src="https://img.shields.io/badge/Live-Demo-4cc3ff?style=for-the-badge" alt="Live Demo Badge" />
+  </a>
 </p>
 <!-- markdownlint-enable MD033 -->
 
@@ -20,7 +22,7 @@
 
 ## 🚀 Live Demo
 
-Coming soon.
+🔗 [Live Demo](https://03-github-user-finder.pages.dev/)
 
 ---
 
@@ -142,4 +144,4 @@ npm run build
 
 ## 📌 Status
 
-**v1 — In Progress**
+**v1 — Completed**
