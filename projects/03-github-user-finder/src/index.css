@@ -1,0 +1,31 @@
+:root {
+  font-family: 'Space Grotesk', 'Manrope', 'Trebuchet MS', sans-serif;
+  line-height: 1.4;
+  font-weight: 400;
+  color: #e2e8f0;
+  background-color: #0b1220;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(780px 460px at 12% -10%, rgba(56, 189, 248, 0.2), transparent 52%),
+    radial-gradient(700px 420px at 100% 120%, rgba(59, 130, 246, 0.16), transparent 48%),
+    #0b1220;
+}
