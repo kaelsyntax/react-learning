@@ -38,13 +38,14 @@ Small projects built to apply and reinforce React concepts.
 | **01** | **React Basics** | 🟢 Completed | [View Section](./sections/01-react-basics/README.md) |
 | **02** | **React State and Effects** | 🟢 Completed | [View Section](./sections/02-react-state-and-effects/README.md) |
 | **03** | **React Data Fetching and Routing** | 🟢 Completed | Concepts, exercises, and Project 03 completed. [View Section](./sections/03-react-data-fetching-and-routing/README.md) |
+| **04** | **React Architecture and Testing** | 🟡 In Progress | Initial structure and planning in progress. [View Section](./sections/04-react-architecture-and-testing/README.md) |
 
 ---
 
 ## 🎯 Current Focus
 
-- Start Section 04
-- Continue building larger React projects with stronger architecture and testing
+- Build Section 04 concepts around architecture and testing
+- Start Project 04 (Ecommerce Cart) and evolve it incrementally
 
 ---
 
