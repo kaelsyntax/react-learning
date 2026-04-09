@@ -1,0 +1,165 @@
+[
+    {
+        "id": 1,
+        "title": "Mechanical Keyboard K68",
+        "brand": "KeyNova",
+        "priceInCents": 8999,
+        "category": "keyboards",
+        "stock": 12,
+        "description": "Compact mechanical keyboard with tactile switches and clean desk-ready design.",
+        "image": "https://via.placeholder.com/300?text=Keyboard+1"
+    },
+    {
+        "id": 2,
+        "title": "Wireless Keyboard Slim Pro",
+        "brand": "FlowType",
+        "priceInCents": 4999,
+        "category": "keyboards",
+        "stock": 8,
+        "description": "Minimal wireless keyboard with slim profile and smooth typing experience.",
+        "image": "https://via.placeholder.com/300?text=Keyboard+2"
+    },
+    {
+        "id": 3,
+        "title": "RGB Gaming Keyboard X1",
+        "brand": "HexaCore",
+        "priceInCents": 12999,
+        "category": "keyboards",
+        "stock": 5,
+        "description": "Full-size RGB keyboard built for gaming performance and customization.",
+        "image": "https://via.placeholder.com/300?text=Keyboard+3"
+    },
+    {
+        "id": 4,
+        "title": "Compact 60% Keyboard",
+        "brand": "NanoKeys",
+        "priceInCents": 6999,
+        "category": "keyboards",
+        "stock": 10,
+        "description": "Ultra-compact 60% layout designed for portability and clean setups.",
+        "image": "https://via.placeholder.com/300?text=Keyboard+4"
+    },
+
+    {
+        "id": 5,
+        "title": "Wireless Mouse Pro",
+        "brand": "Clickify",
+        "priceInCents": 3999,
+        "category": "mice",
+        "stock": 15,
+        "description": "Precision wireless mouse with ergonomic shape and long battery life.",
+        "image": "https://via.placeholder.com/300?text=Mouse+1"
+    },
+    {
+        "id": 6,
+        "title": "Gaming Mouse RGB X5",
+        "brand": "HexaCore",
+        "priceInCents": 5999,
+        "category": "mice",
+        "stock": 7,
+        "description": "High-performance gaming mouse with customizable RGB lighting.",
+        "image": "https://via.placeholder.com/300?text=Mouse+2"
+    },
+    {
+        "id": 7,
+        "title": "Ergonomic Mouse Comfort",
+        "brand": "ErgoFlow",
+        "priceInCents": 4599,
+        "category": "mice",
+        "stock": 9,
+        "description": "Designed for long sessions with maximum comfort and wrist support.",
+        "image": "https://via.placeholder.com/300?text=Mouse+3"
+    },
+    {
+        "id": 8,
+        "title": "Ultra Light Mouse",
+        "brand": "AeroClick",
+        "priceInCents": 7999,
+        "category": "mice",
+        "stock": 6,
+        "description": "Ultra-lightweight design for fast movements and competitive gaming.",
+        "image": "https://via.placeholder.com/300?text=Mouse+4"
+    },
+
+    {
+        "id": 9,
+        "title": "24\" Full HD Monitor",
+        "brand": "ViewEdge",
+        "priceInCents": 15999,
+        "category": "monitors",
+        "stock": 11,
+        "description": "Reliable 24-inch monitor ideal for productivity and everyday use.",
+        "image": "https://via.placeholder.com/300?text=Monitor+1"
+    },
+    {
+        "id": 10,
+        "title": "27\" QHD Monitor",
+        "brand": "ViewEdge",
+        "priceInCents": 24999,
+        "category": "monitors",
+        "stock": 6,
+        "description": "Crisp QHD resolution with vibrant colors and smooth performance.",
+        "image": "https://via.placeholder.com/300?text=Monitor+2"
+    },
+    {
+        "id": 11,
+        "title": "Ultrawide 34\" Monitor",
+        "brand": "UltraView",
+        "priceInCents": 39999,
+        "category": "monitors",
+        "stock": 4,
+        "description": "Immersive ultrawide display perfect for multitasking and creative work.",
+        "image": "https://via.placeholder.com/300?text=Monitor+3"
+    },
+    {
+        "id": 12,
+        "title": "Budget Office Monitor",
+        "brand": "DeskLite",
+        "priceInCents": 12999,
+        "category": "monitors",
+        "stock": 14,
+        "description": "Affordable monitor designed for office setups and daily tasks.",
+        "image": "https://via.placeholder.com/300?text=Monitor+4"
+    },
+
+    {
+        "id": 13,
+        "title": "Studio Headphones",
+        "brand": "SoundLab",
+        "priceInCents": 9999,
+        "category": "audio",
+        "stock": 8,
+        "description": "High-fidelity headphones for clear and balanced audio experience.",
+        "image": "https://via.placeholder.com/300?text=Audio+1"
+    },
+    {
+        "id": 14,
+        "title": "Wireless Earbuds",
+        "brand": "SoundLab",
+        "priceInCents": 7999,
+        "category": "audio",
+        "stock": 12,
+        "description": "Compact wireless earbuds with powerful sound and portability.",
+        "image": "https://via.placeholder.com/300?text=Audio+2"
+    },
+    {
+        "id": 15,
+        "title": "USB Microphone",
+        "brand": "VoiceCore",
+        "priceInCents": 11999,
+        "category": "audio",
+        "stock": 5,
+        "description": "Plug-and-play microphone ideal for streaming and content creation.",
+        "image": "https://via.placeholder.com/300?text=Audio+3"
+    },
+    {
+        "id": 16,
+        "title": "Compact Desk Speakers",
+        "brand": "SoundLab",
+        "priceInCents": 6999,
+        "category": "audio",
+        "stock": 10,
+        "description": "Small yet powerful speakers designed for clean desk setups.",
+        "image": "https://via.placeholder.com/300?text=Audio+4"
+    }
+]
