@@ -68,6 +68,6 @@ Practice-focused exercises for architecture and state flows will be added after 
 ## 📌 Section Status
 
 - **Overall:** 🟡 In Progress
-- **Completed Concepts:** 0/15
+- **Completed Concepts:** 2/15
 - **Exercises Published:** 0/3
-- **Next:** 01 Product List Rendering and Data Shape
+- **Next:** 03 Controlled Filters and Derived Results
