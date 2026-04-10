@@ -1,8 +1,12 @@
+import { useId } from 'react'
+
 function CategoryFilter({ categories, value, onChange, formatCategoryLabel }) {
+  const categoryId = useId()
+
   return (
-    <label className="filter-field" htmlFor="category-filter">
+    <label className="filter-field" htmlFor={categoryId}>
       <span>Category</span>
-      <select id="category-filter" value={value} onChange={onChange}>
+      <select id={categoryId} value={value} onChange={onChange}>
         {categories.map((category) => (
           <option key={category} value={category}>
             {formatCategoryLabel(category)}
