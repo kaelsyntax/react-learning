@@ -1,8 +1,8 @@
-import { useState } from 'react'
 import './App.css'
 import products from './mocks/products.json'
 import Products from './components/products'
 import Filters from './components/Filters'
+import { useFilters } from './context/filters-context'
 
 const priceFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -22,10 +22,7 @@ function formatPrice(priceInCents) {
 }
 
 function App() {
-  const [filters, setFilters] = useState({
-    category: 'all',
-    minPriceInCents: 0
-  })
+  const { filters } = useFilters()
 
   const filteredProducts = products.filter((product) => {
     const matchesCategory =
@@ -34,20 +31,6 @@ function App() {
 
     return matchesCategory && matchesMinPrice
   })
-
-  function handleCategoryChange(event) {
-    setFilters((previous) => ({
-      ...previous,
-      category: event.target.value
-    }))
-  }
-
-  function handleMinPriceChange(event) {
-    setFilters((previous) => ({
-      ...previous,
-      minPriceInCents: Number(event.target.value)
-    }))
-  }
 
   return (
     <main className="app">
@@ -63,12 +46,9 @@ function App() {
 
         <Filters
           categories={categories}
-          filters={filters}
           maxPriceInCents={maxPriceInCents}
           filteredCount={filteredProducts.length}
           totalCount={products.length}
-          onCategoryChange={handleCategoryChange}
-          onMinPriceChange={handleMinPriceChange}
           formatCategoryLabel={formatCategoryLabel}
           formatPrice={formatPrice}
         />

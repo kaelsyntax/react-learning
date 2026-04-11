@@ -2,18 +2,18 @@ import { FilterIcon } from './icons'
 import CategoryFilter from './CategoryFilter'
 import PriceFilter from './PriceFilter'
 import './filters.css'
+import { useFilters } from '../context/filters-context'
 
 function Filters({
   categories,
-  filters,
   maxPriceInCents,
   filteredCount,
   totalCount,
-  onCategoryChange,
-  onMinPriceChange,
   formatCategoryLabel,
   formatPrice
 }) {
+  const { filters, handleCategoryChange, handleMinPriceChange } = useFilters()
+
   return (
     <section className="filters" aria-label="Filters">
       <div className="filters-head">
@@ -25,14 +25,14 @@ function Filters({
         <CategoryFilter
           categories={categories}
           value={filters.category}
-          onChange={onCategoryChange}
+          onChange={handleCategoryChange}
           formatCategoryLabel={formatCategoryLabel}
         />
 
         <PriceFilter
           value={filters.minPriceInCents}
           maxPriceInCents={maxPriceInCents}
-          onChange={onMinPriceChange}
+          onChange={handleMinPriceChange}
           formatPrice={formatPrice}
         />
       </div>
