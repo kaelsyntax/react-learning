@@ -2,7 +2,7 @@ import { FilterIcon } from './icons'
 import CategoryFilter from './CategoryFilter'
 import PriceFilter from './PriceFilter'
 import './filters.css'
-import { useFilters } from '../context/filters-context'
+import { useFilters } from '../hooks/useFilters'
 
 function Filters({
   categories,

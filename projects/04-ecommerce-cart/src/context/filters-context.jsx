@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useState } from 'react'
 
 const FiltersContext = createContext(null)
 
@@ -35,14 +35,4 @@ function FiltersProvider({ children }) {
   )
 }
 
-function useFilters() {
-  const context = useContext(FiltersContext)
-
-  if (!context) {
-    throw new Error('useFilters must be used within FiltersProvider')
-  }
-
-  return context
-}
-
-export { FiltersProvider, useFilters }
+export { FiltersContext, FiltersProvider }

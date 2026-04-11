@@ -2,7 +2,8 @@ import './App.css'
 import products from './mocks/products.json'
 import Products from './components/products'
 import Filters from './components/Filters'
-import { useFilters } from './context/filters-context'
+import { useFilters } from './hooks/useFilters'
+import { useFilteredProducts } from './hooks/useFilteredProducts'
 
 const priceFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -23,14 +24,7 @@ function formatPrice(priceInCents) {
 
 function App() {
   const { filters } = useFilters()
-
-  const filteredProducts = products.filter((product) => {
-    const matchesCategory =
-      filters.category === 'all' || product.category === filters.category
-    const matchesMinPrice = product.priceInCents >= filters.minPriceInCents
-
-    return matchesCategory && matchesMinPrice
-  })
+  const filteredProducts = useFilteredProducts(products, filters)
 
   return (
     <main className="app">
