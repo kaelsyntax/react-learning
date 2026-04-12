@@ -68,6 +68,6 @@ Practice-focused exercises for architecture and state flows will be added after 
 ## 📌 Section Status
 
 - **Overall:** 🟡 In Progress
-- **Completed Concepts:** 5/15
+- **Completed Concepts:** 7/15
 - **Exercises Published:** 0/3
-- **Next:** 06 Context Fundamentals and Provider Pattern
+- **Next:** 08 Single Source of Truth in UI State
