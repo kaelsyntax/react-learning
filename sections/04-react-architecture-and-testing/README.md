@@ -28,8 +28,8 @@ You will move from feature-level thinking to architecture-level thinking using C
 | Range | Area | Status |
 | :--- | :--- | :---: |
 | 01-05 | **Data and UI Modeling** (product shape, filters, derived results, boundaries, `useId`) | [x] |
-| 06-10 | **Shared State Architecture** (context basics, context vs props, source of truth, cart actions) | [ ] |
-| 11-15 | **Scale and Reliability** (interaction feedback, cart architecture, `useReducer`, custom hooks, domain/UI separation) | [ ] |
+| 06-09 | **Shared State Architecture** (context basics, props vs context, source of truth, collection state modeling) | [ ] |
+| 10-13 | **Scale and Reliability** (feature-scoped context, `useReducer`, custom hooks, domain/UI separation) | [ ] |
 
 > [Concepts workspace](./concepts/)
 
@@ -68,6 +68,6 @@ Practice-focused exercises for architecture and state flows will be added after 
 ## 📌 Section Status
 
 - **Overall:** 🟡 In Progress
-- **Completed Concepts:** 7/15
+- **Completed Concepts:** 8/13
 - **Exercises Published:** 0/3
-- **Next:** 08 Single Source of Truth in UI State
+- **Next:** 09 State Modeling for Collections and Aggregates
