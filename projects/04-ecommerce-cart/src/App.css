@@ -16,6 +16,13 @@
   gap: 8px;
 }
 
+.catalog-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .eyebrow {
   margin: 0;
   color: #bfdbfe;

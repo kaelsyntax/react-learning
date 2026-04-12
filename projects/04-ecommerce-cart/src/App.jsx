@@ -2,8 +2,10 @@ import './App.css'
 import products from './mocks/products.json'
 import Products from './components/products'
 import Filters from './components/Filters'
+import CartPanel from './components/CartPanel'
 import { useFilters } from './hooks/useFilters'
 import { useFilteredProducts } from './hooks/useFilteredProducts'
+import { useCart } from './hooks/useCart'
 
 const priceFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -24,13 +26,17 @@ function formatPrice(priceInCents) {
 
 function App() {
   const { filters } = useFilters()
+  const { addToCart } = useCart()
   const filteredProducts = useFilteredProducts(products, filters)
 
   return (
     <main className="app">
       <section className="catalog">
         <header className="catalog-header">
-          <p className="eyebrow">Section 04</p>
+          <div className="catalog-header-top">
+            <p className="eyebrow">Section 04</p>
+            <CartPanel formatPrice={formatPrice} />
+          </div>
           <h1>Ecommerce Cart</h1>
           <p className="catalog-description">
             Product listing from local mock data. We will add filters, cart
@@ -47,7 +53,7 @@ function App() {
           formatPrice={formatPrice}
         />
 
-        <Products products={filteredProducts} />
+        <Products products={filteredProducts} onAddToCart={addToCart} />
       </section>
     </main>
   )
