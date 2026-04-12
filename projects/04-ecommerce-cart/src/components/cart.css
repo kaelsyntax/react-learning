@@ -54,12 +54,33 @@
   width: min(640px, 100%);
   max-height: min(85vh, 760px);
   overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(147, 197, 253, 0.45) rgba(15, 23, 42, 0.7);
   border: 1px solid rgba(148, 163, 184, 0.26);
   border-radius: 14px;
   background: rgba(15, 23, 42, 0.95);
   display: grid;
   gap: 14px;
   padding: 14px;
+}
+
+.cart-modal::-webkit-scrollbar {
+  width: 10px;
+}
+
+.cart-modal::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.7);
+  border-radius: 999px;
+}
+
+.cart-modal::-webkit-scrollbar-thumb {
+  background: rgba(147, 197, 253, 0.45);
+  border-radius: 999px;
+  border: 2px solid rgba(15, 23, 42, 0.7);
+}
+
+.cart-modal::-webkit-scrollbar-thumb:hover {
+  background: rgba(191, 219, 254, 0.6);
 }
 
 .cart-modal-head {
