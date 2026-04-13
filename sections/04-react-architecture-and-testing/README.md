@@ -68,6 +68,6 @@ Practice-focused exercises for architecture and state flows will be added after 
 ## 📌 Section Status
 
 - **Overall:** 🟡 In Progress
-- **Completed Concepts:** 10/13
+- **Completed Concepts:** 11/13
 - **Exercises Published:** 0/3
-- **Next:** 11 useReducer for Complex State Transitions
+- **Next:** 12 Context, Reducer, and Custom Hooks Composition
