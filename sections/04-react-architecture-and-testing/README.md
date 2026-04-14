@@ -23,7 +23,7 @@ You will move from feature-level thinking to architecture-level thinking using C
 
 ---
 
-## 🗺️ Planned Concepts
+## ✅ Completed Concepts
 
 | Range | Area | Status |
 | :--- | :--- | :---: |
@@ -37,11 +37,11 @@ You will move from feature-level thinking to architecture-level thinking using C
 
 ## 🧩 Integrative Exercises
 
-Practice-focused exercises for architecture and state flows will be added after the core concepts.
+Practice-focused exercises that bridge architecture decisions and feature implementation:
 
-- [ ] **01** Context and filter consistency exercise
-- [ ] **02** Cart actions and reducer behavior exercise
-- [ ] **03** Integration flow and regression safety exercise
+- [x] **01** [Context and Filter Consistency](./exercises/01-context-and-filter-consistency-exercise.md)
+- [x] **02** [Cart Actions and Reducer Behavior](./exercises/02-cart-actions-and-reducer-behavior-exercise.md)
+- [x] **03** [Integration Flow and Regression Safety](./exercises/03-integration-flow-and-regression-safety-exercise.md)
 
 ---
 
@@ -69,5 +69,5 @@ Practice-focused exercises for architecture and state flows will be added after 
 
 - **Overall:** 🟡 In Progress
 - **Completed Concepts:** 13/13
-- **Exercises Published:** 0/3
-- **Next:** Integrative exercises (01-03)
+- **Exercises Published:** 3/3
+- **Next:** Project 04 v1 completion
