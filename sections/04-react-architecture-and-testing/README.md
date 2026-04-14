@@ -29,7 +29,7 @@ You will move from feature-level thinking to architecture-level thinking using C
 | :--- | :--- | :---: |
 | 01-05 | **Data and UI Modeling** (product shape, filters, derived results, boundaries, `useId`) | [x] |
 | 06-09 | **Shared State Architecture** (context basics, props vs context, source of truth, collection state modeling) | [x] |
-| 10-13 | **Scale and Reliability** (feature-scoped context, `useReducer`, custom hooks, domain/UI separation) | [ ] |
+| 10-13 | **Scale and Reliability** (feature-scoped context, `useReducer`, custom hooks, domain/UI separation) | [x] |
 
 > [Concepts workspace](./concepts/)
 
@@ -68,6 +68,6 @@ Practice-focused exercises for architecture and state flows will be added after 
 ## 📌 Section Status
 
 - **Overall:** 🟡 In Progress
-- **Completed Concepts:** 11/13
+- **Completed Concepts:** 13/13
 - **Exercises Published:** 0/3
-- **Next:** 12 Context, Reducer, and Custom Hooks Composition
+- **Next:** Integrative exercises (01-03)
