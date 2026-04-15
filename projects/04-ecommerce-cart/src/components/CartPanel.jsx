@@ -1,10 +1,23 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { AddIcon, CartIcon, CloseIcon, RemoveIcon, TrashIcon } from './icons'
 import { useCart } from '../hooks/useCart'
 import './cart.css'
 
+function getFocusableElements(container) {
+  if (!container) return []
+
+  return [...container.querySelectorAll(
+    'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+  )].filter((element) => !element.hasAttribute('disabled') && element.getAttribute('aria-hidden') !== 'true')
+}
+
 function CartPanel({ formatPrice }) {
   const [isOpen, setIsOpen] = useState(false)
+  const titleId = useId()
+  const toggleButtonRef = useRef(null)
+  const closeButtonRef = useRef(null)
+  const modalRef = useRef(null)
+  const wasOpenRef = useRef(false)
   const {
     cartItems,
     totalItems,
@@ -14,6 +27,19 @@ function CartPanel({ formatPrice }) {
     removeFromCart,
     clearCart
   } = useCart()
+
+  useEffect(() => {
+    if (isOpen) {
+      wasOpenRef.current = true
+      requestAnimationFrame(() => closeButtonRef.current?.focus())
+      return
+    }
+
+    if (wasOpenRef.current) {
+      toggleButtonRef.current?.focus()
+      wasOpenRef.current = false
+    }
+  }, [isOpen])
 
   useEffect(() => {
     if (!isOpen) return undefined
@@ -43,12 +69,43 @@ function CartPanel({ formatPrice }) {
     }
   }, [isOpen])
 
+  function handleDialogKeyDown(event) {
+    if (event.key !== 'Tab') return
+
+    const focusableElements = getFocusableElements(modalRef.current)
+    if (!focusableElements.length) {
+      event.preventDefault()
+      modalRef.current?.focus()
+      return
+    }
+
+    const firstFocusable = focusableElements[0]
+    const lastFocusable = focusableElements[focusableElements.length - 1]
+    const activeElement = document.activeElement
+
+    if (event.shiftKey) {
+      if (activeElement === firstFocusable || !modalRef.current?.contains(activeElement)) {
+        event.preventDefault()
+        lastFocusable.focus()
+      }
+      return
+    }
+
+    if (activeElement === lastFocusable) {
+      event.preventDefault()
+      firstFocusable.focus()
+    }
+  }
+
   return (
     <>
       <button
+        ref={toggleButtonRef}
         className="cart-toggle"
         type="button"
         onClick={() => setIsOpen(true)}
+        aria-haspopup="dialog"
+        aria-expanded={isOpen}
         aria-label={`Open cart (${totalItems} items)`}
       >
         <CartIcon size={18} aria-hidden="true" />
@@ -59,15 +116,19 @@ function CartPanel({ formatPrice }) {
       {isOpen && (
         <div className="cart-overlay" role="presentation" onClick={() => setIsOpen(false)}>
           <aside
+            ref={modalRef}
             className="cart-modal"
             role="dialog"
             aria-modal="true"
-            aria-label="Shopping cart"
+            aria-labelledby={titleId}
+            tabIndex={-1}
             onClick={(event) => event.stopPropagation()}
+            onKeyDown={handleDialogKeyDown}
           >
             <header className="cart-modal-head">
-              <h2>Cart</h2>
+              <h2 id={titleId}>Cart</h2>
               <button
+                ref={closeButtonRef}
                 className="cart-icon-button"
                 type="button"
                 onClick={() => setIsOpen(false)}
