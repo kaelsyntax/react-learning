@@ -1,7 +1,9 @@
-import { useEffect, useId, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { AddIcon, CartIcon, CloseIcon, RemoveIcon, TrashIcon } from './icons'
 import { useCart } from '../hooks/useCart'
 import './cart.css'
+
+const CLOSE_ANIMATION_MS = 220
 
 function getFocusableElements(container) {
   if (!container) return []
@@ -36,11 +38,13 @@ function getStockMessage(item) {
 
 function CartPanel({ formatPrice }) {
   const [isOpen, setIsOpen] = useState(false)
+  const [isClosing, setIsClosing] = useState(false)
   const titleId = useId()
   const toggleButtonRef = useRef(null)
   const closeButtonRef = useRef(null)
   const modalRef = useRef(null)
   const wasOpenRef = useRef(false)
+  const closeTimerRef = useRef(null)
   const {
     cartItems,
     totalItems,
@@ -51,9 +55,30 @@ function CartPanel({ formatPrice }) {
     clearCart
   } = useCart()
 
+  const openCart = useCallback(() => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current)
+      closeTimerRef.current = null
+    }
+
+    wasOpenRef.current = true
+    setIsClosing(false)
+    setIsOpen(true)
+  }, [])
+
+  const closeCart = useCallback(() => {
+    if (!isOpen || isClosing) return
+
+    setIsClosing(true)
+    closeTimerRef.current = setTimeout(() => {
+      setIsOpen(false)
+      setIsClosing(false)
+      closeTimerRef.current = null
+    }, CLOSE_ANIMATION_MS)
+  }, [isOpen, isClosing])
+
   useEffect(() => {
-    if (isOpen) {
-      wasOpenRef.current = true
+    if (isOpen && !isClosing) {
       requestAnimationFrame(() => closeButtonRef.current?.focus())
       return
     }
@@ -62,20 +87,28 @@ function CartPanel({ formatPrice }) {
       toggleButtonRef.current?.focus()
       wasOpenRef.current = false
     }
-  }, [isOpen])
+  }, [isOpen, isClosing])
+
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current) {
+        clearTimeout(closeTimerRef.current)
+      }
+    }
+  }, [])
 
   useEffect(() => {
     if (!isOpen) return undefined
 
     function handleKeyDown(event) {
       if (event.key === 'Escape') {
-        setIsOpen(false)
+        closeCart()
       }
     }
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen])
+  }, [isOpen, closeCart])
 
   useEffect(() => {
     if (!isOpen) return undefined
@@ -93,6 +126,7 @@ function CartPanel({ formatPrice }) {
   }, [isOpen])
 
   function handleDialogKeyDown(event) {
+    if (isClosing) return
     if (event.key !== 'Tab') return
 
     const focusableElements = getFocusableElements(modalRef.current)
@@ -126,9 +160,9 @@ function CartPanel({ formatPrice }) {
         ref={toggleButtonRef}
         className="cart-toggle"
         type="button"
-        onClick={() => setIsOpen(true)}
+        onClick={openCart}
         aria-haspopup="dialog"
-        aria-expanded={isOpen}
+        aria-expanded={isOpen && !isClosing}
         aria-label={`Open cart (${totalItems} items)`}
       >
         <CartIcon size={18} aria-hidden="true" />
@@ -137,10 +171,14 @@ function CartPanel({ formatPrice }) {
       </button>
 
       {isOpen && (
-        <div className="cart-overlay" role="presentation" onClick={() => setIsOpen(false)}>
+        <div
+          className={`cart-overlay ${isClosing ? 'is-closing' : ''}`}
+          role="presentation"
+          onClick={closeCart}
+        >
           <aside
             ref={modalRef}
-            className="cart-modal"
+            className={`cart-modal ${isClosing ? 'is-closing' : ''}`}
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
@@ -154,7 +192,7 @@ function CartPanel({ formatPrice }) {
                 ref={closeButtonRef}
                 className="cart-icon-button"
                 type="button"
-                onClick={() => setIsOpen(false)}
+                onClick={closeCart}
                 aria-label="Close cart"
               >
                 <CloseIcon size={18} aria-hidden="true" />

@@ -48,6 +48,11 @@
   place-items: center;
   padding: 16px;
   z-index: 10;
+  animation: cart-overlay-enter 180ms ease-out both;
+}
+
+.cart-overlay.is-closing {
+  animation: cart-overlay-exit 180ms ease-in both;
 }
 
 .cart-modal {
@@ -62,6 +67,11 @@
   display: grid;
   gap: 14px;
   padding: 14px;
+  animation: cart-modal-enter 220ms ease-out both;
+}
+
+.cart-modal.is-closing {
+  animation: cart-modal-exit 220ms ease-in both;
 }
 
 .cart-modal::-webkit-scrollbar {
@@ -251,5 +261,52 @@
 
   .cart-clear {
     width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cart-overlay,
+  .cart-modal {
+    animation: none;
+  }
+}
+
+@keyframes cart-overlay-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cart-overlay-exit {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes cart-modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes cart-modal-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.99);
   }
 }
