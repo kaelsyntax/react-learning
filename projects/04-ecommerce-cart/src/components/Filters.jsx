@@ -12,13 +12,30 @@ function Filters({
   formatCategoryLabel,
   formatPrice
 }) {
-  const { filters, handleCategoryChange, handleMinPriceChange } = useFilters()
+  const {
+    filters,
+    handleCategoryChange,
+    handleMinPriceChange,
+    resetFilters,
+    hasActiveFilters
+  } = useFilters()
 
   return (
     <section className="filters" aria-label="Filters">
       <div className="filters-head">
-        <FilterIcon size={18} aria-hidden="true" />
-        <h2>Filters</h2>
+        <div className="filters-title">
+          <FilterIcon size={18} aria-hidden="true" />
+          <h2>Filters</h2>
+        </div>
+
+        <button
+          className="filters-reset"
+          type="button"
+          onClick={resetFilters}
+          disabled={!hasActiveFilters}
+        >
+          Reset filters
+        </button>
       </div>
 
       <div className="filters-grid">
@@ -37,9 +54,15 @@ function Filters({
         />
       </div>
 
-      <p className="filters-note">
-        Showing {filteredCount} of {totalCount} products
-      </p>
+      {filteredCount ? (
+        <p className="filters-note">
+          Showing {filteredCount} of {totalCount} products
+        </p>
+      ) : (
+        <p className="filters-note filters-note--empty">
+          No products match current filters. Reset to see all products.
+        </p>
+      )}
     </section>
   )
 }

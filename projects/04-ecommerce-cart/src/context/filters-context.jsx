@@ -24,10 +24,20 @@ function FiltersProvider({ children }) {
     }))
   }
 
+  function resetFilters() {
+    setFilters(initialFilters)
+  }
+
+  const hasActiveFilters =
+    filters.category !== initialFilters.category ||
+    filters.minPriceInCents !== initialFilters.minPriceInCents
+
   const value = {
     filters,
     handleCategoryChange,
-    handleMinPriceChange
+    handleMinPriceChange,
+    resetFilters,
+    hasActiveFilters
   }
 
   return (
