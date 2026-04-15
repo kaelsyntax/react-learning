@@ -82,12 +82,16 @@ export function RemoveIcon(props) {
 
 export function TrashIcon(props) {
     return (
-        <IconBase strokeWidth={2.15} {...props}>
-            <path d="M4.5 7h15" />
-            <path d="M9 4.7h6" />
-            <path d="M8.2 7l0.7 11.2a1 1 0 0 0 1 0.9h4.2a1 1 0 0 0 1-0.9L15.8 7" />
-            <path d="M10.2 10.2v5.6" />
-            <path d="M13.8 10.2v5.6" />
+        <IconBase strokeWidth={2} {...props}>
+            <path d="M3 6h18" strokeLinecap="round" />
+            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+                d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path d="M10 11v6" strokeLinecap="round" />
+            <path d="M14 11v6" strokeLinecap="round" />
         </IconBase>
     )
 }
