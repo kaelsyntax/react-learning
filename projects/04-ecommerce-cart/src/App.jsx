@@ -26,7 +26,7 @@ function formatPrice(priceInCents) {
 
 function App() {
   const { filters } = useFilters()
-  const { addToCart } = useCart()
+  const { addToCart, cartItems } = useCart()
   const filteredProducts = useFilteredProducts(products, filters)
 
   return (
@@ -53,7 +53,11 @@ function App() {
           formatPrice={formatPrice}
         />
 
-        <Products products={filteredProducts} onAddToCart={addToCart} />
+        <Products
+          products={filteredProducts}
+          cartItems={cartItems}
+          onAddToCart={addToCart}
+        />
       </section>
     </main>
   )

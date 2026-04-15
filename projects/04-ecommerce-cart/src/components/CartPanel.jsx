@@ -11,6 +11,29 @@ function getFocusableElements(container) {
   )].filter((element) => !element.hasAttribute('disabled') && element.getAttribute('aria-hidden') !== 'true')
 }
 
+function getStockMessage(item) {
+  if (item.stock === 0) {
+    return {
+      text: 'No stock available',
+      toneClass: 'cart-item-stock--danger'
+    }
+  }
+
+  const remainingStock = Math.max(item.stock - item.quantity, 0)
+
+  if (remainingStock === 0) {
+    return {
+      text: 'No more stock available',
+      toneClass: 'cart-item-stock--warning'
+    }
+  }
+
+  return {
+    text: `In cart: ${item.quantity} | Remaining: ${remainingStock}`,
+    toneClass: 'cart-item-stock--default'
+  }
+}
+
 function CartPanel({ formatPrice }) {
   const [isOpen, setIsOpen] = useState(false)
   const titleId = useId()
@@ -143,7 +166,10 @@ function CartPanel({ formatPrice }) {
             ) : (
               <>
                 <ul className="cart-items">
-                  {cartItems.map((item) => (
+                  {cartItems.map((item) => {
+                    const stockInfo = getStockMessage(item)
+
+                    return (
                     <li key={item.id} className="cart-item">
                       <div className="cart-item-main">
                         <p className="cart-item-title">{item.title}</p>
@@ -185,8 +211,13 @@ function CartPanel({ formatPrice }) {
                           <TrashIcon size={16} aria-hidden="true" />
                         </button>
                       </div>
+
+                      <p className={`cart-item-stock ${stockInfo.toneClass}`}>
+                        {stockInfo.text}
+                      </p>
                     </li>
-                  ))}
+                    )
+                  })}
                 </ul>
 
                 <footer className="cart-footer">

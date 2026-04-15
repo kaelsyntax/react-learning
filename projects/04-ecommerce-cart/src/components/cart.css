@@ -141,6 +141,24 @@
   gap: 8px;
 }
 
+.cart-item-stock {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.cart-item-stock--default {
+  color: #93c5fd;
+}
+
+.cart-item-stock--warning {
+  color: #fcd34d;
+}
+
+.cart-item-stock--danger {
+  color: #fca5a5;
+}
+
 .cart-icon-button {
   width: 32px;
   height: 32px;
