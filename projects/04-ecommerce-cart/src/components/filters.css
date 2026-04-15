@@ -8,10 +8,17 @@
 }
 
 .filters-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: #bfdbfe;
+}
+
+.filters-title {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #bfdbfe;
 }
 
 .filters-head h2 {
@@ -20,10 +27,42 @@
   color: #e2e8f0;
 }
 
+.filters-reset {
+  min-height: 32px;
+  border: 1px solid rgba(148, 163, 184, 0.38);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.7);
+  color: #cbd5e1;
+  padding: 0 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.filters-reset:hover {
+  border-color: rgba(147, 197, 253, 0.72);
+  background: rgba(30, 41, 59, 0.84);
+}
+
+.filters-reset:focus-visible {
+  outline: 2px solid rgba(147, 197, 253, 0.85);
+  outline-offset: 2px;
+}
+
+.filters-reset:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .filters-note {
   margin: 0;
   color: #94a3b8;
   font-size: 0.9rem;
+}
+
+.filters-note--empty {
+  color: #fcd34d;
 }
 
 .filters-grid {
@@ -68,5 +107,12 @@
 @media (min-width: 680px) {
   .filters-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 540px) {
+  .filters-head {
+    flex-direction: column;
+    align-items: stretch;
   }
 }

@@ -12,7 +12,7 @@ function formatPrice(priceInCents) {
 
 function Products({ products, onAddToCart = () => {} }) {
     if (!products.length) {
-        return <p className="products-empty">No products available yet.</p>
+        return <p className="products-empty">No products match current filters.</p>
     }
 
     return (
