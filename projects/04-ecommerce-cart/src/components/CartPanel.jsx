@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
-import { AddIcon, CartIcon, CloseIcon, RemoveIcon, TrashIcon } from './icons'
+import { AddIcon, CartAddIcon, CartIcon, CloseIcon, RemoveIcon, TrashIcon } from './icons'
 import { useCart } from '../hooks/useCart'
 import './cart.css'
 
@@ -200,7 +200,22 @@ function CartPanel({ formatPrice }) {
             </header>
 
             {!cartItems.length ? (
-              <p className="cart-empty">Your cart is empty.</p>
+              <div className="cart-empty">
+                <div className="cart-empty-icon" aria-hidden="true">
+                  <CartAddIcon size={36} />
+                </div>
+                <p className="cart-empty-title">Your cart is empty</p>
+                <p className="cart-empty-text">
+                  Add products from the catalog to see them here.
+                </p>
+                <button
+                  className="cart-empty-cta"
+                  type="button"
+                  onClick={closeCart}
+                >
+                  Continue shopping
+                </button>
+              </div>
             ) : (
               <>
                 <ul className="cart-items">
