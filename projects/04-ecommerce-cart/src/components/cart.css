@@ -70,6 +70,19 @@
   animation: cart-modal-enter 220ms ease-out both;
 }
 
+.cart-modal--empty {
+  height: clamp(420px, 76vh, 760px);
+  max-height: none;
+  overflow: hidden;
+  grid-template-rows: auto 1fr;
+  gap: 0;
+}
+
+.cart-modal--empty .cart-empty {
+  align-self: center;
+  justify-self: center;
+}
+
 .cart-modal.is-closing {
   animation: cart-modal-exit 220ms ease-in both;
 }
@@ -110,7 +123,6 @@
   margin: 0;
   width: min(420px, 100%);
   border-radius: 12px;
-  border: 1px solid rgba(148, 163, 184, 0.2);
   background:
     radial-gradient(ellipse at center, rgba(59, 130, 246, 0.16), rgba(15, 23, 42, 0) 72%),
     rgba(15, 23, 42, 0.68);
@@ -312,6 +324,10 @@
 @media (max-width: 560px) {
   .cart-toggle {
     justify-self: start;
+  }
+
+  .cart-modal--empty {
+    height: clamp(420px, 82vh, 680px);
   }
 
   .cart-footer {

@@ -178,7 +178,7 @@ function CartPanel({ formatPrice }) {
         >
           <aside
             ref={modalRef}
-            className={`cart-modal ${isClosing ? 'is-closing' : ''}`}
+            className={`cart-modal ${isClosing ? 'is-closing' : ''} ${!cartItems.length ? 'cart-modal--empty' : ''}`}
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
