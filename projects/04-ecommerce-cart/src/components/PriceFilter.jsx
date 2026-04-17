@@ -14,7 +14,10 @@ function PriceFilter({
   return (
     <div className="price-filters">
       <label className="filter-field" htmlFor={minPriceId}>
-        <span>Min Price: {formatPrice(minValue)}</span>
+        <span>
+          Min Price
+          <strong>{formatPrice(minValue)}</strong>
+        </span>
         <input
           id={minPriceId}
           type="range"
@@ -27,7 +30,10 @@ function PriceFilter({
       </label>
 
       <label className="filter-field" htmlFor={maxPriceId}>
-        <span>Max Price: {formatPrice(maxValue)}</span>
+        <span>
+          Max Price
+          <strong>{formatPrice(maxValue)}</strong>
+        </span>
         <input
           id={maxPriceId}
           type="range"
