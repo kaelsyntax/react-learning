@@ -1,5 +1,7 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 
+const MENU_CLOSE_ANIMATION_MS = 160
+
 function CustomSelect({
   label,
   options,
@@ -11,10 +13,12 @@ function CustomSelect({
   const triggerId = useId()
   const listboxId = useId()
   const [isOpen, setIsOpen] = useState(false)
+  const [isClosing, setIsClosing] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const selectWrapRef = useRef(null)
   const triggerRef = useRef(null)
   const optionRefs = useRef([])
+  const closeTimeoutRef = useRef(null)
 
   const selectedIndex = useMemo(() => {
     const index = options.findIndex((option) => option === value)
@@ -26,7 +30,7 @@ function CustomSelect({
 
     function handlePointerDown(event) {
       if (!selectWrapRef.current?.contains(event.target)) {
-        setIsOpen(false)
+        closeMenu()
       }
     }
 
@@ -39,6 +43,15 @@ function CustomSelect({
     }
   }, [isOpen])
 
+  useEffect(
+    () => () => {
+      if (closeTimeoutRef.current) {
+        clearTimeout(closeTimeoutRef.current)
+      }
+    },
+    []
+  )
+
   useEffect(() => {
     if (!isOpen) return
     setActiveIndex(selectedIndex)
@@ -50,45 +63,70 @@ function CustomSelect({
     activeOption?.focus()
   }, [activeIndex, isOpen])
 
-  function handleTriggerClick() {
-    if (isOpen) {
-      setIsOpen(false)
-      triggerRef.current?.blur()
-      return
-    }
+  function clearCloseTimer() {
+    if (!closeTimeoutRef.current) return
+    clearTimeout(closeTimeoutRef.current)
+    closeTimeoutRef.current = null
+  }
 
+  function openMenu() {
+    clearCloseTimer()
+    setIsClosing(false)
     setIsOpen(true)
     setActiveIndex(selectedIndex)
   }
 
-  function closeSelectAndFocusTrigger() {
+  function closeMenu({ focusTrigger = false, blurTrigger = false } = {}) {
+    clearCloseTimer()
     setIsOpen(false)
-    triggerRef.current?.focus()
+    setIsClosing(true)
+    closeTimeoutRef.current = setTimeout(() => {
+      setIsClosing(false)
+      closeTimeoutRef.current = null
+    }, MENU_CLOSE_ANIMATION_MS)
+
+    if (focusTrigger) {
+      triggerRef.current?.focus()
+    }
+
+    if (blurTrigger) {
+      triggerRef.current?.blur()
+    }
+  }
+
+  function handleTriggerClick() {
+    if (isOpen) {
+      closeMenu({ blurTrigger: true })
+      return
+    }
+
+    openMenu()
+  }
+
+  function closeSelectAndFocusTrigger() {
+    closeMenu({ focusTrigger: true })
   }
 
   function handleTriggerKeyDown(event) {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
-      setIsOpen((previous) => {
-        const nextIsOpen = !previous
-        if (nextIsOpen) {
-          setActiveIndex(selectedIndex)
-        }
-        return nextIsOpen
-      })
+      if (isOpen) {
+        closeMenu()
+      } else {
+        openMenu()
+      }
       return
     }
 
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       event.preventDefault()
-      setIsOpen(true)
-      setActiveIndex(selectedIndex)
+      openMenu()
       return
     }
 
     if (event.key === 'Escape') {
       event.preventDefault()
-      setIsOpen(false)
+      closeMenu()
     }
   }
 
@@ -124,7 +162,7 @@ function CustomSelect({
     }
 
     if (event.key === 'Tab') {
-      setIsOpen(false)
+      closeMenu()
       return
     }
 
@@ -136,9 +174,10 @@ function CustomSelect({
 
   function handleSelect(option) {
     onChange(option)
-    setIsOpen(false)
-    triggerRef.current?.focus()
+    closeMenu({ focusTrigger: true })
   }
+
+  const isMenuVisible = isOpen || isClosing
 
   return (
     <div className={`filter-field filter-field--select ${isOpen ? 'filter-field--open' : ''}`}>
@@ -160,8 +199,13 @@ function CustomSelect({
           {formatOptionLabel(value)}
         </button>
 
-        {isOpen && (
-          <ul id={listboxId} className="filter-select-menu" role="listbox" aria-labelledby={labelId}>
+        {isMenuVisible && (
+          <ul
+            id={listboxId}
+            className={`filter-select-menu ${isClosing ? 'is-closing' : ''}`}
+            role="listbox"
+            aria-labelledby={labelId}
+          >
             {options.map((option, index) => (
               <li key={option} role="presentation">
                 <button
