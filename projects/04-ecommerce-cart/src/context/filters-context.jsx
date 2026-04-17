@@ -4,7 +4,8 @@ const FiltersContext = createContext(null)
 
 const initialFilters = {
   category: 'all',
-  minPriceInCents: 0
+  minPriceInCents: 0,
+  maxPriceInCents: null
 }
 
 function FiltersProvider({ children }) {
@@ -18,9 +19,29 @@ function FiltersProvider({ children }) {
   }
 
   function handleMinPriceChange(event) {
+    const nextMinPriceInCents = Number(event.target.value)
+
     setFilters((previous) => ({
       ...previous,
-      minPriceInCents: Number(event.target.value)
+      minPriceInCents: nextMinPriceInCents,
+      maxPriceInCents:
+        previous.maxPriceInCents !== null &&
+        nextMinPriceInCents > previous.maxPriceInCents
+          ? nextMinPriceInCents
+          : previous.maxPriceInCents
+    }))
+  }
+
+  function handleMaxPriceChange(event) {
+    const nextMaxPriceInCents = Number(event.target.value)
+
+    setFilters((previous) => ({
+      ...previous,
+      minPriceInCents:
+        previous.minPriceInCents > nextMaxPriceInCents
+          ? nextMaxPriceInCents
+          : previous.minPriceInCents,
+      maxPriceInCents: nextMaxPriceInCents
     }))
   }
 
@@ -30,12 +51,14 @@ function FiltersProvider({ children }) {
 
   const hasActiveFilters =
     filters.category !== initialFilters.category ||
-    filters.minPriceInCents !== initialFilters.minPriceInCents
+    filters.minPriceInCents !== initialFilters.minPriceInCents ||
+    filters.maxPriceInCents !== initialFilters.maxPriceInCents
 
   const value = {
     filters,
     handleCategoryChange,
     handleMinPriceChange,
+    handleMaxPriceChange,
     resetFilters,
     hasActiveFilters
   }

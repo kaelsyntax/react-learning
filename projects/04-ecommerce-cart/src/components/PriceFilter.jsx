@@ -1,21 +1,44 @@
 import { useId } from 'react'
 
-function PriceFilter({ value, maxPriceInCents, onChange, formatPrice }) {
-  const priceId = useId()
+function PriceFilter({
+  minValue,
+  maxValue,
+  absoluteMaxPriceInCents,
+  onMinChange,
+  onMaxChange,
+  formatPrice
+}) {
+  const minPriceId = useId()
+  const maxPriceId = useId()
 
   return (
-    <label className="filter-field" htmlFor={priceId}>
-      <span>Min Price: {formatPrice(value)}</span>
-      <input
-        id={priceId}
-        type="range"
-        min="0"
-        max={maxPriceInCents}
-        step="500"
-        value={value}
-        onChange={onChange}
-      />
-    </label>
+    <div className="price-filters">
+      <label className="filter-field" htmlFor={minPriceId}>
+        <span>Min Price: {formatPrice(minValue)}</span>
+        <input
+          id={minPriceId}
+          type="range"
+          min="0"
+          max={absoluteMaxPriceInCents}
+          step="500"
+          value={minValue}
+          onChange={onMinChange}
+        />
+      </label>
+
+      <label className="filter-field" htmlFor={maxPriceId}>
+        <span>Max Price: {formatPrice(maxValue)}</span>
+        <input
+          id={maxPriceId}
+          type="range"
+          min={minValue}
+          max={absoluteMaxPriceInCents}
+          step="500"
+          value={maxValue}
+          onChange={onMaxChange}
+        />
+      </label>
+    </div>
   )
 }
 

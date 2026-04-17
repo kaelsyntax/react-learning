@@ -16,6 +16,7 @@ function Filters({
     filters,
     handleCategoryChange,
     handleMinPriceChange,
+    handleMaxPriceChange,
     resetFilters,
     hasActiveFilters
   } = useFilters()
@@ -47,9 +48,11 @@ function Filters({
         />
 
         <PriceFilter
-          value={filters.minPriceInCents}
-          maxPriceInCents={maxPriceInCents}
-          onChange={handleMinPriceChange}
+          minValue={filters.minPriceInCents}
+          maxValue={filters.maxPriceInCents ?? maxPriceInCents}
+          absoluteMaxPriceInCents={maxPriceInCents}
+          onMinChange={handleMinPriceChange}
+          onMaxChange={handleMaxPriceChange}
           formatPrice={formatPrice}
         />
       </div>

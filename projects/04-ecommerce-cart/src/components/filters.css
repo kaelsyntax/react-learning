@@ -86,6 +86,11 @@
   width: 100%;
 }
 
+.price-filters {
+  display: grid;
+  gap: 10px;
+}
+
 .filter-field--select .select-wrap {
   position: relative;
 }
