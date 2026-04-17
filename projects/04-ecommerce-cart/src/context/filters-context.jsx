@@ -5,7 +5,8 @@ const FiltersContext = createContext(null)
 const initialFilters = {
   category: 'all',
   minPriceInCents: 0,
-  maxPriceInCents: null
+  maxPriceInCents: null,
+  sortBy: 'featured'
 }
 
 function FiltersProvider({ children }) {
@@ -50,6 +51,18 @@ function FiltersProvider({ children }) {
     }))
   }
 
+  function handleSortChange(eventOrValue) {
+    const sortBy =
+      typeof eventOrValue === 'string'
+        ? eventOrValue
+        : eventOrValue.target.value
+
+    setFilters((previous) => ({
+      ...previous,
+      sortBy
+    }))
+  }
+
   function resetFilters() {
     setFilters(initialFilters)
   }
@@ -57,13 +70,15 @@ function FiltersProvider({ children }) {
   const hasActiveFilters =
     filters.category !== initialFilters.category ||
     filters.minPriceInCents !== initialFilters.minPriceInCents ||
-    filters.maxPriceInCents !== initialFilters.maxPriceInCents
+    filters.maxPriceInCents !== initialFilters.maxPriceInCents ||
+    filters.sortBy !== initialFilters.sortBy
 
   const value = {
     filters,
     handleCategoryChange,
     handleMinPriceChange,
     handleMaxPriceChange,
+    handleSortChange,
     resetFilters,
     hasActiveFilters
   }
