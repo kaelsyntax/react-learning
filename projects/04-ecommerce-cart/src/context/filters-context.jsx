@@ -11,10 +11,15 @@ const initialFilters = {
 function FiltersProvider({ children }) {
   const [filters, setFilters] = useState(initialFilters)
 
-  function handleCategoryChange(event) {
+  function handleCategoryChange(eventOrValue) {
+    const category =
+      typeof eventOrValue === 'string'
+        ? eventOrValue
+        : eventOrValue.target.value
+
     setFilters((previous) => ({
       ...previous,
-      category: event.target.value
+      category
     }))
   }
 
