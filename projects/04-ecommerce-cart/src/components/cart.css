@@ -60,7 +60,7 @@
   max-height: min(85vh, 760px);
   overflow: auto;
   scrollbar-width: thin;
-  scrollbar-color: rgba(147, 197, 253, 0.45) rgba(15, 23, 42, 0.7);
+  scrollbar-color: #2f6fce #08101f;
   border: 1px solid rgba(148, 163, 184, 0.26);
   border-radius: 14px;
   background: rgba(15, 23, 42, 0.95);
@@ -92,18 +92,19 @@
 }
 
 .cart-modal::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.7);
+  background: #08101f;
   border-radius: 999px;
 }
 
 .cart-modal::-webkit-scrollbar-thumb {
-  background: rgba(147, 197, 253, 0.45);
+  background: #2f6fce;
   border-radius: 999px;
-  border: 2px solid rgba(15, 23, 42, 0.7);
+  border: 1px solid #08101f;
+  transition: background-color 160ms ease;
 }
 
 .cart-modal::-webkit-scrollbar-thumb:hover {
-  background: rgba(191, 219, 254, 0.6);
+  background: #3672c7;
 }
 
 .cart-modal-head {
