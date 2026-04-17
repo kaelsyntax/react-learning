@@ -6,6 +6,9 @@
   --color-text-primary: #e2e8f0;
   --color-text-muted: #cbd5e1;
   --color-text-soft: #94a3b8;
+  --color-text-accent-soft: #dbeafe;
+  --color-text-accent-strong: #eaf2ff;
+  --color-text-accent-bright: #eff6ff;
 
   --color-bg-base: #0b1220;
   --color-bg-overlay: #08101f;
@@ -20,6 +23,9 @@
 
   --color-border-soft: rgba(148, 163, 184, 0.24);
   --color-border-strong: rgba(96, 165, 250, 0.56);
+  --color-warning-300: #fcd34d;
+  --color-danger-300: #fca5a5;
+  --color-danger-200: #fecaca;
 
   --space-2xs: 4px;
   --space-xs: 8px;
