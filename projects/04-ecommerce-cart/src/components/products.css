@@ -1,10 +1,25 @@
 .products {
+  --products-surface: rgba(15, 23, 42, 0.52);
+  --products-surface-strong: rgba(15, 23, 42, 0.7);
+  --products-image-ratio: 16 / 10;
+  --products-category-text: var(--color-accent-200);
+  --products-title-text: var(--color-text-primary);
+  --products-add-bg: rgba(37, 99, 235, 0.18);
+  --products-add-bg-hover: rgba(37, 99, 235, 0.24);
+  --products-add-border: rgba(96, 165, 250, 0.5);
+  --products-add-border-hover: rgba(96, 165, 250, 0.7);
+  --products-add-text: var(--color-text-primary);
+  --products-focus-ring: rgba(147, 197, 253, 0.9);
+  --products-content-gap: var(--space-xs);
+  --products-meta-gap: var(--space-sm);
+  --products-button-min-height: 40px;
+  --products-button-radius: var(--radius-md);
   width: 100%;
 }
 
 .products-empty {
   margin: 0;
-  color: #94a3b8;
+  color: var(--color-text-soft);
 }
 
 .products-grid {
@@ -12,14 +27,14 @@
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 14px;
+  gap: var(--space-lg);
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 }
 
 .product-card {
-  border: 1px solid rgba(148, 163, 184, 0.24);
-  border-radius: 14px;
-  background: rgba(15, 23, 42, 0.52);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+  background: var(--products-surface);
   overflow: hidden;
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -27,21 +42,21 @@
 
 .product-image {
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: var(--products-image-ratio);
   object-fit: cover;
   display: block;
-  background: rgba(15, 23, 42, 0.7);
+  background: var(--products-surface-strong);
 }
 
 .product-content {
   display: grid;
-  gap: 6px;
-  padding: 12px;
+  gap: var(--products-content-gap);
+  padding: var(--space-sm);
 }
 
 .product-category {
   margin: 0;
-  color: #93c5fd;
+  color: var(--products-category-text);
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -50,21 +65,21 @@
 
 .product-title {
   margin: 0;
-  color: #f8fafc;
+  color: var(--products-title-text);
   font-size: 1rem;
   line-height: 1.25;
 }
 
 .product-brand {
   margin: 0;
-  color: #cbd5e1;
+  color: var(--color-text-muted);
   font-size: 0.9rem;
   font-weight: 600;
 }
 
 .product-description {
   margin: 0;
-  color: #94a3b8;
+  color: var(--color-text-soft);
   font-size: 0.88rem;
   line-height: 1.45;
 }
@@ -73,50 +88,53 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  padding: 0 12px 10px;
+  gap: var(--products-meta-gap);
+  padding: 0 var(--space-sm) var(--space-xs);
 }
 
 .product-price {
-  color: #e2e8f0;
+  color: var(--color-text-primary);
   font-size: 0.96rem;
 }
 
 .product-stock {
-  color: #93c5fd;
+  color: var(--products-category-text);
   font-size: 0.83rem;
 }
 
 .product-actions {
-  padding: 0 12px 12px;
+  padding: 0 var(--space-sm) var(--space-sm);
 }
 
 .product-add-button {
   width: 100%;
-  min-height: 40px;
-  border: 1px solid rgba(96, 165, 250, 0.5);
-  border-radius: 10px;
-  background: rgba(37, 99, 235, 0.18);
-  color: #dbeafe;
+  min-height: var(--products-button-min-height);
+  border: 1px solid var(--products-add-border);
+  border-radius: var(--products-button-radius);
+  background: var(--products-add-bg);
+  color: var(--products-add-text);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--space-xs);
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .product-add-button:hover {
-  background: rgba(37, 99, 235, 0.24);
-  border-color: rgba(96, 165, 250, 0.7);
+  background: var(--products-add-bg-hover);
+  border-color: var(--products-add-border-hover);
   transform: translateY(-1px);
 }
 
 .product-add-button:focus-visible {
-  outline: 2px solid rgba(147, 197, 253, 0.9);
-  outline-offset: 2px;
+  outline: 2px solid var(--products-focus-ring);
+  outline-offset: var(--space-2xs);
 }
 
 .product-add-button:disabled {
