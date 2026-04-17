@@ -1,8 +1,18 @@
 import { FilterIcon } from './icons'
 import CategoryFilter from './CategoryFilter'
+import SortFilter from './SortFilter'
 import PriceFilter from './PriceFilter'
 import './filters.css'
 import { useFilters } from '../hooks/useFilters'
+
+const sortOptions = ['featured', 'price-asc', 'price-desc', 'name-asc']
+
+function formatSortLabel(sortBy) {
+  if (sortBy === 'price-asc') return 'Price: Low to high'
+  if (sortBy === 'price-desc') return 'Price: High to low'
+  if (sortBy === 'name-asc') return 'Name: A to Z'
+  return 'Featured'
+}
 
 function Filters({
   categories,
@@ -15,6 +25,7 @@ function Filters({
   const {
     filters,
     handleCategoryChange,
+    handleSortChange,
     handleMinPriceChange,
     handleMaxPriceChange,
     resetFilters,
@@ -45,6 +56,13 @@ function Filters({
           value={filters.category}
           onChange={handleCategoryChange}
           formatCategoryLabel={formatCategoryLabel}
+        />
+
+        <SortFilter
+          options={sortOptions}
+          value={filters.sortBy}
+          onChange={handleSortChange}
+          formatSortLabel={formatSortLabel}
         />
 
         <PriceFilter
