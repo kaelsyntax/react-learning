@@ -253,8 +253,7 @@
   background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.84));
 }
 
-.filter-field--select.filter-field--open .filter-select--custom::after,
-.filter-field--select:focus-within .filter-select--custom::after {
+.filter-field--select.filter-field--open .filter-select--custom::after {
   border-color: var(--color-accent-200);
   transform: rotate(45deg);
   translate: 0 -1px;
@@ -282,6 +281,8 @@
   margin: 0;
   padding: 6px;
   list-style: none;
+  display: grid;
+  gap: 4px;
   border: 1px solid var(--filters-menu-border);
   border-radius: var(--radius-md);
   background: var(--filters-menu-bg);
@@ -291,8 +292,9 @@
   min-width: 100%;
   width: max-content;
   max-width: min(92vw, 360px);
-  max-height: 190px;
+  max-height: min(280px, 48vh);
   overflow-y: auto;
+  overscroll-behavior: contain;
   transform-origin: top center;
   animation: filters-menu-enter var(--transition-fast) both;
 }
@@ -416,6 +418,7 @@
   .filter-select-menu {
     width: 100%;
     max-width: 100%;
+    max-height: min(320px, 56vh);
   }
 
   .filters-head {

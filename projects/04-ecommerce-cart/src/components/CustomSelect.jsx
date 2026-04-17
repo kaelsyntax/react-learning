@@ -50,8 +50,15 @@ function CustomSelect({
     activeOption?.focus()
   }, [activeIndex, isOpen])
 
-  function toggleSelect() {
-    setIsOpen((previous) => !previous)
+  function handleTriggerClick() {
+    if (isOpen) {
+      setIsOpen(false)
+      triggerRef.current?.blur()
+      return
+    }
+
+    setIsOpen(true)
+    setActiveIndex(selectedIndex)
   }
 
   function closeSelectAndFocusTrigger() {
@@ -60,7 +67,19 @@ function CustomSelect({
   }
 
   function handleTriggerKeyDown(event) {
-    if (['Enter', ' ', 'ArrowDown', 'ArrowUp'].includes(event.key)) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      setIsOpen((previous) => {
+        const nextIsOpen = !previous
+        if (nextIsOpen) {
+          setActiveIndex(selectedIndex)
+        }
+        return nextIsOpen
+      })
+      return
+    }
+
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       event.preventDefault()
       setIsOpen(true)
       setActiveIndex(selectedIndex)
@@ -135,7 +154,7 @@ function CustomSelect({
           aria-expanded={isOpen}
           aria-controls={listboxId}
           aria-labelledby={`${labelId} ${triggerId}`}
-          onClick={toggleSelect}
+          onClick={handleTriggerClick}
           onKeyDown={handleTriggerKeyDown}
         >
           {formatOptionLabel(value)}
