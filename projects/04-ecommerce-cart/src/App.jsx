@@ -37,7 +37,7 @@ function App() {
             <p className="eyebrow">Section 04</p>
             <CartPanel formatPrice={formatPrice} />
           </div>
-          <h1>Ecommerce Cart</h1>
+          <h1 className="catalog-title">Ecommerce Cart</h1>
           <p className="catalog-description">
             Product listing from local mock data. We will add filters, cart
             state, context, and reducer step by step.
