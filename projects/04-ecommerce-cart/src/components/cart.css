@@ -41,6 +41,33 @@
     box-shadow var(--transition-fast);
 }
 
+.cart-toggle--inline {
+  position: relative;
+  z-index: 1;
+}
+
+.cart-toggle--floating {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 14px);
+  right: clamp(10px, 2.4vw, 24px);
+  z-index: 9;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px) scale(0.96);
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast),
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.cart-toggle--floating.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
 .cart-toggle svg {
   color: var(--cart-toggle-icon);
   transition: color var(--transition-fast);
@@ -408,8 +435,15 @@
 }
 
 @media (max-width: 560px) {
+  .cart-toggle--floating {
+    top: calc(env(safe-area-inset-top, 0px) + 10px);
+    right: 10px;
+  }
+
   .cart-toggle {
-    justify-self: start;
+    min-height: 38px;
+    font-size: 0.86rem;
+    padding: var(--space-xs) 10px;
   }
 
   .cart-modal--empty {

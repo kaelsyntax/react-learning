@@ -39,8 +39,11 @@ function getStockMessage(item) {
 function CartPanel({ formatPrice }) {
   const [isOpen, setIsOpen] = useState(false)
   const [isClosing, setIsClosing] = useState(false)
+  const [isPinned, setIsPinned] = useState(false)
   const titleId = useId()
-  const toggleButtonRef = useRef(null)
+  const inlineToggleRef = useRef(null)
+  const floatingToggleRef = useRef(null)
+  const lastTriggerRef = useRef(null)
   const closeButtonRef = useRef(null)
   const modalRef = useRef(null)
   const wasOpenRef = useRef(false)
@@ -66,6 +69,33 @@ function CartPanel({ formatPrice }) {
     setIsOpen(true)
   }, [])
 
+  useEffect(() => {
+    const target = inlineToggleRef.current
+    if (!target) return undefined
+
+    if (typeof IntersectionObserver !== 'function') {
+      function handleScrollFallback() {
+        const nextPinned = window.scrollY > 100
+        setIsPinned(nextPinned)
+      }
+
+      handleScrollFallback()
+      window.addEventListener('scroll', handleScrollFallback, { passive: true })
+      return () => window.removeEventListener('scroll', handleScrollFallback)
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsPinned(!entry.isIntersecting)
+      },
+      { threshold: 0, rootMargin: '-10px 0px 0px 0px' }
+    )
+
+    observer.observe(target)
+
+    return () => observer.disconnect()
+  }, [])
+
   const closeCart = useCallback(() => {
     if (!isOpen || isClosing) return
 
@@ -84,10 +114,16 @@ function CartPanel({ formatPrice }) {
     }
 
     if (wasOpenRef.current) {
-      toggleButtonRef.current?.focus()
+      const fallbackTarget = isPinned ? floatingToggleRef.current : inlineToggleRef.current
+      const preferredTarget = lastTriggerRef.current
+      const target =
+        preferredTarget?.getAttribute('aria-hidden') !== 'true'
+          ? preferredTarget
+          : fallbackTarget
+      target?.focus()
       wasOpenRef.current = false
     }
-  }, [isOpen, isClosing])
+  }, [isOpen, isClosing, isPinned])
 
   useEffect(() => {
     return () => {
@@ -154,21 +190,44 @@ function CartPanel({ formatPrice }) {
     }
   }
 
-  return (
-    <>
+  function handleOpenCart(event) {
+    lastTriggerRef.current = event.currentTarget
+    openCart()
+  }
+
+  function renderCartToggle({ variant, isVisible, ref }) {
+    return (
       <button
-        ref={toggleButtonRef}
-        className="cart-toggle"
+        ref={ref}
+        className={`cart-toggle cart-toggle--${variant} ${variant === 'floating' && isVisible ? 'is-visible' : ''}`}
         type="button"
-        onClick={openCart}
+        onClick={handleOpenCart}
         aria-haspopup="dialog"
-        aria-expanded={isOpen && !isClosing}
+        aria-expanded={isVisible && isOpen && !isClosing}
         aria-label={`Open cart (${totalItems} items)`}
+        aria-hidden={!isVisible}
+        tabIndex={isVisible ? 0 : -1}
       >
         <CartIcon size={18} aria-hidden="true" />
         <span>Cart</span>
         <span className="cart-badge">{totalItems}</span>
       </button>
+    )
+  }
+
+  return (
+    <>
+      {renderCartToggle({
+        variant: 'inline',
+        isVisible: !isPinned,
+        ref: inlineToggleRef
+      })}
+
+      {renderCartToggle({
+        variant: 'floating',
+        isVisible: isPinned,
+        ref: floatingToggleRef
+      })}
 
       {isOpen && (
         <div
