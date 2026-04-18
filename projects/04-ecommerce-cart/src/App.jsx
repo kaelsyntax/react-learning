@@ -34,14 +34,16 @@ function App() {
       <section className="catalog">
         <header className="catalog-header">
           <div className="catalog-header-top">
+            <div className="catalog-header-copy">
+              <p className="catalog-kicker">Curated tech catalog</p>
+              <h1 className="catalog-title">Tech Essentials Store</h1>
+              <p className="catalog-description">
+                Curated tech accessories with fast filtering and a smooth cart flow.
+              </p>
+            </div>
+
             <CartPanel formatPrice={formatPrice} />
           </div>
-          <h1 className="catalog-title">Tech Essentials Store</h1>
-          <p className="catalog-description">
-            Browse keyboards, mice, and accessories. Filter by category and
-            price, sort products your way, and manage everything from a smooth
-            cart flow.
-          </p>
         </header>
 
         <Filters
