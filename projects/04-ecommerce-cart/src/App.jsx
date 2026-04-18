@@ -34,13 +34,13 @@ function App() {
       <section className="catalog">
         <header className="catalog-header">
           <div className="catalog-header-top">
-            <p className="eyebrow">Section 04</p>
             <CartPanel formatPrice={formatPrice} />
           </div>
-          <h1 className="catalog-title">Ecommerce Cart</h1>
+          <h1 className="catalog-title">Tech Essentials Store</h1>
           <p className="catalog-description">
-            Product listing from local mock data. We will add filters, cart
-            state, context, and reducer step by step.
+            Browse keyboards, mice, and accessories. Filter by category and
+            price, sort products your way, and manage everything from a smooth
+            cart flow.
           </p>
         </header>
 
