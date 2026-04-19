@@ -1,23 +1,29 @@
 .cart-toggle {
-  --cart-toggle-border: rgba(96, 165, 250, 0.52);
+  --cart-toggle-border: rgba(96, 165, 250, 0.68);
   --cart-toggle-border-hover: rgba(125, 180, 255, 0.8);
   --cart-toggle-border-open: rgba(147, 197, 253, 0.9);
   --cart-toggle-text: var(--color-text-accent-strong);
   --cart-toggle-icon: var(--color-accent-200);
   --cart-toggle-icon-hover: var(--color-text-accent-soft);
-  --cart-toggle-bg: linear-gradient(180deg, rgba(37, 99, 235, 0.26), rgba(30, 64, 175, 0.22));
+  --cart-toggle-bg: linear-gradient(180deg, rgba(37, 99, 235, 0.44), rgba(30, 64, 175, 0.38));
   --cart-toggle-bg-hover: linear-gradient(
     180deg,
-    rgba(37, 99, 235, 0.34),
-    rgba(30, 64, 175, 0.3)
+    rgba(37, 99, 235, 0.52),
+    rgba(30, 64, 175, 0.46)
   );
   --cart-toggle-bg-open: linear-gradient(
     180deg,
-    rgba(37, 99, 235, 0.4),
-    rgba(30, 64, 175, 0.34)
+    rgba(37, 99, 235, 0.6),
+    rgba(30, 64, 175, 0.52)
   );
   --cart-toggle-focus-ring: rgba(147, 197, 253, 0.28);
   --cart-toggle-focus-ring-strong: rgba(147, 197, 253, 0.9);
+  --cart-toggle-halo: rgba(59, 130, 246, 0.2);
+  --cart-toggle-halo-strong: rgba(59, 130, 246, 0.3);
+  --cart-toggle-frame: rgba(191, 219, 254, 0.22);
+  --cart-toggle-frame-hover: rgba(191, 219, 254, 0.34);
+  position: relative;
+  isolation: isolate;
   justify-self: end;
   min-height: 40px;
   border: 1px solid var(--cart-toggle-border);
@@ -39,6 +45,44 @@
     border-color var(--transition-fast),
     transform var(--transition-fast),
     box-shadow var(--transition-fast);
+}
+
+.cart-toggle::before {
+  content: '';
+  position: absolute;
+  inset: -10px -12px;
+  border-radius: calc(var(--radius-md) + 12px);
+  background: radial-gradient(circle at 50% 52%, var(--cart-toggle-halo), rgba(15, 23, 42, 0) 70%);
+  opacity: 0.46;
+  filter: blur(9px);
+  transform: scale(0.98);
+  pointer-events: none;
+  z-index: 0;
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast),
+    filter var(--transition-fast);
+}
+
+.cart-toggle::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--radius-md) + 2px);
+  border: 1px solid var(--cart-toggle-frame);
+  background: linear-gradient(180deg, rgba(148, 163, 184, 0.06), rgba(148, 163, 184, 0.01));
+  opacity: 0.68;
+  pointer-events: none;
+  z-index: 1;
+  transition:
+    border-color var(--transition-fast),
+    opacity var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.cart-toggle > * {
+  position: relative;
+  z-index: 2;
 }
 
 .cart-toggle--floating {
@@ -88,6 +132,15 @@
     inset 0 1px 0 rgba(191, 219, 254, 0.24);
 }
 
+.cart-toggle:hover::before {
+  opacity: 0.6;
+  transform: scale(1);
+}
+
+.cart-toggle:hover::after {
+  border-color: var(--cart-toggle-frame-hover);
+}
+
 .cart-toggle:hover svg {
   color: var(--cart-toggle-icon-hover);
 }
@@ -105,12 +158,34 @@
     inset 0 1px 0 rgba(191, 219, 254, 0.28);
 }
 
+.cart-toggle[aria-expanded='true']::before {
+  opacity: 0.56;
+  background: radial-gradient(
+    circle at 50% 52%,
+    var(--cart-toggle-halo-strong),
+    rgba(15, 23, 42, 0) 72%
+  );
+}
+
+.cart-toggle[aria-expanded='true']::after {
+  border-color: var(--cart-toggle-frame-hover);
+  box-shadow: 0 0 0 1px rgba(147, 197, 253, 0.26) inset;
+}
+
 .cart-toggle:focus-visible {
   outline: none;
   box-shadow:
     0 0 0 3px var(--cart-toggle-focus-ring),
     0 0 0 1px var(--cart-toggle-focus-ring-strong) inset,
     0 10px 22px rgba(2, 6, 23, 0.34);
+}
+
+.cart-toggle:focus-visible::before {
+  opacity: 0.62;
+}
+
+.cart-toggle:focus-visible::after {
+  border-color: var(--cart-toggle-frame-hover);
 }
 
 .cart-badge {
