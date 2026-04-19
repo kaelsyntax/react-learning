@@ -1,165 +1,165 @@
 [
-    {
-        "id": 1,
-        "title": "Mechanical Keyboard K68",
-        "brand": "KeyNova",
-        "priceInCents": 8999,
-        "category": "keyboards",
-        "stock": 12,
-        "description": "Compact mechanical keyboard with tactile switches and clean desk-ready design.",
-        "image": "https://via.placeholder.com/300?text=Keyboard+1"
-    },
-    {
-        "id": 2,
-        "title": "Wireless Keyboard Slim Pro",
-        "brand": "FlowType",
-        "priceInCents": 4999,
-        "category": "keyboards",
-        "stock": 8,
-        "description": "Minimal wireless keyboard with slim profile and smooth typing experience.",
-        "image": "https://via.placeholder.com/300?text=Keyboard+2"
-    },
-    {
-        "id": 3,
-        "title": "RGB Gaming Keyboard X1",
-        "brand": "HexaCore",
-        "priceInCents": 12999,
-        "category": "keyboards",
-        "stock": 5,
-        "description": "Full-size RGB keyboard built for gaming performance and customization.",
-        "image": "https://via.placeholder.com/300?text=Keyboard+3"
-    },
-    {
-        "id": 4,
-        "title": "Compact 60% Keyboard",
-        "brand": "NanoKeys",
-        "priceInCents": 6999,
-        "category": "keyboards",
-        "stock": 10,
-        "description": "Ultra-compact 60% layout designed for portability and clean setups.",
-        "image": "https://via.placeholder.com/300?text=Keyboard+4"
-    },
+  {
+    "id": 1,
+    "title": "MX Mechanical",
+    "brand": "Logitech",
+    "priceInCents": 17999,
+    "category": "keyboards",
+    "stock": 9,
+    "description": "Wireless low-profile mechanical keyboard with backlighting and a premium productivity-focused design.",
+    "image": "https://via.placeholder.com/300?text=MX+Mechanical"
+  },
+  {
+    "id": 2,
+    "title": "K2 HE",
+    "brand": "Keychron",
+    "priceInCents": 13999,
+    "category": "keyboards",
+    "stock": 7,
+    "description": "75% wireless keyboard with magnetic switches, compact layout, and enthusiast-friendly customization.",
+    "image": "https://via.placeholder.com/300?text=Keychron+K2+HE"
+  },
+  {
+    "id": 3,
+    "title": "PRO X TKL LIGHTSPEED",
+    "brand": "Logitech G",
+    "priceInCents": 18999,
+    "category": "keyboards",
+    "stock": 5,
+    "description": "Tournament-ready wireless tenkeyless gaming keyboard with mechanical switches and media controls.",
+    "image": "https://via.placeholder.com/300?text=PRO+X+TKL"
+  },
+  {
+    "id": 4,
+    "title": "Huntsman V3 Pro Mini",
+    "brand": "Razer",
+    "priceInCents": 9999,
+    "category": "keyboards",
+    "stock": 6,
+    "description": "Compact 60% esports keyboard with analog optical switches and adjustable actuation.",
+    "image": "https://via.placeholder.com/300?text=Huntsman+V3+Pro+Mini"
+  },
 
-    {
-        "id": 5,
-        "title": "Wireless Mouse Pro",
-        "brand": "Clickify",
-        "priceInCents": 3999,
-        "category": "mice",
-        "stock": 15,
-        "description": "Precision wireless mouse with ergonomic shape and long battery life.",
-        "image": "https://via.placeholder.com/300?text=Mouse+1"
-    },
-    {
-        "id": 6,
-        "title": "Gaming Mouse RGB X5",
-        "brand": "HexaCore",
-        "priceInCents": 5999,
-        "category": "mice",
-        "stock": 7,
-        "description": "High-performance gaming mouse with customizable RGB lighting.",
-        "image": "https://via.placeholder.com/300?text=Mouse+2"
-    },
-    {
-        "id": 7,
-        "title": "Ergonomic Mouse Comfort",
-        "brand": "ErgoFlow",
-        "priceInCents": 4599,
-        "category": "mice",
-        "stock": 9,
-        "description": "Designed for long sessions with maximum comfort and wrist support.",
-        "image": "https://via.placeholder.com/300?text=Mouse+3"
-    },
-    {
-        "id": 8,
-        "title": "Ultra Light Mouse",
-        "brand": "AeroClick",
-        "priceInCents": 7999,
-        "category": "mice",
-        "stock": 6,
-        "description": "Ultra-lightweight design for fast movements and competitive gaming.",
-        "image": "https://via.placeholder.com/300?text=Mouse+4"
-    },
+  {
+    "id": 5,
+    "title": "MX Master 3S",
+    "brand": "Logitech",
+    "priceInCents": 11999,
+    "category": "mice",
+    "stock": 11,
+    "description": "Premium productivity mouse with an ergonomic shape, quiet clicks, and fast MagSpeed scrolling.",
+    "image": "https://via.placeholder.com/300?text=MX+Master+3S"
+  },
+  {
+    "id": 6,
+    "title": "PRO X SUPERLIGHT 2",
+    "brand": "Logitech G",
+    "priceInCents": 15999,
+    "category": "mice",
+    "stock": 6,
+    "description": "Ultra-light wireless esports mouse designed for top-tier competitive performance and precision.",
+    "image": "https://via.placeholder.com/300?text=PRO+X+SUPERLIGHT+2"
+  },
+  {
+    "id": 7,
+    "title": "DeathAdder V3 Pro",
+    "brand": "Razer",
+    "priceInCents": 14999,
+    "category": "mice",
+    "stock": 8,
+    "description": "Lightweight ergonomic wireless gaming mouse built for speed, comfort, and high-end competitive play.",
+    "image": "https://via.placeholder.com/300?text=DeathAdder+V3+Pro"
+  },
+  {
+    "id": 8,
+    "title": "G305 LIGHTSPEED",
+    "brand": "Logitech G",
+    "priceInCents": 3999,
+    "category": "mice",
+    "stock": 14,
+    "description": "Affordable lightweight wireless gaming mouse with HERO sensor and long battery life.",
+    "image": "https://via.placeholder.com/300?text=G305+LIGHTSPEED"
+  },
 
-    {
-        "id": 9,
-        "title": "24\" Full HD Monitor",
-        "brand": "ViewEdge",
-        "priceInCents": 15999,
-        "category": "monitors",
-        "stock": 11,
-        "description": "Reliable 24-inch monitor ideal for productivity and everyday use.",
-        "image": "https://via.placeholder.com/300?text=Monitor+1"
-    },
-    {
-        "id": 10,
-        "title": "27\" QHD Monitor",
-        "brand": "ViewEdge",
-        "priceInCents": 24999,
-        "category": "monitors",
-        "stock": 6,
-        "description": "Crisp QHD resolution with vibrant colors and smooth performance.",
-        "image": "https://via.placeholder.com/300?text=Monitor+2"
-    },
-    {
-        "id": 11,
-        "title": "Ultrawide 34\" Monitor",
-        "brand": "UltraView",
-        "priceInCents": 39999,
-        "category": "monitors",
-        "stock": 4,
-        "description": "Immersive ultrawide display perfect for multitasking and creative work.",
-        "image": "https://via.placeholder.com/300?text=Monitor+3"
-    },
-    {
-        "id": 12,
-        "title": "Budget Office Monitor",
-        "brand": "DeskLite",
-        "priceInCents": 12999,
-        "category": "monitors",
-        "stock": 14,
-        "description": "Affordable monitor designed for office setups and daily tasks.",
-        "image": "https://via.placeholder.com/300?text=Monitor+4"
-    },
+  {
+    "id": 9,
+    "title": "P2425H",
+    "brand": "Dell",
+    "priceInCents": 19999,
+    "category": "monitors",
+    "stock": 10,
+    "description": "24-inch Full HD productivity monitor with IPS panel, 100Hz refresh rate, and office-friendly ergonomics.",
+    "image": "https://via.placeholder.com/300?text=Dell+P2425H"
+  },
+  {
+    "id": 10,
+    "title": "S2722QC",
+    "brand": "Dell",
+    "priceInCents": 34799,
+    "category": "monitors",
+    "stock": 7,
+    "description": "27-inch 4K USB-C monitor with IPS panel, integrated speakers, and a clean all-rounder setup focus.",
+    "image": "https://via.placeholder.com/300?text=Dell+S2722QC"
+  },
+  {
+    "id": 11,
+    "title": "27GP850-B UltraGear",
+    "brand": "LG",
+    "priceInCents": 29999,
+    "category": "monitors",
+    "stock": 5,
+    "description": "27-inch QHD Nano IPS gaming monitor with high refresh rate, fast response time, and strong color performance.",
+    "image": "https://via.placeholder.com/300?text=LG+27GP850-B"
+  },
+  {
+    "id": 12,
+    "title": "34WP65C-B UltraWide",
+    "brand": "LG",
+    "priceInCents": 39999,
+    "category": "monitors",
+    "stock": 4,
+    "description": "34-inch curved ultrawide QHD monitor designed for multitasking, immersion, and desk-setup appeal.",
+    "image": "https://via.placeholder.com/300?text=LG+34WP65C-B"
+  },
 
-    {
-        "id": 13,
-        "title": "Studio Headphones",
-        "brand": "SoundLab",
-        "priceInCents": 9999,
-        "category": "audio",
-        "stock": 8,
-        "description": "High-fidelity headphones for clear and balanced audio experience.",
-        "image": "https://via.placeholder.com/300?text=Audio+1"
-    },
-    {
-        "id": 14,
-        "title": "Wireless Earbuds",
-        "brand": "SoundLab",
-        "priceInCents": 7999,
-        "category": "audio",
-        "stock": 12,
-        "description": "Compact wireless earbuds with powerful sound and portability.",
-        "image": "https://via.placeholder.com/300?text=Audio+2"
-    },
-    {
-        "id": 15,
-        "title": "USB Microphone",
-        "brand": "VoiceCore",
-        "priceInCents": 11999,
-        "category": "audio",
-        "stock": 5,
-        "description": "Plug-and-play microphone ideal for streaming and content creation.",
-        "image": "https://via.placeholder.com/300?text=Audio+3"
-    },
-    {
-        "id": 16,
-        "title": "Compact Desk Speakers",
-        "brand": "SoundLab",
-        "priceInCents": 6999,
-        "category": "audio",
-        "stock": 10,
-        "description": "Small yet powerful speakers designed for clean desk setups.",
-        "image": "https://via.placeholder.com/300?text=Audio+4"
-    }
+  {
+    "id": 13,
+    "title": "ATH-M50x",
+    "brand": "Audio-Technica",
+    "priceInCents": 15900,
+    "category": "audio",
+    "stock": 8,
+    "description": "Closed-back studio headphones known for detailed sound, strong build quality, and long-term reliability.",
+    "image": "https://via.placeholder.com/300?text=ATH-M50x"
+  },
+  {
+    "id": 14,
+    "title": "WF-C700N",
+    "brand": "Sony",
+    "priceInCents": 11999,
+    "category": "audio",
+    "stock": 12,
+    "description": "Noise-canceling true wireless earbuds with a lightweight fit and solid everyday listening performance.",
+    "image": "https://via.placeholder.com/300?text=Sony+WF-C700N"
+  },
+  {
+    "id": 15,
+    "title": "Yeti USB Microphone",
+    "brand": "Logitech G",
+    "priceInCents": 10999,
+    "category": "audio",
+    "stock": 6,
+    "description": "Popular USB condenser microphone for streaming, calls, voiceover, and beginner-friendly content creation.",
+    "image": "https://via.placeholder.com/300?text=Blue+Yeti"
+  },
+  {
+    "id": 16,
+    "title": "Pebble V3",
+    "brand": "Creative",
+    "priceInCents": 4499,
+    "category": "audio",
+    "stock": 13,
+    "description": "Compact USB-C desktop speakers with Bluetooth and a simple design that fits clean setups well.",
+    "image": "https://via.placeholder.com/300?text=Creative+Pebble+V3"
+  }
 ]
