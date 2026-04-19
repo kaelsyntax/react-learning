@@ -41,10 +41,10 @@ function App() {
                 Curated tech accessories with fast filtering and a smooth cart flow.
               </p>
             </div>
-
-            <CartPanel formatPrice={formatPrice} />
           </div>
         </header>
+        
+        <CartPanel formatPrice={formatPrice} />
 
         <Filters
           categories={categories}

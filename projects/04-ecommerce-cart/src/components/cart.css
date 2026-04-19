@@ -41,11 +41,6 @@
     box-shadow var(--transition-fast);
 }
 
-.cart-toggle--inline {
-  position: relative;
-  z-index: 1;
-}
-
 .cart-toggle--floating {
   position: fixed;
   top: calc(env(safe-area-inset-top, 0px) + 14px);

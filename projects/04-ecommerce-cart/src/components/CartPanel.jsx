@@ -41,9 +41,7 @@ function CartPanel({ formatPrice }) {
   const [isClosing, setIsClosing] = useState(false)
   const [isPinned, setIsPinned] = useState(false)
   const titleId = useId()
-  const inlineToggleRef = useRef(null)
   const floatingToggleRef = useRef(null)
-  const lastTriggerRef = useRef(null)
   const closeButtonRef = useRef(null)
   const modalRef = useRef(null)
   const wasOpenRef = useRef(false)
@@ -70,8 +68,8 @@ function CartPanel({ formatPrice }) {
   }, [])
 
   useEffect(() => {
-    const target = inlineToggleRef.current
-    if (!target) return undefined
+    const pinTarget = document.querySelector('.catalog-header')
+    if (!pinTarget) return undefined
 
     if (typeof IntersectionObserver !== 'function') {
       function handleScrollFallback() {
@@ -91,7 +89,7 @@ function CartPanel({ formatPrice }) {
       { threshold: 0, rootMargin: '-10px 0px 0px 0px' }
     )
 
-    observer.observe(target)
+    observer.observe(pinTarget)
 
     return () => observer.disconnect()
   }, [])
@@ -114,13 +112,9 @@ function CartPanel({ formatPrice }) {
     }
 
     if (wasOpenRef.current) {
-      const fallbackTarget = isPinned ? floatingToggleRef.current : inlineToggleRef.current
-      const preferredTarget = lastTriggerRef.current
-      const target =
-        preferredTarget?.getAttribute('aria-hidden') !== 'true'
-          ? preferredTarget
-          : fallbackTarget
-      target?.focus()
+      if (isPinned) {
+        floatingToggleRef.current?.focus()
+      }
       wasOpenRef.current = false
     }
   }, [isOpen, isClosing, isPinned])
@@ -190,44 +184,27 @@ function CartPanel({ formatPrice }) {
     }
   }
 
-  function handleOpenCart(event) {
-    lastTriggerRef.current = event.currentTarget
+  function handleOpenCart() {
     openCart()
   }
 
-  function renderCartToggle({ variant, isVisible, ref }) {
-    return (
+  return (
+    <>
       <button
-        ref={ref}
-        className={`cart-toggle cart-toggle--${variant} ${variant === 'floating' && isVisible ? 'is-visible' : ''}`}
+        ref={floatingToggleRef}
+        className={`cart-toggle cart-toggle--floating ${isPinned ? 'is-visible' : ''}`}
         type="button"
         onClick={handleOpenCart}
         aria-haspopup="dialog"
-        aria-expanded={isVisible && isOpen && !isClosing}
+        aria-expanded={isPinned && isOpen && !isClosing}
         aria-label={`Open cart (${totalItems} items)`}
-        aria-hidden={!isVisible}
-        tabIndex={isVisible ? 0 : -1}
+        aria-hidden={!isPinned}
+        tabIndex={isPinned ? 0 : -1}
       >
         <CartIcon size={18} aria-hidden="true" />
         <span>Cart</span>
         <span className="cart-badge">{totalItems}</span>
       </button>
-    )
-  }
-
-  return (
-    <>
-      {renderCartToggle({
-        variant: 'inline',
-        isVisible: !isPinned,
-        ref: inlineToggleRef
-      })}
-
-      {renderCartToggle({
-        variant: 'floating',
-        isVisible: isPinned,
-        ref: floatingToggleRef
-      })}
 
       {isOpen && (
         <div

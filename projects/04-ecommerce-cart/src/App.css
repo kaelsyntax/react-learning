@@ -18,7 +18,7 @@
 .catalog-header {
   position: relative;
   display: grid;
-  gap: var(--space-md);
+  gap: var(--space-sm);
   padding: clamp(14px, 2.2vw, 22px);
   border: 1px solid var(--color-border-soft);
   border-radius: var(--radius-lg);
@@ -40,10 +40,7 @@
 }
 
 .catalog-header-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-lg);
+  display: block;
   position: relative;
   z-index: 1;
 }
@@ -81,12 +78,16 @@
 
 @media (max-width: 760px) {
   .catalog-header-top {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--space-sm);
+    display: block;
   }
 
-  .catalog-header-top .cart-toggle {
-    align-self: flex-start;
+  .catalog-title {
+    font-size: clamp(1.6rem, 8vw, 2rem);
+    max-width: none;
+  }
+
+  .catalog-description {
+    max-width: 42ch;
+    line-height: 1.45;
   }
 }
