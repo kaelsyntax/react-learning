@@ -43,7 +43,7 @@
 
 .cart-toggle--floating {
   position: fixed;
-  top: calc(env(safe-area-inset-top, 0px) + 14px);
+  top: calc(env(safe-area-inset-top, 0px) + clamp(24px, 3.2vw, 36px));
   right: clamp(10px, 2.4vw, 24px);
   z-index: 9;
   opacity: 0;
@@ -431,7 +431,7 @@
 
 @media (max-width: 560px) {
   .cart-toggle--floating {
-    top: calc(env(safe-area-inset-top, 0px) + 10px);
+    top: calc(env(safe-area-inset-top, 0px) + 14px);
     right: 10px;
   }
 

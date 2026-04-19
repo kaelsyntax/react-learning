@@ -4,6 +4,7 @@ import { useCart } from '../hooks/useCart'
 import './cart.css'
 
 const CLOSE_ANIMATION_MS = 220
+const DESKTOP_MEDIA_QUERY = '(min-width: 761px)'
 
 function getFocusableElements(container) {
   if (!container) return []
@@ -40,6 +41,13 @@ function CartPanel({ formatPrice }) {
   const [isOpen, setIsOpen] = useState(false)
   const [isClosing, setIsClosing] = useState(false)
   const [isPinned, setIsPinned] = useState(false)
+  const [isDesktopViewport, setIsDesktopViewport] = useState(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+      return false
+    }
+
+    return window.matchMedia(DESKTOP_MEDIA_QUERY).matches
+  })
   const titleId = useId()
   const floatingToggleRef = useRef(null)
   const closeButtonRef = useRef(null)
@@ -65,6 +73,28 @@ function CartPanel({ formatPrice }) {
     wasOpenRef.current = true
     setIsClosing(false)
     setIsOpen(true)
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+      return undefined
+    }
+
+    const mediaQuery = window.matchMedia(DESKTOP_MEDIA_QUERY)
+
+    function handleMediaQueryChange(event) {
+      setIsDesktopViewport(event.matches)
+    }
+
+    setIsDesktopViewport(mediaQuery.matches)
+
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', handleMediaQueryChange)
+      return () => mediaQuery.removeEventListener('change', handleMediaQueryChange)
+    }
+
+    mediaQuery.addListener(handleMediaQueryChange)
+    return () => mediaQuery.removeListener(handleMediaQueryChange)
   }, [])
 
   useEffect(() => {
@@ -112,12 +142,12 @@ function CartPanel({ formatPrice }) {
     }
 
     if (wasOpenRef.current) {
-      if (isPinned) {
+      if (isDesktopViewport || isPinned) {
         floatingToggleRef.current?.focus()
       }
       wasOpenRef.current = false
     }
-  }, [isOpen, isClosing, isPinned])
+  }, [isOpen, isClosing, isPinned, isDesktopViewport])
 
   useEffect(() => {
     return () => {
@@ -188,18 +218,20 @@ function CartPanel({ formatPrice }) {
     openCart()
   }
 
+  const isToggleVisible = isDesktopViewport || isPinned
+
   return (
     <>
       <button
         ref={floatingToggleRef}
-        className={`cart-toggle cart-toggle--floating ${isPinned ? 'is-visible' : ''}`}
+        className={`cart-toggle cart-toggle--floating ${isToggleVisible ? 'is-visible' : ''}`}
         type="button"
         onClick={handleOpenCart}
         aria-haspopup="dialog"
-        aria-expanded={isPinned && isOpen && !isClosing}
+        aria-expanded={isToggleVisible && isOpen && !isClosing}
         aria-label={`Open cart (${totalItems} items)`}
-        aria-hidden={!isPinned}
-        tabIndex={isPinned ? 0 : -1}
+        aria-hidden={!isToggleVisible}
+        tabIndex={isToggleVisible ? 0 : -1}
       >
         <CartIcon size={18} aria-hidden="true" />
         <span>Cart</span>
