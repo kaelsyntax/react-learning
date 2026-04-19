@@ -42,6 +42,7 @@
 }
 
 .cart-toggle--floating {
+  --cart-toggle-modal-fade-duration: 180ms;
   position: fixed;
   top: calc(env(safe-area-inset-top, 0px) + clamp(24px, 3.2vw, 36px));
   right: clamp(10px, 2.4vw, 24px);
@@ -50,8 +51,8 @@
   pointer-events: none;
   transform: translateY(-8px) scale(0.96);
   transition:
-    opacity var(--transition-fast),
-    transform var(--transition-fast),
+    opacity var(--cart-toggle-modal-fade-duration) ease,
+    transform var(--cart-toggle-modal-fade-duration) ease,
     background var(--transition-fast),
     border-color var(--transition-fast),
     box-shadow var(--transition-fast);
@@ -61,6 +62,12 @@
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0) scale(1);
+}
+
+.cart-toggle--floating.is-visible.is-hidden-for-modal {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px) scale(0.96);
 }
 
 .cart-toggle svg {
@@ -135,6 +142,8 @@
   --cart-modal-surface: rgba(15, 23, 42, 0.95);
   --cart-modal-border: rgba(148, 163, 184, 0.26);
   --cart-modal-space: var(--space-md);
+  --cart-overlay-enter-duration: 200ms;
+  --cart-overlay-exit-duration: 220ms;
   position: fixed;
   inset: 0;
   background: var(--cart-overlay-bg);
@@ -143,14 +152,16 @@
   place-items: center;
   padding: var(--space-md);
   z-index: 10;
-  animation: cart-overlay-enter 180ms ease-out both;
+  animation: cart-overlay-enter var(--cart-overlay-enter-duration) ease-out both;
 }
 
 .cart-overlay.is-closing {
-  animation: cart-overlay-exit 180ms ease-in both;
+  animation: cart-overlay-exit var(--cart-overlay-exit-duration) ease-in both;
 }
 
 .cart-modal {
+  --cart-modal-enter-duration: 200ms;
+  --cart-modal-exit-duration: 220ms;
   width: min(640px, 100%);
   max-height: min(85vh, 760px);
   overflow: auto;
@@ -162,7 +173,7 @@
   display: grid;
   gap: var(--cart-modal-space);
   padding: var(--cart-modal-space);
-  animation: cart-modal-enter 220ms ease-out both;
+  animation: cart-modal-enter var(--cart-modal-enter-duration) ease-out both;
 }
 
 .cart-modal--empty {
@@ -179,7 +190,7 @@
 }
 
 .cart-modal.is-closing {
-  animation: cart-modal-exit 220ms ease-in both;
+  animation: cart-modal-exit var(--cart-modal-exit-duration) ease-in both;
 }
 
 .cart-modal::-webkit-scrollbar {

@@ -4,6 +4,7 @@ import { useCart } from '../hooks/useCart'
 import './cart.css'
 
 const CLOSE_ANIMATION_MS = 220
+const TOGGLE_FADE_MS = 120
 const DESKTOP_MEDIA_QUERY = '(min-width: 761px)'
 
 function getFocusableElements(container) {
@@ -40,6 +41,7 @@ function getStockMessage(item) {
 function CartPanel({ formatPrice }) {
   const [isOpen, setIsOpen] = useState(false)
   const [isClosing, setIsClosing] = useState(false)
+  const [isPreparingOpen, setIsPreparingOpen] = useState(false)
   const [isPinned, setIsPinned] = useState(false)
   const [isDesktopViewport, setIsDesktopViewport] = useState(() => {
     if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
@@ -54,6 +56,7 @@ function CartPanel({ formatPrice }) {
   const modalRef = useRef(null)
   const wasOpenRef = useRef(false)
   const closeTimerRef = useRef(null)
+  const openTimerRef = useRef(null)
   const {
     cartItems,
     totalItems,
@@ -65,6 +68,11 @@ function CartPanel({ formatPrice }) {
   } = useCart()
 
   const openCart = useCallback(() => {
+    if (openTimerRef.current) {
+      clearTimeout(openTimerRef.current)
+      openTimerRef.current = null
+    }
+
     if (closeTimerRef.current) {
       clearTimeout(closeTimerRef.current)
       closeTimerRef.current = null
@@ -151,6 +159,9 @@ function CartPanel({ formatPrice }) {
 
   useEffect(() => {
     return () => {
+      if (openTimerRef.current) {
+        clearTimeout(openTimerRef.current)
+      }
       if (closeTimerRef.current) {
         clearTimeout(closeTimerRef.current)
       }
@@ -215,23 +226,31 @@ function CartPanel({ formatPrice }) {
   }
 
   function handleOpenCart() {
-    openCart()
+    if (isOpen || isClosing || isPreparingOpen) return
+
+    setIsPreparingOpen(true)
+    openTimerRef.current = setTimeout(() => {
+      setIsPreparingOpen(false)
+      openCart()
+      openTimerRef.current = null
+    }, TOGGLE_FADE_MS)
   }
 
   const isToggleVisible = isDesktopViewport || isPinned
+  const isToggleHiddenForModal = isPreparingOpen || isOpen
 
   return (
     <>
       <button
         ref={floatingToggleRef}
-        className={`cart-toggle cart-toggle--floating ${isToggleVisible ? 'is-visible' : ''}`}
+        className={`cart-toggle cart-toggle--floating ${isToggleVisible ? 'is-visible' : ''} ${isToggleHiddenForModal ? 'is-hidden-for-modal' : ''}`}
         type="button"
         onClick={handleOpenCart}
         aria-haspopup="dialog"
         aria-expanded={isToggleVisible && isOpen && !isClosing}
         aria-label={`Open cart (${totalItems} items)`}
-        aria-hidden={!isToggleVisible}
-        tabIndex={isToggleVisible ? 0 : -1}
+        aria-hidden={!isToggleVisible || isToggleHiddenForModal}
+        tabIndex={isToggleVisible && !isToggleHiddenForModal ? 0 : -1}
       >
         <CartIcon size={18} aria-hidden="true" />
         <span>Cart</span>
