@@ -28,11 +28,12 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
                     const remainingStock = Math.max(product.stock - inCartQuantity, 0)
                     const isAtStockLimit = remainingStock === 0
                     const isOutOfStock = product.stock === 0
+                    const needsTightImageCrop = [1, 3, 4, 12, 16].includes(product.id)
 
                     return (
                         <li key={product.id} className="product-card">
                             <img
-                                className="product-image"
+                                className={`product-image ${needsTightImageCrop ? 'product-image--tight-crop' : ''}`}
                                 src={product.image}
                                 alt={product.title}
                                 loading="lazy"

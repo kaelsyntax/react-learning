@@ -1,6 +1,8 @@
 .products {
   --products-surface: rgba(15, 23, 42, 0.52);
   --products-surface-strong: rgba(15, 23, 42, 0.7);
+  --products-image-surface: rgba(12, 19, 35, 0.72);
+  --products-image-surface-glow: rgba(59, 130, 246, 0.1);
   --products-image-ratio: 16 / 10;
   --products-category-text: var(--color-accent-200);
   --products-title-text: var(--color-text-primary);
@@ -43,9 +45,20 @@
 .product-image {
   width: 100%;
   aspect-ratio: var(--products-image-ratio);
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   display: block;
-  background: var(--products-surface-strong);
+  padding: var(--space-2xs);
+  background:
+    radial-gradient(circle at 50% 40%, var(--products-image-surface-glow), rgba(12, 19, 35, 0) 62%),
+    var(--products-image-surface);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.product-image--tight-crop {
+  object-fit: cover;
+  object-position: center 56%;
+  padding: 0;
 }
 
 .product-content {
