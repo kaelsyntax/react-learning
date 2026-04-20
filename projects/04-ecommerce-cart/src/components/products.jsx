@@ -7,6 +7,7 @@ const PRODUCT_EXIT_ANIMATION_MS = 220
 const EMPTY_STATE_ANIMATION_MS = 220
 const PRODUCT_FLIP_ANIMATION_MS = 280
 const PRODUCT_PERSISTENT_REVEAL_MS = 220
+const PRODUCTS_RESIZE_ANIMATION_MS = 220
 
 const priceFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -37,12 +38,22 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
     const exitTimersRef = useRef(new Map())
     const cardElementsRef = useRef(new Map())
     const previousCardRectsRef = useRef(new Map())
+    const productsSectionRef = useRef(null)
+    const previousSectionHeightRef = useRef(null)
+    const shouldAnimateSectionResizeRef = useRef(false)
+    const sectionResizeTimeoutRef = useRef(null)
     const pendingFilterTransitionRef = useRef(false)
     const emptyExitTimerRef = useRef(null)
     const [isEmptyMounted, setIsEmptyMounted] = useState(() => products.length === 0)
     const [isEmptyExiting, setIsEmptyExiting] = useState(false)
 
     useEffect(() => {
+        const currentSection = productsSectionRef.current
+        if (currentSection) {
+            previousSectionHeightRef.current = currentSection.getBoundingClientRect().height
+            shouldAnimateSectionResizeRef.current = true
+        }
+
         pendingFilterTransitionRef.current = true
 
         setVisibleProducts((previous) => {
@@ -98,6 +109,12 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
             if (timers.has(id)) return
 
             const timeoutId = setTimeout(() => {
+                const currentSection = productsSectionRef.current
+                if (currentSection) {
+                    previousSectionHeightRef.current = currentSection.getBoundingClientRect().height
+                    shouldAnimateSectionResizeRef.current = true
+                }
+
                 setVisibleProducts((current) =>
                     current.filter((currentItem) => currentItem.product.id !== id)
                 )
@@ -122,6 +139,17 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
             if (emptyExitTimerRef.current) {
                 clearTimeout(emptyExitTimerRef.current)
             }
+            if (sectionResizeTimeoutRef.current) {
+                clearTimeout(sectionResizeTimeoutRef.current)
+                sectionResizeTimeoutRef.current = null
+            }
+            const currentSection = productsSectionRef.current
+            if (currentSection) {
+                currentSection.style.removeProperty('height')
+                currentSection.style.removeProperty('overflow')
+                currentSection.style.removeProperty('transition')
+                currentSection.style.removeProperty('will-change')
+            }
         }
     }, [])
 
@@ -132,6 +160,7 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
         const previousRects = previousCardRectsRef.current
         const nextRects = new Map()
         const shouldAnimatePersistentCards = pendingFilterTransitionRef.current
+        const shouldAnimateSectionResize = shouldAnimateSectionResizeRef.current
 
         visibleProducts.forEach((item, index) => {
             if (item.isExiting) return
@@ -191,8 +220,62 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
             )
         })
 
+        const currentSection = productsSectionRef.current
+        const clearSectionResizeStyles = () => {
+            if (!currentSection) return
+            currentSection.style.removeProperty('height')
+            currentSection.style.removeProperty('overflow')
+            currentSection.style.removeProperty('transition')
+            currentSection.style.removeProperty('will-change')
+        }
+
+        if (
+            currentSection &&
+            shouldAnimateSectionResize &&
+            !prefersReducedMotion
+        ) {
+            const previousSectionHeight = previousSectionHeightRef.current
+            const nextSectionHeight = currentSection.getBoundingClientRect().height
+            const hasMeaningfulHeightChange =
+                typeof previousSectionHeight === 'number' &&
+                Math.abs(previousSectionHeight - nextSectionHeight) >= 1
+
+            if (hasMeaningfulHeightChange) {
+                if (sectionResizeTimeoutRef.current) {
+                    clearTimeout(sectionResizeTimeoutRef.current)
+                    sectionResizeTimeoutRef.current = null
+                }
+
+                currentSection.style.height = `${previousSectionHeight}px`
+                currentSection.style.overflow = 'hidden'
+                currentSection.style.willChange = 'height'
+                void currentSection.offsetHeight
+                currentSection.style.transition = `height ${PRODUCTS_RESIZE_ANIMATION_MS}ms cubic-bezier(0.2, 0.75, 0.2, 1)`
+                currentSection.style.height = `${nextSectionHeight}px`
+
+                sectionResizeTimeoutRef.current = setTimeout(() => {
+                    const sectionToCleanup = productsSectionRef.current
+                    if (!sectionToCleanup) return
+                    sectionToCleanup.style.removeProperty('height')
+                    sectionToCleanup.style.removeProperty('overflow')
+                    sectionToCleanup.style.removeProperty('transition')
+                    sectionToCleanup.style.removeProperty('will-change')
+                    sectionResizeTimeoutRef.current = null
+                }, PRODUCTS_RESIZE_ANIMATION_MS)
+            } else {
+                clearSectionResizeStyles()
+            }
+        } else {
+            clearSectionResizeStyles()
+        }
+
+        if (currentSection) {
+            previousSectionHeightRef.current = currentSection.getBoundingClientRect().height
+        }
+
         previousCardRectsRef.current = nextRects
         pendingFilterTransitionRef.current = false
+        shouldAnimateSectionResizeRef.current = false
     }, [visibleProducts])
 
     const shouldShowEmptyState = products.length === 0 && visibleProducts.length === 0
@@ -220,7 +303,11 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
 
     if (isEmptyMounted) {
         return (
-            <section className="products products--empty" aria-label="Products">
+            <section
+                ref={productsSectionRef}
+                className="products products--empty"
+                aria-label="Products"
+            >
                 <div
                     className={`products-empty-state ${isEmptyExiting ? 'is-exiting' : ''}`}
                     role="status"
@@ -325,7 +412,7 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
     })
 
     return (
-        <section className="products" aria-label="Products">
+        <section ref={productsSectionRef} className="products" aria-label="Products">
             <ul className="products-grid">
                 {productCards}
             </ul>
