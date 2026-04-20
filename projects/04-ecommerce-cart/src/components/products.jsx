@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import './products.css'
 import { CartIcon, FilterIcon } from './icons'
 import { useFilters } from '../hooks/useFilters'
 
 const PRODUCT_EXIT_ANIMATION_MS = 220
 const EMPTY_STATE_ANIMATION_MS = 220
+const PRODUCT_FLIP_ANIMATION_MS = 280
+const PRODUCT_PERSISTENT_REVEAL_MS = 220
 
 const priceFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -33,11 +35,16 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
         products.map(toVisibleProduct)
     )
     const exitTimersRef = useRef(new Map())
+    const cardElementsRef = useRef(new Map())
+    const previousCardRectsRef = useRef(new Map())
+    const pendingFilterTransitionRef = useRef(false)
     const emptyExitTimerRef = useRef(null)
     const [isEmptyMounted, setIsEmptyMounted] = useState(() => products.length === 0)
     const [isEmptyExiting, setIsEmptyExiting] = useState(false)
 
     useEffect(() => {
+        pendingFilterTransitionRef.current = true
+
         setVisibleProducts((previous) => {
             const nextProductsById = new Map(products.map((product) => [product.id, product]))
             const previousById = new Map(
@@ -118,6 +125,76 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
         }
     }, [])
 
+    useLayoutEffect(() => {
+        if (typeof window === 'undefined') return
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        const previousRects = previousCardRectsRef.current
+        const nextRects = new Map()
+        const shouldAnimatePersistentCards = pendingFilterTransitionRef.current
+
+        visibleProducts.forEach((item, index) => {
+            if (item.isExiting) return
+
+            const id = item.product.id
+            const element = cardElementsRef.current.get(id)
+            if (!element) return
+
+            const nextRect = element.getBoundingClientRect()
+            nextRects.set(id, nextRect)
+
+            if (prefersReducedMotion) return
+
+            const previousRect = previousRects.get(id)
+            const animatePersistentReveal = () => {
+                element.animate(
+                    [
+                        { opacity: 0.76, transform: 'translateY(8px)' },
+                        { opacity: 1, transform: 'translateY(0)' }
+                    ],
+                    {
+                        duration: PRODUCT_PERSISTENT_REVEAL_MS,
+                        delay: Math.min(index * 24, 140),
+                        easing: 'cubic-bezier(0.2, 0.75, 0.2, 1)'
+                    }
+                )
+            }
+
+            if (!previousRect) {
+                if (shouldAnimatePersistentCards) {
+                    animatePersistentReveal()
+                }
+                return
+            }
+
+            const deltaX = previousRect.left - nextRect.left
+            const deltaY = previousRect.top - nextRect.top
+
+            const hasMeaningfulMove = Math.abs(deltaX) >= 0.5 || Math.abs(deltaY) >= 0.5
+
+            if (!hasMeaningfulMove) {
+                if (shouldAnimatePersistentCards) {
+                    animatePersistentReveal()
+                }
+                return
+            }
+
+            element.animate(
+                [
+                    { transform: `translate(${deltaX}px, ${deltaY}px)` },
+                    { transform: 'translate(0, 0)' }
+                ],
+                {
+                    duration: PRODUCT_FLIP_ANIMATION_MS,
+                    easing: 'cubic-bezier(0.2, 0.75, 0.2, 1)'
+                }
+            )
+        })
+
+        previousCardRectsRef.current = nextRects
+        pendingFilterTransitionRef.current = false
+    }, [visibleProducts])
+
     const shouldShowEmptyState = products.length === 0 && visibleProducts.length === 0
 
     useEffect(() => {
@@ -187,6 +264,15 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
         return (
             <li
                 key={product.id}
+                ref={(node) => {
+                    if (node) {
+                        cardElementsRef.current.set(product.id, node)
+                        return
+                    }
+
+                    cardElementsRef.current.delete(product.id)
+                    previousCardRectsRef.current.delete(product.id)
+                }}
                 className={`product-card ${isExiting ? 'is-exiting' : ''}`}
                 style={{ '--product-enter-delay': `${cardEnterDelayMs}ms` }}
             >
