@@ -4,6 +4,7 @@ import { CartIcon, FilterIcon } from './icons'
 import { useFilters } from '../hooks/useFilters'
 
 const PRODUCT_EXIT_ANIMATION_MS = 220
+const EMPTY_STATE_ANIMATION_MS = 220
 
 const priceFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -32,6 +33,9 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
         products.map(toVisibleProduct)
     )
     const exitTimersRef = useRef(new Map())
+    const emptyExitTimerRef = useRef(null)
+    const [isEmptyMounted, setIsEmptyMounted] = useState(() => products.length === 0)
+    const [isEmptyExiting, setIsEmptyExiting] = useState(false)
 
     useEffect(() => {
         setVisibleProducts((previous) => {
@@ -108,15 +112,43 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
         return () => {
             exitTimersRef.current.forEach((timeoutId) => clearTimeout(timeoutId))
             exitTimersRef.current.clear()
+            if (emptyExitTimerRef.current) {
+                clearTimeout(emptyExitTimerRef.current)
+            }
         }
     }, [])
 
     const shouldShowEmptyState = products.length === 0 && visibleProducts.length === 0
 
-    if (shouldShowEmptyState) {
+    useEffect(() => {
+        if (shouldShowEmptyState) {
+            if (emptyExitTimerRef.current) {
+                clearTimeout(emptyExitTimerRef.current)
+                emptyExitTimerRef.current = null
+            }
+            setIsEmptyMounted(true)
+            setIsEmptyExiting(false)
+            return
+        }
+
+        if (!isEmptyMounted || isEmptyExiting) return
+
+        setIsEmptyExiting(true)
+        emptyExitTimerRef.current = setTimeout(() => {
+            setIsEmptyMounted(false)
+            setIsEmptyExiting(false)
+            emptyExitTimerRef.current = null
+        }, EMPTY_STATE_ANIMATION_MS)
+    }, [shouldShowEmptyState, isEmptyMounted, isEmptyExiting])
+
+    if (isEmptyMounted) {
         return (
             <section className="products products--empty" aria-label="Products">
-                <div className="products-empty-state" role="status" aria-live="polite">
+                <div
+                    className={`products-empty-state ${isEmptyExiting ? 'is-exiting' : ''}`}
+                    role="status"
+                    aria-live="polite"
+                >
                     <div className="products-empty-icon" aria-hidden="true">
                         <FilterIcon size={28} />
                     </div>
