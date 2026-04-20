@@ -26,9 +26,9 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
                     <div className="products-empty-icon" aria-hidden="true">
                         <FilterIcon size={28} />
                     </div>
-                    <p className="products-empty-title">No products found</p>
+                    <p className="products-empty-title">No products match current filters</p>
                     <p className="products-empty-text">
-                        Try widening your price range or changing category filters.
+                        Try widening your price range or choosing a different category.
                     </p>
                     {hasActiveFilters && (
                         <button
