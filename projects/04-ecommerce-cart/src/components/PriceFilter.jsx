@@ -1,5 +1,7 @@
 import { useId } from 'react'
 
+const RANGE_STEP_IN_CENTS = 1000
+
 function PriceFilter({
   minValue,
   maxValue,
@@ -10,6 +12,11 @@ function PriceFilter({
 }) {
   const minPriceId = useId()
   const maxPriceId = useId()
+  const sliderMaxInCents =
+    Math.ceil(absoluteMaxPriceInCents / RANGE_STEP_IN_CENTS) * RANGE_STEP_IN_CENTS
+  const displayedMaxValue =
+    maxValue >= absoluteMaxPriceInCents ? sliderMaxInCents : maxValue
+  const safeMaxValue = Math.max(displayedMaxValue, minValue)
 
   return (
     <div className="price-filters">
@@ -22,8 +29,8 @@ function PriceFilter({
           id={minPriceId}
           type="range"
           min="0"
-          max={absoluteMaxPriceInCents}
-          step="500"
+          max={sliderMaxInCents}
+          step={RANGE_STEP_IN_CENTS}
           value={minValue}
           onChange={onMinChange}
         />
@@ -32,15 +39,15 @@ function PriceFilter({
       <label className="filter-field" htmlFor={maxPriceId}>
         <span>
           Max Price
-          <strong>{formatPrice(maxValue)}</strong>
+          <strong>{formatPrice(safeMaxValue)}</strong>
         </span>
         <input
           id={maxPriceId}
           type="range"
           min={minValue}
-          max={absoluteMaxPriceInCents}
-          step="500"
-          value={maxValue}
+          max={sliderMaxInCents}
+          step={RANGE_STEP_IN_CENTS}
+          value={safeMaxValue}
           onChange={onMaxChange}
         />
       </label>

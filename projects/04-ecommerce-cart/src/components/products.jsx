@@ -1,5 +1,6 @@
 import './products.css'
-import { CartIcon } from './icons'
+import { CartIcon, FilterIcon } from './icons'
+import { useFilters } from '../hooks/useFilters'
 
 const priceFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -16,8 +17,31 @@ function getInCartQuantity(cartItems, productId) {
 }
 
 function Products({ products, cartItems = [], onAddToCart = () => {} }) {
+    const { resetFilters, hasActiveFilters } = useFilters()
+
     if (!products.length) {
-        return <p className="products-empty">No products match current filters.</p>
+        return (
+            <section className="products products--empty" aria-label="Products">
+                <div className="products-empty-state" role="status" aria-live="polite">
+                    <div className="products-empty-icon" aria-hidden="true">
+                        <FilterIcon size={28} />
+                    </div>
+                    <p className="products-empty-title">No products found</p>
+                    <p className="products-empty-text">
+                        Try widening your price range or changing category filters.
+                    </p>
+                    {hasActiveFilters && (
+                        <button
+                            className="products-empty-reset"
+                            type="button"
+                            onClick={resetFilters}
+                        >
+                            Reset filters
+                        </button>
+                    )}
+                </div>
+            </section>
+        )
     }
 
     return (
