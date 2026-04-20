@@ -75,15 +75,9 @@ function Filters({
         />
       </div>
 
-      {filteredCount ? (
-        <p className="filters-note">
-          Showing {filteredCount} of {totalCount} products
-        </p>
-      ) : (
-        <p className="filters-note filters-note--empty">
-          No products match current filters. Reset to see all products.
-        </p>
-      )}
+      <p className="filters-note">
+        Showing {filteredCount} of {totalCount} products
+      </p>
     </section>
   )
 }
