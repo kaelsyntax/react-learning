@@ -155,3 +155,17 @@
   cursor: not-allowed;
   transform: none;
 }
+
+@media (max-width: 359px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+}
+
+@media (min-width: 360px) and (max-width: 760px) {
+  .products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-sm);
+  }
+}
