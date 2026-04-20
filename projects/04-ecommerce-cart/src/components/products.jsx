@@ -47,15 +47,20 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
     return (
         <section className="products" aria-label="Products">
             <ul className="products-grid">
-                {products.map((product) => {
+                {products.map((product, index) => {
                     const inCartQuantity = getInCartQuantity(cartItems, product.id)
                     const remainingStock = Math.max(product.stock - inCartQuantity, 0)
                     const isAtStockLimit = remainingStock === 0
                     const isOutOfStock = product.stock === 0
                     const needsTightImageCrop = [1, 3, 4, 12, 16].includes(product.id)
+                    const cardEnterDelayMs = Math.min(index * 45, 280)
 
                     return (
-                        <li key={product.id} className="product-card">
+                        <li
+                            key={product.id}
+                            className="product-card"
+                            style={{ '--product-enter-delay': `${cardEnterDelayMs}ms` }}
+                        >
                             <img
                                 className={`product-image ${needsTightImageCrop ? 'product-image--tight-crop' : ''}`}
                                 src={product.image}

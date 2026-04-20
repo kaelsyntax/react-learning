@@ -16,6 +16,8 @@
   --products-meta-gap: var(--space-sm);
   --products-button-min-height: 40px;
   --products-button-radius: var(--radius-md);
+  --products-card-enter-duration: 340ms;
+  --products-card-enter-easing: cubic-bezier(0.2, 0.75, 0.2, 1);
   --products-empty-glow: rgba(59, 130, 246, 0.14);
   --products-empty-border: rgba(148, 163, 184, 0.14);
   --products-empty-surface: rgba(15, 23, 42, 0.34);
@@ -130,6 +132,11 @@
   overflow: hidden;
   display: grid;
   grid-template-rows: auto 1fr auto;
+  opacity: 0;
+  transform: translateY(10px) scale(0.985);
+  animation:
+    products-card-enter var(--products-card-enter-duration) var(--products-card-enter-easing)
+    var(--product-enter-delay, 0ms) both;
 }
 
 .product-image {
@@ -257,5 +264,24 @@
   .products-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-sm);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-card {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+@keyframes products-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
