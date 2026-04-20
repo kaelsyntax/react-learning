@@ -17,7 +17,7 @@
         "category":  "keyboards",
         "stock":  7,
         "description":  "High-end mechanical gaming keyboard with aluminum frame, RGB lighting, and fast response switches.",
-        "image":  "/images/products/k70-rgb-pro-corsair.avif"
+        "image":  "/images/products/k70-rgb-pro-corsair.webp"
     },
     {
         "id":  3,
@@ -67,7 +67,7 @@
         "category":  "mice",
         "stock":  8,
         "description":  "Lightweight ergonomic wireless gaming mouse built for speed, comfort, and high-end competitive play.",
-        "image":  "/images/products/deathadder-v3-pro-razer.png"
+        "image":  "/images/products/deathadder-v3-pro-razer.webp"
     },
     {
         "id":  8,
@@ -87,7 +87,7 @@
         "category":  "monitors",
         "stock":  10,
         "description":  "24-inch Full HD productivity monitor with IPS panel, 100Hz refresh rate, and office-friendly ergonomics.",
-        "image":  "/images/products/p2425h-dell.avif"
+        "image":  "/images/products/p2425h-dell.webp"
     },
     {
         "id":  10,
@@ -97,7 +97,7 @@
         "category":  "monitors",
         "stock":  7,
         "description":  "27-inch 4K USB-C monitor with IPS panel, integrated speakers, and a clean all-rounder setup focus.",
-        "image":  "/images/products/s2722qc-dell.avif"
+        "image":  "/images/products/s2722qc-dell.webp"
     },
     {
         "id":  11,
@@ -107,7 +107,7 @@
         "category":  "monitors",
         "stock":  6,
         "description":  "27-inch QHD gaming monitor with high refresh rate, IPS panel, and excellent color accuracy.",
-        "image":  "/images/products/vg27aq-asus.png"
+        "image":  "/images/products/vg27aq-asus.webp"
     },
     {
         "id":  12,
@@ -117,7 +117,7 @@
         "category":  "monitors",
         "stock":  4,
         "description":  "34-inch curved ultrawide monitor designed for immersive gaming and multitasking setups.",
-        "image":  "/images/products/odyssey-g5-34-samsung.avif"
+        "image":  "/images/products/odyssey-g5-34-samsung.webp"
     },
     {
         "id":  13,
@@ -127,7 +127,7 @@
         "category":  "audio",
         "stock":  8,
         "description":  "Wireless gaming headset with immersive sound, comfortable design, and clean RGB accents.",
-        "image":  "/images/products/hs80-rgb-wireless-corsair.avif"
+        "image":  "/images/products/hs80-rgb-wireless-corsair.webp"
     },
     {
         "id":  14,
@@ -137,7 +137,7 @@
         "category":  "audio",
         "stock":  10,
         "description":  "Premium wireless earbuds with active noise cancellation and seamless ecosystem integration.",
-        "image":  "/images/products/airpods-pro-2nd-gen-apple.png"
+        "image":  "/images/products/airpods-pro-2nd-gen-apple.webp"
     },
     {
         "id":  15,
@@ -160,3 +160,4 @@
         "image":  "/images/products/soundcore-motion-plus-anker.webp"
     }
 ]
+
