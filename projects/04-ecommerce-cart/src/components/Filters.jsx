@@ -19,8 +19,7 @@ function Filters({
   maxPriceInCents,
   filteredCount,
   totalCount,
-  formatCategoryLabel,
-  formatPrice
+  formatCategoryLabel
 }) {
   const {
     filters,
@@ -71,7 +70,6 @@ function Filters({
           absoluteMaxPriceInCents={maxPriceInCents}
           onMinChange={handleMinPriceChange}
           onMaxChange={handleMaxPriceChange}
-          formatPrice={formatPrice}
         />
       </div>
 

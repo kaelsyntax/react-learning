@@ -1,4 +1,5 @@
 import { CartIcon } from './icons'
+import { formatPrice } from '../utils/format-price'
 
 function ProductCard({
   product,
@@ -10,8 +11,7 @@ function ProductCard({
   isOutOfStock,
   inCartQuantity,
   remainingStock,
-  onAddToCart,
-  formatPrice
+  onAddToCart
 }) {
   return (
     <li

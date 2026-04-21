@@ -7,21 +7,12 @@ import { useFilters } from './hooks/useFilters'
 import { useFilteredProducts } from './hooks/useFilteredProducts'
 import { useCart } from './hooks/useCart'
 
-const priceFormatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD'
-})
-
 const categories = ['all', ...new Set(products.map((product) => product.category))]
 const maxPriceInCents = Math.max(...products.map((product) => product.priceInCents))
 
 function formatCategoryLabel(value) {
   if (value === 'all') return 'All'
   return value.charAt(0).toUpperCase() + value.slice(1)
-}
-
-function formatPrice(priceInCents) {
-  return priceFormatter.format(priceInCents / 100)
 }
 
 function App() {
@@ -44,7 +35,7 @@ function App() {
           </div>
         </header>
         
-        <CartPanel formatPrice={formatPrice} />
+        <CartPanel />
 
         <Filters
           categories={categories}
@@ -52,7 +43,6 @@ function App() {
           filteredCount={filteredProducts.length}
           totalCount={products.length}
           formatCategoryLabel={formatCategoryLabel}
-          formatPrice={formatPrice}
         />
 
         <Products

@@ -4,15 +4,6 @@ import { useProductsTransition } from '../hooks/useProductsTransition'
 import ProductCard from './ProductCard'
 import ProductsEmptyState from './ProductsEmptyState'
 
-const priceFormatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD'
-})
-
-function formatPrice(priceInCents) {
-  return priceFormatter.format(priceInCents / 100)
-}
-
 function getInCartQuantity(cartItems, productId) {
   const cartItem = cartItems.find((item) => item.id === productId)
   return cartItem ? cartItem.quantity : 0
@@ -71,7 +62,6 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
         inCartQuantity={inCartQuantity}
         remainingStock={remainingStock}
         onAddToCart={onAddToCart}
-        formatPrice={formatPrice}
       />
     )
   })
