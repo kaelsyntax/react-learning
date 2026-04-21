@@ -36,6 +36,14 @@
   --products-empty-reset-border-hover: rgba(147, 197, 253, 0.62);
   --products-empty-reset-text: var(--color-text-muted);
   --products-empty-reset-focus: rgba(147, 197, 253, 0.9);
+  --products-stepper-switch-duration: 240ms;
+  --products-stepper-switch-easing: cubic-bezier(0.22, 0.7, 0.2, 1);
+  --products-stepper-feedback-duration: 240ms;
+  --products-stepper-feedback-easing: cubic-bezier(0.22, 0.7, 0.2, 1);
+  --products-stepper-surface: linear-gradient(180deg, rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.68));
+  --products-stepper-surface-hover: rgba(37, 99, 235, 0.18);
+  --products-stepper-surface-disabled-hover: rgba(148, 163, 184, 0.12);
+  --products-stepper-blocked-accent: var(--color-danger-300);
   width: 100%;
 }
 
@@ -237,7 +245,9 @@
 }
 
 .product-stock.is-warning-pulse {
-  animation: product-stock-warning-pulse 240ms ease-out;
+  animation:
+    product-stock-warning-pulse var(--products-stepper-feedback-duration)
+    var(--products-stepper-feedback-easing);
 }
 
 .product-actions {
@@ -253,9 +263,9 @@
 .product-action-switcher > .product-quantity-stepper {
   grid-area: 1 / 1;
   transition:
-    opacity var(--transition-base),
-    transform var(--transition-base),
-    visibility var(--transition-base);
+    opacity var(--products-stepper-switch-duration) var(--products-stepper-switch-easing),
+    transform var(--products-stepper-switch-duration) var(--products-stepper-switch-easing),
+    visibility var(--products-stepper-switch-duration) var(--products-stepper-switch-easing);
 }
 
 .product-add-button {
@@ -275,9 +285,9 @@
   transition:
     background var(--transition-fast),
     border-color var(--transition-fast),
-    transform var(--transition-fast),
-    opacity var(--transition-base),
-    visibility var(--transition-base);
+    opacity var(--products-stepper-switch-duration) var(--products-stepper-switch-easing),
+    transform var(--products-stepper-switch-duration) var(--products-stepper-switch-easing),
+    visibility var(--products-stepper-switch-duration) var(--products-stepper-switch-easing);
 }
 
 .product-add-button.is-visible:hover {
@@ -316,10 +326,13 @@
   min-height: var(--products-button-min-height);
   border: 1px solid var(--products-add-border);
   border-radius: var(--products-button-radius);
-  background: rgba(15, 23, 42, 0.68);
+  background: var(--products-stepper-surface);
   display: grid;
   grid-template-columns: 38px 1fr 38px;
   overflow: hidden;
+  box-shadow:
+    inset 0 1px 0 rgba(191, 219, 254, 0.12),
+    0 10px 20px rgba(2, 6, 23, 0.22);
 }
 
 .product-quantity-stepper.is-hidden {
@@ -350,7 +363,7 @@
 }
 
 .product-stepper-button:hover {
-  background: rgba(37, 99, 235, 0.2);
+  background: var(--products-stepper-surface-hover);
 }
 
 .product-stepper-button:focus-visible {
@@ -369,19 +382,24 @@
 }
 
 .product-stepper-button.is-disabled:hover {
-  background: rgba(148, 163, 184, 0.12);
+  background: var(--products-stepper-surface-disabled-hover);
 }
 
 .product-stepper-button.is-pulsing svg {
-  animation: product-stepper-icon-bounce 200ms ease-out;
+  animation:
+    product-stepper-icon-bounce var(--products-stepper-feedback-duration)
+    var(--products-stepper-feedback-easing);
 }
 
 .product-stepper-button.is-blocked-pulse svg {
-  animation: product-stepper-icon-blocked 220ms ease-out;
+  animation:
+    product-stepper-icon-blocked var(--products-stepper-feedback-duration)
+    var(--products-stepper-feedback-easing);
 }
 
 .product-stepper-button.is-blocked-pulse {
-  color: var(--color-danger-300);
+  color: var(--products-stepper-blocked-accent);
+  background: rgba(248, 113, 113, 0.16);
 }
 
 .product-quantity-value {
@@ -396,15 +414,21 @@
 }
 
 .product-quantity-value.is-bump-up {
-  animation: product-stepper-quantity-up 220ms ease-out;
+  animation:
+    product-stepper-quantity-up var(--products-stepper-feedback-duration)
+    var(--products-stepper-feedback-easing);
 }
 
 .product-quantity-value.is-bump-down {
-  animation: product-stepper-quantity-down 220ms ease-out;
+  animation:
+    product-stepper-quantity-down var(--products-stepper-feedback-duration)
+    var(--products-stepper-feedback-easing);
 }
 
 .product-quantity-value.is-bump-blocked {
-  animation: product-stepper-quantity-blocked 240ms ease-out;
+  animation:
+    product-stepper-quantity-blocked var(--products-stepper-feedback-duration)
+    var(--products-stepper-feedback-easing);
 }
 
 @media (max-width: 359px) {
@@ -496,8 +520,8 @@
   0% {
     transform: scale(1);
   }
-  45% {
-    transform: scale(1.16);
+  52% {
+    transform: scale(1.14);
   }
   100% {
     transform: scale(1);
@@ -508,11 +532,14 @@
   0% {
     transform: translateX(0);
   }
-  35% {
+  30% {
     transform: translateX(2px);
   }
-  70% {
+  60% {
     transform: translateX(-2px);
+  }
+  82% {
+    transform: translateX(1px);
   }
   100% {
     transform: translateX(0);
@@ -523,7 +550,7 @@
   0% {
     transform: translateY(0);
   }
-  40% {
+  45% {
     transform: translateY(-3px);
   }
   100% {
@@ -535,7 +562,7 @@
   0% {
     transform: translateY(0);
   }
-  40% {
+  45% {
     transform: translateY(3px);
   }
   100% {
@@ -547,7 +574,7 @@
   0% {
     transform: scale(1);
   }
-  40% {
+  45% {
     transform: scale(0.94);
   }
   100% {
