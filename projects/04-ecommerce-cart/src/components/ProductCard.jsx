@@ -3,6 +3,7 @@ import { AddIcon, CartIcon, RemoveIcon } from './icons'
 import { formatPrice } from '../utils/format-price'
 
 const STOCK_NOTICE_MS = 1400
+const STEPPER_FEEDBACK_MS = 220
 
 function ProductCard({
   product,
@@ -18,7 +19,9 @@ function ProductCard({
   onDecreaseQuantity
 }) {
   const [stockNotice, setStockNotice] = useState('')
+  const [stepperFeedback, setStepperFeedback] = useState('')
   const noticeTimerRef = useRef(null)
+  const feedbackTimerRef = useRef(null)
   const canIncreaseQuantity = !isOutOfStock && !isAtStockLimit
   const shouldShowQuantityStepper = isOutOfStock || inCartQuantity > 0
 
@@ -27,8 +30,23 @@ function ProductCard({
       if (noticeTimerRef.current) {
         clearTimeout(noticeTimerRef.current)
       }
+      if (feedbackTimerRef.current) {
+        clearTimeout(feedbackTimerRef.current)
+      }
     }
   }, [])
+
+  function triggerStepperFeedback(type) {
+    if (feedbackTimerRef.current) {
+      clearTimeout(feedbackTimerRef.current)
+    }
+
+    setStepperFeedback(type)
+    feedbackTimerRef.current = setTimeout(() => {
+      setStepperFeedback('')
+      feedbackTimerRef.current = null
+    }, STEPPER_FEEDBACK_MS)
+  }
 
   function showStockNotice(message) {
     if (noticeTimerRef.current) {
@@ -44,10 +62,12 @@ function ProductCard({
 
   function handleIncrease() {
     if (!canIncreaseQuantity) {
+      triggerStepperFeedback('blocked-plus')
       showStockNotice(isOutOfStock ? 'Out of stock' : 'No more stock available')
       return
     }
 
+    triggerStepperFeedback('plus')
     setStockNotice('')
     onIncreaseQuantity(product)
   }
@@ -55,6 +75,7 @@ function ProductCard({
   function handleDecrease() {
     if (inCartQuantity === 0) return
 
+    triggerStepperFeedback('minus')
     setStockNotice('')
     onDecreaseQuantity(product.id)
   }
@@ -94,7 +115,7 @@ function ProductCard({
         {shouldShowQuantityStepper ? (
           <div className="product-quantity-stepper" role="group" aria-label={`Quantity controls for ${product.title}`}>
             <button
-              className="product-stepper-button product-stepper-button--minus"
+              className={`product-stepper-button product-stepper-button--minus ${stepperFeedback === 'minus' ? 'is-pulsing' : ''}`}
               type="button"
               onClick={handleDecrease}
               disabled={inCartQuantity === 0}
@@ -103,12 +124,15 @@ function ProductCard({
               <RemoveIcon size={14} aria-hidden="true" />
             </button>
 
-            <span className="product-quantity-value" aria-live="polite">
+            <span
+              className={`product-quantity-value ${stepperFeedback === 'plus' ? 'is-bump-up' : ''} ${stepperFeedback === 'minus' ? 'is-bump-down' : ''}`}
+              aria-live="polite"
+            >
               {inCartQuantity}
             </span>
 
             <button
-              className={`product-stepper-button product-stepper-button--plus ${canIncreaseQuantity ? '' : 'is-disabled'}`}
+              className={`product-stepper-button product-stepper-button--plus ${canIncreaseQuantity ? '' : 'is-disabled'} ${stepperFeedback === 'plus' ? 'is-pulsing' : ''} ${stepperFeedback === 'blocked-plus' ? 'is-blocked-pulse' : ''}`}
               type="button"
               onClick={handleIncrease}
               aria-disabled={!canIncreaseQuantity}
