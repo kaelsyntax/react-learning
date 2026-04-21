@@ -5,72 +5,74 @@ import ProductCard from './ProductCard'
 import ProductsEmptyState from './ProductsEmptyState'
 
 function getInCartQuantity(cartItems, productId) {
-  const cartItem = cartItems.find((item) => item.id === productId)
-  return cartItem ? cartItem.quantity : 0
+    const cartItem = cartItems.find((item) => item.id === productId)
+    return cartItem ? cartItem.quantity : 0
 }
 
 function Products({ products, cartItems = [], onAddToCart = () => {} }) {
-  const { resetFilters, hasActiveFilters } = useFilters()
-  const {
-    visibleProducts,
-    productsSectionRef,
-    isEmptyMounted,
-    isEmptyExiting,
-    setProductCardElement
-  } = useProductsTransition(products)
+    const { resetFilters, hasActiveFilters } = useFilters()
+    const {
+        visibleProducts,
+        productsSectionRef,
+        isEmptyMounted,
+        isEmptyExiting,
+        setProductCardElement
+    } = useProductsTransition(products)
 
-  if (isEmptyMounted) {
-    return (
-      <section
-        ref={productsSectionRef}
-        className="products products--empty"
-        aria-label="Products"
-      >
-        <ProductsEmptyState
-          isExiting={isEmptyExiting}
-          hasActiveFilters={hasActiveFilters}
-          onResetFilters={resetFilters}
-        />
-      </section>
-    )
-  }
-
-  let enterSequence = 0
-  const productCards = visibleProducts.map((item) => {
-    const { product, isExiting } = item
-    const inCartQuantity = getInCartQuantity(cartItems, product.id)
-    const remainingStock = Math.max(product.stock - inCartQuantity, 0)
-    const isAtStockLimit = remainingStock === 0
-    const isOutOfStock = product.stock === 0
-    const needsTightImageCrop = [1, 3, 4, 12, 16].includes(product.id)
-    const cardEnterDelayMs = isExiting ? 0 : Math.min(enterSequence * 45, 280)
-
-    if (!isExiting) {
-      enterSequence += 1
+    if (isEmptyMounted) {
+        return (
+        <section
+            ref={productsSectionRef}
+            className="products products--empty"
+            aria-label="Products"
+        >
+            <ProductsEmptyState
+            isExiting={isEmptyExiting}
+            hasActiveFilters={hasActiveFilters}
+            onResetFilters={resetFilters}
+            />
+        </section>
+        )
     }
 
-    return (
-      <ProductCard
-        key={product.id}
-        product={product}
-        isExiting={isExiting}
-        cardRef={(node) => setProductCardElement(product.id, node)}
-        cardEnterDelayMs={cardEnterDelayMs}
-        needsTightImageCrop={needsTightImageCrop}
-        isAtStockLimit={isAtStockLimit}
-        isOutOfStock={isOutOfStock}
-        inCartQuantity={inCartQuantity}
-        remainingStock={remainingStock}
-        onAddToCart={onAddToCart}
-      />
+    const enterOrderByProductId = new Map(
+        visibleProducts
+        .filter((item) => !item.isExiting)
+        .map((item, index) => [item.product.id, index])
     )
-  })
 
-  return (
-    <section ref={productsSectionRef} className="products" aria-label="Products">
-      <ul className="products-grid">{productCards}</ul>
-    </section>
-  )
+    const productCards = visibleProducts.map((item) => {
+        const { product, isExiting } = item
+        const inCartQuantity = getInCartQuantity(cartItems, product.id)
+        const remainingStock = Math.max(product.stock - inCartQuantity, 0)
+        const isAtStockLimit = remainingStock === 0
+        const isOutOfStock = product.stock === 0
+        const needsTightImageCrop = [1, 3, 4, 12, 16].includes(product.id)
+        const enterSequence = enterOrderByProductId.get(product.id) ?? 0
+        const cardEnterDelayMs = isExiting ? 0 : Math.min(enterSequence * 45, 280)
+
+        return (
+        <ProductCard
+            key={product.id}
+            product={product}
+            isExiting={isExiting}
+            cardRef={(node) => setProductCardElement(product.id, node)}
+            cardEnterDelayMs={cardEnterDelayMs}
+            needsTightImageCrop={needsTightImageCrop}
+            isAtStockLimit={isAtStockLimit}
+            isOutOfStock={isOutOfStock}
+            inCartQuantity={inCartQuantity}
+            remainingStock={remainingStock}
+            onAddToCart={onAddToCart}
+        />
+        )
+    })
+
+    return (
+        <section ref={productsSectionRef} className="products" aria-label="Products">
+        <ul className="products-grid">{productCards}</ul>
+        </section>
+    )
 }
 
 export default Products
