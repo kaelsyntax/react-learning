@@ -346,18 +346,33 @@
 .product-stepper-button {
   border: 0;
   background: transparent;
-  color: var(--color-text-muted);
+  color: var(--color-text-primary);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition:
     background var(--transition-fast),
-    color var(--transition-fast);
+    color var(--transition-fast),
+    opacity var(--transition-fast);
 }
 
-.product-stepper-button:hover {
-  background: var(--products-stepper-surface-hover);
+.product-stepper-button--minus {
+  color: var(--color-text-primary);
+}
+
+.product-stepper-button--plus {
+  color: var(--color-accent-200);
+}
+
+.product-stepper-button--minus:not(:disabled):not(.is-disabled):hover {
+  background: rgba(59, 130, 246, 0.12);
+  color: var(--color-text-primary);
+}
+
+.product-stepper-button--plus:not(:disabled):not(.is-disabled):hover {
+  background: rgba(37, 99, 235, 0.24);
+  color: var(--color-text-primary);
 }
 
 .product-stepper-button:focus-visible {
@@ -366,20 +381,25 @@
 }
 
 .product-stepper-button:disabled {
-  opacity: 0.4;
+  opacity: 0.42;
+  color: var(--color-text-soft);
   cursor: not-allowed;
+  background: rgba(15, 23, 42, 0.28);
 }
 
 .product-stepper-button.is-disabled {
-  opacity: 0.4;
+  opacity: 0.42;
   color: var(--color-text-soft);
+  cursor: not-allowed;
+  background: rgba(15, 23, 42, 0.28);
 }
 
+.product-stepper-button:disabled:hover,
 .product-stepper-button.is-disabled:hover {
   background: var(--products-stepper-surface-disabled-hover);
 }
 
-.product-stepper-button:not(.is-disabled):hover {
+.product-stepper-button:not(:disabled):not(.is-disabled):hover {
   color: var(--color-text-primary);
 }
 
