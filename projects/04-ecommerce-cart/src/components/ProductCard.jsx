@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { AddIcon, CartIcon, RemoveIcon } from './icons'
 import { formatPrice } from '../utils/format-price'
 
-const STOCK_NOTICE_MS = 1400
 const STEPPER_FEEDBACK_MS = 220
 const STEPPER_AUTO_COLLAPSE_MS = 2000
 
@@ -19,11 +18,9 @@ function ProductCard({
   onIncreaseQuantity,
   onDecreaseQuantity
 }) {
-  const [stockNotice, setStockNotice] = useState('')
   const [stepperFeedback, setStepperFeedback] = useState('')
   const [isStepperCollapsed, setIsStepperCollapsed] = useState(false)
   const [stepperInteractionToken, setStepperInteractionToken] = useState(0)
-  const noticeTimerRef = useRef(null)
   const feedbackTimerRef = useRef(null)
   const canIncreaseQuantity = !isOutOfStock && !isAtStockLimit
   const canShowQuantityStepper = isOutOfStock || inCartQuantity > 0
@@ -31,9 +28,6 @@ function ProductCard({
 
   useEffect(() => {
     return () => {
-      if (noticeTimerRef.current) {
-        clearTimeout(noticeTimerRef.current)
-      }
       if (feedbackTimerRef.current) {
         clearTimeout(feedbackTimerRef.current)
       }
@@ -79,29 +73,15 @@ function ProductCard({
     }, STEPPER_FEEDBACK_MS)
   }
 
-  function showStockNotice(message) {
-    if (noticeTimerRef.current) {
-      clearTimeout(noticeTimerRef.current)
-    }
-
-    setStockNotice(message)
-    noticeTimerRef.current = setTimeout(() => {
-      setStockNotice('')
-      noticeTimerRef.current = null
-    }, STOCK_NOTICE_MS)
-  }
-
   function handleIncrease() {
     markStepperInteraction()
 
     if (!canIncreaseQuantity) {
       triggerStepperFeedback('blocked-plus')
-      showStockNotice(isOutOfStock ? 'Out of stock' : 'No more stock available')
       return
     }
 
     triggerStepperFeedback('plus')
-    setStockNotice('')
     onIncreaseQuantity(product)
   }
 
@@ -111,7 +91,6 @@ function ProductCard({
     if (inCartQuantity === 0) return
 
     triggerStepperFeedback('minus')
-    setStockNotice('')
     onDecreaseQuantity(product.id)
   }
 
@@ -137,7 +116,7 @@ function ProductCard({
 
       <div className="product-meta">
         <strong className="product-price">{formatPrice(product.priceInCents)}</strong>
-        <span className="product-stock">
+        <span className={`product-stock ${stepperFeedback === 'blocked-plus' ? 'is-warning-pulse' : ''}`}>
           {isOutOfStock
             ? 'No stock available'
             : inCartQuantity > 0
@@ -177,7 +156,7 @@ function ProductCard({
             </button>
 
             <span
-              className={`product-quantity-value ${stepperFeedback === 'plus' ? 'is-bump-up' : ''} ${stepperFeedback === 'minus' ? 'is-bump-down' : ''}`}
+              className={`product-quantity-value ${stepperFeedback === 'plus' ? 'is-bump-up' : ''} ${stepperFeedback === 'minus' ? 'is-bump-down' : ''} ${stepperFeedback === 'blocked-plus' ? 'is-bump-blocked' : ''}`}
               aria-live="polite"
             >
               {inCartQuantity}
@@ -196,10 +175,6 @@ function ProductCard({
             </button>
           </div>
         </div>
-
-        <p className={`product-stock-notice ${stockNotice ? 'is-visible' : ''}`} aria-live="polite">
-          {stockNotice}
-        </p>
       </div>
     </li>
   )
