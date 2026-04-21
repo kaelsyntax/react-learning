@@ -4,6 +4,7 @@ import { formatPrice } from '../utils/format-price'
 
 const STOCK_NOTICE_MS = 1400
 const STEPPER_FEEDBACK_MS = 220
+const STEPPER_AUTO_COLLAPSE_MS = 2000
 
 function ProductCard({
   product,
@@ -20,10 +21,13 @@ function ProductCard({
 }) {
   const [stockNotice, setStockNotice] = useState('')
   const [stepperFeedback, setStepperFeedback] = useState('')
+  const [isStepperCollapsed, setIsStepperCollapsed] = useState(false)
+  const [stepperInteractionToken, setStepperInteractionToken] = useState(0)
   const noticeTimerRef = useRef(null)
   const feedbackTimerRef = useRef(null)
   const canIncreaseQuantity = !isOutOfStock && !isAtStockLimit
-  const shouldShowQuantityStepper = isOutOfStock || inCartQuantity > 0
+  const canShowQuantityStepper = isOutOfStock || inCartQuantity > 0
+  const shouldShowQuantityStepper = canShowQuantityStepper && !isStepperCollapsed
 
   useEffect(() => {
     return () => {
@@ -35,6 +39,33 @@ function ProductCard({
       }
     }
   }, [])
+
+  useEffect(() => {
+    if (isOutOfStock) {
+      setIsStepperCollapsed(false)
+      return
+    }
+
+    if (inCartQuantity === 0) {
+      setIsStepperCollapsed(false)
+    }
+  }, [inCartQuantity, isOutOfStock])
+
+  useEffect(() => {
+    const shouldAutoCollapse = inCartQuantity > 0 && !isOutOfStock && !isStepperCollapsed
+    if (!shouldAutoCollapse) return undefined
+
+    const timeoutId = setTimeout(() => {
+      setIsStepperCollapsed(true)
+    }, STEPPER_AUTO_COLLAPSE_MS)
+
+    return () => clearTimeout(timeoutId)
+  }, [inCartQuantity, isOutOfStock, isStepperCollapsed, stepperInteractionToken])
+
+  function markStepperInteraction() {
+    setIsStepperCollapsed(false)
+    setStepperInteractionToken((current) => current + 1)
+  }
 
   function triggerStepperFeedback(type) {
     if (feedbackTimerRef.current) {
@@ -61,6 +92,8 @@ function ProductCard({
   }
 
   function handleIncrease() {
+    markStepperInteraction()
+
     if (!canIncreaseQuantity) {
       triggerStepperFeedback('blocked-plus')
       showStockNotice(isOutOfStock ? 'Out of stock' : 'No more stock available')
@@ -73,6 +106,8 @@ function ProductCard({
   }
 
   function handleDecrease() {
+    markStepperInteraction()
+
     if (inCartQuantity === 0) return
 
     triggerStepperFeedback('minus')
@@ -117,7 +152,7 @@ function ProductCard({
             className={`product-add-button ${shouldShowQuantityStepper ? 'is-hidden' : 'is-visible'}`}
             type="button"
             onClick={handleIncrease}
-            aria-hidden={shouldShowQuantityStepper}
+            aria-hidden={canShowQuantityStepper && shouldShowQuantityStepper}
             tabIndex={shouldShowQuantityStepper ? -1 : 0}
           >
             <CartIcon size={16} aria-hidden="true" />
