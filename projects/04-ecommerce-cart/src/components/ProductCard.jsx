@@ -116,7 +116,7 @@ function ProductCard({
 
       <div className="product-meta">
         <strong className="product-price">{formatPrice(product.priceInCents)}</strong>
-        <span className={`product-stock ${stepperFeedback === 'blocked-plus' ? 'is-warning-pulse' : ''}`}>
+        <span className="product-stock">
           {isOutOfStock
             ? 'No stock available'
             : inCartQuantity > 0
@@ -156,10 +156,12 @@ function ProductCard({
             </button>
 
             <span
-              className={`product-quantity-value ${stepperFeedback === 'plus' ? 'is-bump-up' : ''} ${stepperFeedback === 'minus' ? 'is-bump-down' : ''} ${stepperFeedback === 'blocked-plus' ? 'is-bump-blocked' : ''}`}
+              className={`product-quantity-value ${stepperFeedback === 'plus' ? 'is-bump-up' : ''} ${stepperFeedback === 'minus' ? 'is-bump-down' : ''}`}
               aria-live="polite"
             >
-              {inCartQuantity}
+              <span className={`product-quantity-text ${stepperFeedback === 'blocked-plus' ? 'is-blocked' : ''}`}>
+                {inCartQuantity}
+              </span>
             </span>
 
             <button
