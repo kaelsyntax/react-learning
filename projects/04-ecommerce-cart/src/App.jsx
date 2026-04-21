@@ -17,7 +17,7 @@ function formatCategoryLabel(value) {
 
 function App() {
   const { filters } = useFilters()
-  const { addToCart, cartItems } = useCart()
+  const { addToCart, decreaseQuantity, cartItems } = useCart()
   const filteredProducts = useFilteredProducts(products, filters)
 
   return (
@@ -48,7 +48,8 @@ function App() {
         <Products
           products={filteredProducts}
           cartItems={cartItems}
-          onAddToCart={addToCart}
+          onIncreaseQuantity={addToCart}
+          onDecreaseQuantity={decreaseQuantity}
         />
       </section>
     </main>

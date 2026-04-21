@@ -5,11 +5,16 @@ import ProductCard from './ProductCard'
 import ProductsEmptyState from './ProductsEmptyState'
 
 function getInCartQuantity(cartItems, productId) {
-    const cartItem = cartItems.find((item) => item.id === productId)
-    return cartItem ? cartItem.quantity : 0
+  const cartItem = cartItems.find((item) => item.id === productId)
+  return cartItem ? cartItem.quantity : 0
 }
 
-function Products({ products, cartItems = [], onAddToCart = () => {} }) {
+function Products({
+  products,
+  cartItems = [],
+  onIncreaseQuantity = () => {},
+  onDecreaseQuantity = () => {}
+}) {
     const { resetFilters, hasActiveFilters } = useFilters()
     const {
         visibleProducts,
@@ -59,14 +64,15 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
             cardRef={(node) => setProductCardElement(product.id, node)}
             cardEnterDelayMs={cardEnterDelayMs}
             needsTightImageCrop={needsTightImageCrop}
-            isAtStockLimit={isAtStockLimit}
-            isOutOfStock={isOutOfStock}
-            inCartQuantity={inCartQuantity}
-            remainingStock={remainingStock}
-            onAddToCart={onAddToCart}
-        />
-        )
-    })
+        isAtStockLimit={isAtStockLimit}
+        isOutOfStock={isOutOfStock}
+        inCartQuantity={inCartQuantity}
+        remainingStock={remainingStock}
+        onIncreaseQuantity={onIncreaseQuantity}
+        onDecreaseQuantity={onDecreaseQuantity}
+      />
+    )
+  })
 
     return (
         <section ref={productsSectionRef} className="products" aria-label="Products">

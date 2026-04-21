@@ -1,5 +1,8 @@
-import { CartIcon } from './icons'
+import { useEffect, useRef, useState } from 'react'
+import { AddIcon, CartIcon, RemoveIcon } from './icons'
 import { formatPrice } from '../utils/format-price'
+
+const STOCK_NOTICE_MS = 1400
 
 function ProductCard({
   product,
@@ -11,8 +14,51 @@ function ProductCard({
   isOutOfStock,
   inCartQuantity,
   remainingStock,
-  onAddToCart
+  onIncreaseQuantity,
+  onDecreaseQuantity
 }) {
+  const [stockNotice, setStockNotice] = useState('')
+  const noticeTimerRef = useRef(null)
+  const canIncreaseQuantity = !isOutOfStock && !isAtStockLimit
+  const shouldShowQuantityStepper = isOutOfStock || inCartQuantity > 0
+
+  useEffect(() => {
+    return () => {
+      if (noticeTimerRef.current) {
+        clearTimeout(noticeTimerRef.current)
+      }
+    }
+  }, [])
+
+  function showStockNotice(message) {
+    if (noticeTimerRef.current) {
+      clearTimeout(noticeTimerRef.current)
+    }
+
+    setStockNotice(message)
+    noticeTimerRef.current = setTimeout(() => {
+      setStockNotice('')
+      noticeTimerRef.current = null
+    }, STOCK_NOTICE_MS)
+  }
+
+  function handleIncrease() {
+    if (!canIncreaseQuantity) {
+      showStockNotice(isOutOfStock ? 'Out of stock' : 'No more stock available')
+      return
+    }
+
+    setStockNotice('')
+    onIncreaseQuantity(product)
+  }
+
+  function handleDecrease() {
+    if (inCartQuantity === 0) return
+
+    setStockNotice('')
+    onDecreaseQuantity(product.id)
+  }
+
   return (
     <li
       ref={cardRef}
@@ -45,21 +91,42 @@ function ProductCard({
       </div>
 
       <div className="product-actions">
-        <button
-          className="product-add-button"
-          type="button"
-          disabled={isAtStockLimit}
-          onClick={() => onAddToCart(product)}
-        >
-          <CartIcon size={16} aria-hidden="true" />
-          <span>
-            {isOutOfStock
-              ? 'Out of stock'
-              : isAtStockLimit
-              ? 'No more stock'
-              : 'Add to cart'}
-          </span>
-        </button>
+        {shouldShowQuantityStepper ? (
+          <div className="product-quantity-stepper" role="group" aria-label={`Quantity controls for ${product.title}`}>
+            <button
+              className="product-stepper-button product-stepper-button--minus"
+              type="button"
+              onClick={handleDecrease}
+              disabled={inCartQuantity === 0}
+              aria-label={`Decrease quantity of ${product.title}`}
+            >
+              <RemoveIcon size={14} aria-hidden="true" />
+            </button>
+
+            <span className="product-quantity-value" aria-live="polite">
+              {inCartQuantity}
+            </span>
+
+            <button
+              className={`product-stepper-button product-stepper-button--plus ${canIncreaseQuantity ? '' : 'is-disabled'}`}
+              type="button"
+              onClick={handleIncrease}
+              aria-disabled={!canIncreaseQuantity}
+              aria-label={`Increase quantity of ${product.title}`}
+            >
+              <AddIcon size={14} aria-hidden="true" />
+            </button>
+          </div>
+        ) : (
+          <button className="product-add-button" type="button" onClick={handleIncrease}>
+            <CartIcon size={16} aria-hidden="true" />
+            <span>Add to cart</span>
+          </button>
+        )}
+
+        <p className={`product-stock-notice ${stockNotice ? 'is-visible' : ''}`} aria-live="polite">
+          {stockNotice}
+        </p>
       </div>
     </li>
   )
