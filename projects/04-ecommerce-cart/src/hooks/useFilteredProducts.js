@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+
 function sortProducts(products, sortBy) {
   if (sortBy === 'price-asc') {
     return [...products].sort((a, b) => a.priceInCents - b.priceInCents)
@@ -15,18 +17,26 @@ function sortProducts(products, sortBy) {
 }
 
 function useFilteredProducts(products, filters) {
-  const filteredProducts = products.filter((product) => {
-    const matchesCategory =
-      filters.category === 'all' || product.category === filters.category
-    const matchesMinPrice = product.priceInCents >= filters.minPriceInCents
-    const matchesMaxPrice =
-      filters.maxPriceInCents === null ||
-      product.priceInCents <= filters.maxPriceInCents
+  return useMemo(() => {
+    const filteredProducts = products.filter((product) => {
+      const matchesCategory =
+        filters.category === 'all' || product.category === filters.category
+      const matchesMinPrice = product.priceInCents >= filters.minPriceInCents
+      const matchesMaxPrice =
+        filters.maxPriceInCents === null ||
+        product.priceInCents <= filters.maxPriceInCents
 
-    return matchesCategory && matchesMinPrice && matchesMaxPrice
-  })
+      return matchesCategory && matchesMinPrice && matchesMaxPrice
+    })
 
-  return sortProducts(filteredProducts, filters.sortBy)
+    return sortProducts(filteredProducts, filters.sortBy)
+  }, [
+    products,
+    filters.category,
+    filters.minPriceInCents,
+    filters.maxPriceInCents,
+    filters.sortBy
+  ])
 }
 
 export { useFilteredProducts }
