@@ -120,7 +120,7 @@ function ProductCard({
           {isOutOfStock
             ? 'No stock available'
             : inCartQuantity > 0
-            ? `Remaining: ${remainingStock} (in cart: ${inCartQuantity})`
+            ? `Remaining: ${remainingStock}`
             : `Stock: ${product.stock}`}
         </span>
       </div>
