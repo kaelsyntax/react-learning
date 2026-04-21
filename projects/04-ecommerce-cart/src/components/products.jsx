@@ -1,7 +1,8 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import './products.css'
-import { CartIcon, FilterIcon } from './icons'
 import { useFilters } from '../hooks/useFilters'
+import ProductCard from './ProductCard'
+import ProductsEmptyState from './ProductsEmptyState'
 
 const PRODUCT_EXIT_ANIMATION_MS = 220
 const EMPTY_STATE_ANIMATION_MS = 220
@@ -308,28 +309,11 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
                 className="products products--empty"
                 aria-label="Products"
             >
-                <div
-                    className={`products-empty-state ${isEmptyExiting ? 'is-exiting' : ''}`}
-                    role="status"
-                    aria-live="polite"
-                >
-                    <div className="products-empty-icon" aria-hidden="true">
-                        <FilterIcon size={28} />
-                    </div>
-                    <p className="products-empty-title">No products match current filters</p>
-                    <p className="products-empty-text">
-                        Try widening your price range or choosing a different category.
-                    </p>
-                    {hasActiveFilters && (
-                        <button
-                            className="products-empty-reset"
-                            type="button"
-                            onClick={resetFilters}
-                        >
-                            Reset filters
-                        </button>
-                    )}
-                </div>
+                <ProductsEmptyState
+                    isExiting={isEmptyExiting}
+                    hasActiveFilters={hasActiveFilters}
+                    onResetFilters={resetFilters}
+                />
             </section>
         )
     }
@@ -349,9 +333,11 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
         }
 
         return (
-            <li
+            <ProductCard
                 key={product.id}
-                ref={(node) => {
+                product={product}
+                isExiting={isExiting}
+                cardRef={(node) => {
                     if (node) {
                         cardElementsRef.current.set(product.id, node)
                         return
@@ -360,54 +346,15 @@ function Products({ products, cartItems = [], onAddToCart = () => {} }) {
                     cardElementsRef.current.delete(product.id)
                     previousCardRectsRef.current.delete(product.id)
                 }}
-                className={`product-card ${isExiting ? 'is-exiting' : ''}`}
-                style={{ '--product-enter-delay': `${cardEnterDelayMs}ms` }}
-            >
-                <img
-                    className={`product-image ${needsTightImageCrop ? 'product-image--tight-crop' : ''}`}
-                    src={product.image}
-                    alt={product.title}
-                    loading="lazy"
-                />
-
-                <div className="product-content">
-                    <p className="product-category">{product.category}</p>
-                    <h2 className="product-title">{product.title}</h2>
-                    <p className="product-brand">{product.brand}</p>
-                    <p className="product-description">{product.description}</p>
-                </div>
-
-                <div className="product-meta">
-                    <strong className="product-price">
-                        {formatPrice(product.priceInCents)}
-                    </strong>
-                    <span className="product-stock">
-                        {isOutOfStock
-                            ? 'No stock available'
-                            : inCartQuantity > 0
-                            ? `Remaining: ${remainingStock} (in cart: ${inCartQuantity})`
-                            : `Stock: ${product.stock}`}
-                    </span>
-                </div>
-
-                <div className="product-actions">
-                    <button
-                        className="product-add-button"
-                        type="button"
-                        disabled={isAtStockLimit}
-                        onClick={() => onAddToCart(product)}
-                    >
-                        <CartIcon size={16} aria-hidden="true" />
-                        <span>
-                            {isOutOfStock
-                                ? 'Out of stock'
-                                : isAtStockLimit
-                                ? 'No more stock'
-                                : 'Add to cart'}
-                        </span>
-                    </button>
-                </div>
-            </li>
+                cardEnterDelayMs={cardEnterDelayMs}
+                needsTightImageCrop={needsTightImageCrop}
+                isAtStockLimit={isAtStockLimit}
+                isOutOfStock={isOutOfStock}
+                inCartQuantity={inCartQuantity}
+                remainingStock={remainingStock}
+                onAddToCart={onAddToCart}
+                formatPrice={formatPrice}
+            />
         )
     })
 
