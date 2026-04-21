@@ -242,6 +242,19 @@
   padding: 0 var(--space-sm) var(--space-sm);
 }
 
+.product-action-switcher {
+  display: grid;
+}
+
+.product-action-switcher > .product-add-button,
+.product-action-switcher > .product-quantity-stepper {
+  grid-area: 1 / 1;
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base),
+    visibility var(--transition-base);
+}
+
 .product-add-button {
   width: 100%;
   min-height: var(--products-button-min-height);
@@ -259,10 +272,12 @@
   transition:
     background var(--transition-fast),
     border-color var(--transition-fast),
-    transform var(--transition-fast);
+    transform var(--transition-fast),
+    opacity var(--transition-base),
+    visibility var(--transition-base);
 }
 
-.product-add-button:hover {
+.product-add-button.is-visible:hover {
   background: var(--products-add-bg-hover);
   border-color: var(--products-add-border-hover);
   transform: translateY(-1px);
@@ -279,6 +294,20 @@
   transform: none;
 }
 
+.product-add-button.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(6px) scale(0.985);
+}
+
+.product-add-button.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
 .product-quantity-stepper {
   width: 100%;
   min-height: var(--products-button-min-height);
@@ -288,6 +317,20 @@
   display: grid;
   grid-template-columns: 38px 1fr 38px;
   overflow: hidden;
+}
+
+.product-quantity-stepper.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(6px) scale(0.985);
+}
+
+.product-quantity-stepper.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
 }
 
 .product-stepper-button {
@@ -397,6 +440,11 @@
   .product-quantity-value.is-bump-up,
   .product-quantity-value.is-bump-down {
     animation: none;
+  }
+
+  .product-action-switcher > .product-add-button,
+  .product-action-switcher > .product-quantity-stepper {
+    transition: none;
   }
 }
 

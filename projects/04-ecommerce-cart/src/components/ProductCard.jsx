@@ -112,14 +112,31 @@ function ProductCard({
       </div>
 
       <div className="product-actions">
-        {shouldShowQuantityStepper ? (
-          <div className="product-quantity-stepper" role="group" aria-label={`Quantity controls for ${product.title}`}>
+        <div className="product-action-switcher">
+          <button
+            className={`product-add-button ${shouldShowQuantityStepper ? 'is-hidden' : 'is-visible'}`}
+            type="button"
+            onClick={handleIncrease}
+            aria-hidden={shouldShowQuantityStepper}
+            tabIndex={shouldShowQuantityStepper ? -1 : 0}
+          >
+            <CartIcon size={16} aria-hidden="true" />
+            <span>Add to cart</span>
+          </button>
+
+          <div
+            className={`product-quantity-stepper ${shouldShowQuantityStepper ? 'is-visible' : 'is-hidden'}`}
+            role="group"
+            aria-label={`Quantity controls for ${product.title}`}
+            aria-hidden={!shouldShowQuantityStepper}
+          >
             <button
               className={`product-stepper-button product-stepper-button--minus ${stepperFeedback === 'minus' ? 'is-pulsing' : ''}`}
               type="button"
               onClick={handleDecrease}
-              disabled={inCartQuantity === 0}
+              disabled={!shouldShowQuantityStepper || inCartQuantity === 0}
               aria-label={`Decrease quantity of ${product.title}`}
+              tabIndex={shouldShowQuantityStepper ? 0 : -1}
             >
               <RemoveIcon size={14} aria-hidden="true" />
             </button>
@@ -135,18 +152,15 @@ function ProductCard({
               className={`product-stepper-button product-stepper-button--plus ${canIncreaseQuantity ? '' : 'is-disabled'} ${stepperFeedback === 'plus' ? 'is-pulsing' : ''} ${stepperFeedback === 'blocked-plus' ? 'is-blocked-pulse' : ''}`}
               type="button"
               onClick={handleIncrease}
+              disabled={!shouldShowQuantityStepper}
               aria-disabled={!canIncreaseQuantity}
               aria-label={`Increase quantity of ${product.title}`}
+              tabIndex={shouldShowQuantityStepper ? 0 : -1}
             >
               <AddIcon size={14} aria-hidden="true" />
             </button>
           </div>
-        ) : (
-          <button className="product-add-button" type="button" onClick={handleIncrease}>
-            <CartIcon size={16} aria-hidden="true" />
-            <span>Add to cart</span>
-          </button>
-        )}
+        </div>
 
         <p className={`product-stock-notice ${stockNotice ? 'is-visible' : ''}`} aria-live="polite">
           {stockNotice}
