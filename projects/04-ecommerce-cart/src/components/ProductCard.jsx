@@ -160,6 +160,7 @@ function ProductCard({
               disabled={!shouldShowQuantityStepper}
               aria-disabled={!canIncreaseQuantity}
               aria-label={`Increase quantity of ${product.title}`}
+              title={!canIncreaseQuantity ? (isOutOfStock ? 'No stock available' : 'Stock limit reached') : ''}
               tabIndex={shouldShowQuantityStepper ? 0 : -1}
             >
               <AddIcon size={14} aria-hidden="true" />
