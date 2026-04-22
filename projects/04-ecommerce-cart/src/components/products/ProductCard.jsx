@@ -42,7 +42,7 @@ function ProductCard({
       <div className="product-image-wrap">
         {inCartQuantity > 0 && (
           <span className="product-in-cart-badge" aria-label={`${inCartQuantity} in cart`}>
-            In cart: {inCartQuantity}
+            In cart · {inCartQuantity}
           </span>
         )}
         <img
