@@ -39,12 +39,19 @@ function ProductCard({
       className={`product-card ${isExiting ? 'is-exiting' : ''}`}
       style={{ '--product-enter-delay': `${cardEnterDelayMs}ms` }}
     >
-      <img
-        className={`product-image ${needsTightImageCrop ? 'product-image--tight-crop' : ''}`}
-        src={product.image}
-        alt={product.title}
-        loading="lazy"
-      />
+      <div className="product-image-wrap">
+        {inCartQuantity > 0 && (
+          <span className="product-in-cart-badge" aria-label={`${inCartQuantity} in cart`}>
+            In cart: {inCartQuantity}
+          </span>
+        )}
+        <img
+          className={`product-image ${needsTightImageCrop ? 'product-image--tight-crop' : ''}`}
+          src={product.image}
+          alt={product.title}
+          loading="lazy"
+        />
+      </div>
 
       <div className="product-content">
         <p className="product-category">{product.category}</p>
