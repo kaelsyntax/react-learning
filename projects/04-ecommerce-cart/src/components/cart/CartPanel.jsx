@@ -55,8 +55,9 @@ function CartPanel() {
     clearCart
   } = useCart()
   const hasItems = cartItems.length > 0
-  const [renderedCartView, setRenderedCartView] = useState(hasItems ? 'items' : 'empty')
-  const [isCartViewClosing, setIsCartViewClosing] = useState(false)
+  const targetView = hasItems ? 'items' : 'empty'
+  const [renderedCartView, setRenderedCartView] = useState(targetView)
+  const isCartViewClosing = targetView !== renderedCartView
   const [totalRollState, setTotalRollState] = useState({
     from: totalPriceInCents,
     to: totalPriceInCents,
@@ -64,17 +65,14 @@ function CartPanel() {
   })
 
   useEffect(() => {
-    const targetView = hasItems ? 'items' : 'empty'
-    if (targetView === renderedCartView) return undefined
+    if (!isCartViewClosing) return undefined
 
-    setIsCartViewClosing(true)
     const timeoutId = setTimeout(() => {
       setRenderedCartView(targetView)
-      setIsCartViewClosing(false)
     }, CART_VIEW_SWAP_MS)
 
     return () => clearTimeout(timeoutId)
-  }, [hasItems, renderedCartView])
+  }, [isCartViewClosing, targetView])
 
   useEffect(() => {
     setTotalRollState((current) => {
