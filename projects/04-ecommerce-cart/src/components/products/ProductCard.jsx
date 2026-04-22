@@ -39,22 +39,22 @@ function ProductCard({
       className={`product-card ${isExiting ? 'is-exiting' : ''}`}
       style={{ '--product-enter-delay': `${cardEnterDelayMs}ms` }}
     >
-      <div className="product-image-wrap">
-        {inCartQuantity > 0 && (
-          <span className="product-in-cart-badge" aria-label={`${inCartQuantity} in cart`}>
-            In cart · {inCartQuantity}
-          </span>
-        )}
-        <img
-          className={`product-image ${needsTightImageCrop ? 'product-image--tight-crop' : ''}`}
-          src={product.image}
-          alt={product.title}
-          loading="lazy"
-        />
-      </div>
+      <img
+        className={`product-image ${needsTightImageCrop ? 'product-image--tight-crop' : ''}`}
+        src={product.image}
+        alt={product.title}
+        loading="lazy"
+      />
 
       <div className="product-content">
-        <p className="product-category">{product.category}</p>
+        <div className="product-category-row">
+          <p className="product-category">{product.category}</p>
+          {inCartQuantity > 0 && (
+            <span className="product-in-cart-badge" aria-label={`${inCartQuantity} in cart`}>
+              In cart · {inCartQuantity}
+            </span>
+          )}
+        </div>
         <h2 className="product-title">{product.title}</h2>
         <p className="product-brand">{product.brand}</p>
         <p className="product-description">{product.description}</p>
