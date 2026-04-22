@@ -24,7 +24,8 @@ function ProductCard({
   const feedbackTimerRef = useRef(null)
   const canIncreaseQuantity = !isOutOfStock && !isAtStockLimit
   const canShowQuantityStepper = isOutOfStock || inCartQuantity > 0
-  const shouldShowQuantityStepper = canShowQuantityStepper && !isStepperCollapsed
+  const effectiveIsStepperCollapsed = isOutOfStock ? false : isStepperCollapsed
+  const shouldShowQuantityStepper = canShowQuantityStepper && !effectiveIsStepperCollapsed
   const displayedStock = isOutOfStock ? 0 : inCartQuantity > 0 ? remainingStock : product.stock
 
   useEffect(() => {
@@ -34,17 +35,6 @@ function ProductCard({
       }
     }
   }, [])
-
-  useEffect(() => {
-    if (isOutOfStock) {
-      setIsStepperCollapsed(false)
-      return
-    }
-
-    if (inCartQuantity === 0) {
-      setIsStepperCollapsed(false)
-    }
-  }, [inCartQuantity, isOutOfStock])
 
   useEffect(() => {
     const shouldAutoCollapse = inCartQuantity > 0 && !isOutOfStock && !isStepperCollapsed
