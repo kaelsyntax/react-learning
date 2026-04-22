@@ -255,7 +255,7 @@
 .cart-modal--empty {
   min-height: clamp(420px, 76vh, 760px);
   overflow: hidden;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   gap: 0;
 }
 
@@ -559,6 +559,21 @@
 .cart-clear:hover {
   border-color: rgba(248, 113, 113, 0.8);
   background: rgba(185, 28, 28, 0.3);
+}
+
+.cart-clear:disabled {
+  opacity: 0.52;
+  cursor: default;
+  border-color: rgba(248, 113, 113, 0.28);
+  background: rgba(153, 27, 27, 0.14);
+  color: var(--color-text-soft);
+  filter: saturate(0.72);
+}
+
+.cart-clear:disabled:hover {
+  border-color: rgba(248, 113, 113, 0.28);
+  background: rgba(153, 27, 27, 0.14);
+  color: var(--color-text-soft);
 }
 
 .cart-clear:focus-visible {

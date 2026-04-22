@@ -117,84 +117,87 @@ function CartPanel() {
                 </button>
               </div>
             ) : (
-              <>
-                <ul className="cart-items">
-                  {cartItems.map((item) => {
-                    const stockInfo = getStockMessage(item)
+              <ul className="cart-items">
+                {cartItems.map((item) => {
+                  const stockInfo = getStockMessage(item)
 
-                    return (
-                      <li key={item.id} className="cart-item">
-                        <div className="cart-item-head">
-                          <div className="cart-item-thumb" aria-hidden="true">
-                            <img
-                              className="cart-item-image"
-                              src={item.image}
-                              alt=""
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          </div>
-
-                          <div className="cart-item-main">
-                            <p className="cart-item-title">{item.title}</p>
-                            <p className="cart-item-meta">
-                              {formatPrice(item.priceInCents)} each
-                            </p>
-                          </div>
+                  return (
+                    <li key={item.id} className="cart-item">
+                      <div className="cart-item-head">
+                        <div className="cart-item-thumb" aria-hidden="true">
+                          <img
+                            className="cart-item-image"
+                            src={item.image}
+                            alt=""
+                            loading="lazy"
+                            decoding="async"
+                          />
                         </div>
 
-                        <div className="cart-item-controls">
-                          <button
-                            className="cart-icon-button"
-                            type="button"
-                            onClick={() => decreaseQuantity(item.id)}
-                            aria-label={`Decrease quantity of ${item.title}`}
-                          >
-                            <RemoveIcon size={16} aria-hidden="true" />
-                          </button>
-
-                          <span className="cart-quantity" aria-label="Quantity">
-                            {item.quantity}
-                          </span>
-
-                          <button
-                            className="cart-icon-button"
-                            type="button"
-                            onClick={() => addToCart(item)}
-                            disabled={item.quantity >= item.stock}
-                            aria-label={`Increase quantity of ${item.title}`}
-                          >
-                            <AddIcon size={16} aria-hidden="true" />
-                          </button>
-
-                          <button
-                            className="cart-icon-button cart-icon-button--danger"
-                            type="button"
-                            onClick={() => removeFromCart(item.id)}
-                            aria-label={`Remove ${item.title} from cart`}
-                          >
-                            <TrashIcon size={16} aria-hidden="true" />
-                          </button>
+                        <div className="cart-item-main">
+                          <p className="cart-item-title">{item.title}</p>
+                          <p className="cart-item-meta">
+                            {formatPrice(item.priceInCents)} each
+                          </p>
                         </div>
+                      </div>
 
-                        <p className={`cart-item-stock ${stockInfo.toneClass}`}>
-                          {stockInfo.text}
-                        </p>
-                      </li>
-                    )
-                  })}
-                </ul>
+                      <div className="cart-item-controls">
+                        <button
+                          className="cart-icon-button"
+                          type="button"
+                          onClick={() => decreaseQuantity(item.id)}
+                          aria-label={`Decrease quantity of ${item.title}`}
+                        >
+                          <RemoveIcon size={16} aria-hidden="true" />
+                        </button>
 
-                <footer className="cart-footer">
-                  <p className="cart-total">
-                    Total: <strong>{formatPrice(totalPriceInCents)}</strong>
-                  </p>
-                  <button className="cart-clear" type="button" onClick={clearCart}>
-                    Clear cart
-                  </button>
-                </footer>
-              </>
+                        <span className="cart-quantity" aria-label="Quantity">
+                          {item.quantity}
+                        </span>
+
+                        <button
+                          className="cart-icon-button"
+                          type="button"
+                          onClick={() => addToCart(item)}
+                          disabled={item.quantity >= item.stock}
+                          aria-label={`Increase quantity of ${item.title}`}
+                        >
+                          <AddIcon size={16} aria-hidden="true" />
+                        </button>
+
+                        <button
+                          className="cart-icon-button cart-icon-button--danger"
+                          type="button"
+                          onClick={() => removeFromCart(item.id)}
+                          aria-label={`Remove ${item.title} from cart`}
+                        >
+                          <TrashIcon size={16} aria-hidden="true" />
+                        </button>
+                      </div>
+
+                      <p className={`cart-item-stock ${stockInfo.toneClass}`}>
+                        {stockInfo.text}
+                      </p>
+                    </li>
+                  )
+                })}
+              </ul>
             )}
+
+            <footer className="cart-footer">
+              <p className="cart-total">
+                Total: <strong>{formatPrice(totalPriceInCents)}</strong>
+              </p>
+              <button
+                className="cart-clear"
+                type="button"
+                onClick={clearCart}
+                disabled={!cartItems.length}
+              >
+                Clear cart
+              </button>
+            </footer>
           </aside>
         </div>
       )}
