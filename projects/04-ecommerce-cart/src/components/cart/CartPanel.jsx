@@ -90,7 +90,7 @@ function CartPanel() {
               <h2 id={titleId}>Cart</h2>
               <button
                 ref={closeButtonRef}
-                className="cart-icon-button"
+                className="cart-icon-button cart-icon-button--close"
                 type="button"
                 onClick={closeCart}
                 aria-label="Close cart"
