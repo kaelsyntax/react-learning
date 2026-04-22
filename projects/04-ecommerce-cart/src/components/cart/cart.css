@@ -241,14 +241,12 @@
   width: min(640px, 100%);
   min-height: var(--cart-modal-min-height);
   max-height: min(85vh, 760px);
-  overflow: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-accent-500) var(--color-bg-overlay);
+  overflow: hidden;
   border: 1px solid var(--cart-modal-border);
   border-radius: var(--radius-lg);
   background: var(--cart-modal-surface);
   display: grid;
-  align-content: start;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   gap: var(--cart-modal-space);
   padding: var(--cart-modal-space);
   animation: cart-modal-enter var(--cart-modal-enter-duration) ease-out both;
@@ -270,23 +268,23 @@
   animation: cart-modal-exit var(--cart-modal-exit-duration) ease-in both;
 }
 
-.cart-modal::-webkit-scrollbar {
+.cart-items::-webkit-scrollbar {
   width: 10px;
 }
 
-.cart-modal::-webkit-scrollbar-track {
+.cart-items::-webkit-scrollbar-track {
   background: var(--color-bg-overlay);
   border-radius: var(--radius-pill);
 }
 
-.cart-modal::-webkit-scrollbar-thumb {
+.cart-items::-webkit-scrollbar-thumb {
   background: var(--color-accent-500);
   border-radius: var(--radius-pill);
   border: 1px solid var(--color-bg-overlay);
   transition: background-color var(--transition-fast);
 }
 
-.cart-modal::-webkit-scrollbar-thumb:hover {
+.cart-items::-webkit-scrollbar-thumb:hover {
   background: var(--color-accent-400);
 }
 
@@ -383,7 +381,12 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-500) var(--color-bg-overlay);
   display: grid;
+  align-content: start;
   gap: var(--space-sm);
 }
 
