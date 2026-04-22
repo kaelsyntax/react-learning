@@ -39,6 +39,7 @@
   --products-stepper-switch-duration: 240ms;
   --products-stepper-switch-easing: cubic-bezier(0.22, 0.7, 0.2, 1);
   --products-stepper-feedback-duration: 240ms;
+  --products-stepper-quantity-bump-duration: 200ms;
   --products-stepper-feedback-easing: cubic-bezier(0.22, 0.7, 0.2, 1);
   --products-stepper-surface: linear-gradient(180deg, rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.68));
   --products-stepper-surface-hover: rgba(37, 99, 235, 0.18);
@@ -450,13 +451,13 @@
 
 .product-quantity-value.is-bump-up {
   animation:
-    product-stepper-quantity-up var(--products-stepper-feedback-duration)
+    product-stepper-quantity-up var(--products-stepper-quantity-bump-duration)
     var(--products-stepper-feedback-easing);
 }
 
 .product-quantity-value.is-bump-down {
   animation:
-    product-stepper-quantity-down var(--products-stepper-feedback-duration)
+    product-stepper-quantity-down var(--products-stepper-quantity-bump-duration)
     var(--products-stepper-feedback-easing);
 }
 
