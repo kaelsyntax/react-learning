@@ -13,6 +13,84 @@ function toVisibleProduct(product) {
   }
 }
 
+function buildVisibleProducts(previousVisibleProducts, nextProducts) {
+  const nextProductsById = new Map(nextProducts.map((product) => [product.id, product]))
+  const previousById = new Map(
+    previousVisibleProducts.map((item) => [item.product.id, item])
+  )
+  const nextVisibleProducts = []
+
+  nextProducts.forEach((product) => {
+    const previousItem = previousById.get(product.id)
+
+    if (previousItem) {
+      nextVisibleProducts.push({
+        product,
+        isExiting: false
+      })
+      return
+    }
+
+    nextVisibleProducts.push(toVisibleProduct(product))
+  })
+
+  previousVisibleProducts.forEach((item) => {
+    const id = item.product.id
+    if (nextProductsById.has(id)) return
+
+    nextVisibleProducts.push({
+      product: item.product,
+      isExiting: true
+    })
+  })
+
+  return nextVisibleProducts
+}
+
+function clearSectionInlineStyles(sectionElement) {
+  if (!sectionElement) return
+
+  sectionElement.style.removeProperty('height')
+  sectionElement.style.removeProperty('overflow')
+  sectionElement.style.removeProperty('transition')
+  sectionElement.style.removeProperty('will-change')
+}
+
+function hasMeaningfulMove(deltaX, deltaY) {
+  return Math.abs(deltaX) >= 0.5 || Math.abs(deltaY) >= 0.5
+}
+
+function hasMeaningfulHeightChange(previousHeight, nextHeight) {
+  return typeof previousHeight === 'number' && Math.abs(previousHeight - nextHeight) >= 1
+}
+
+function animatePersistentReveal(element, index) {
+  element.animate(
+    [
+      { opacity: 0.76, transform: 'translateY(8px)' },
+      { opacity: 1, transform: 'translateY(0)' }
+    ],
+    {
+      duration: PRODUCT_PERSISTENT_REVEAL_MS,
+      delay: Math.min(index * 24, 140),
+      easing: 'cubic-bezier(0.2, 0.75, 0.2, 1)'
+    }
+  )
+}
+
+function animateFlipTransition(element, deltaX, deltaY) {
+  element.animate(
+    [
+      { transform: `translate(${deltaX}px, ${deltaY}px)` },
+      { transform: 'translate(0, 0)' }
+    ],
+    {
+      duration: PRODUCT_FLIP_ANIMATION_MS,
+      easing: 'cubic-bezier(0.2, 0.75, 0.2, 1)'
+    }
+  )
+}
+
 function useProductsTransition(products) {
   const [visibleProducts, setVisibleProducts] = useState(() =>
     products.map(toVisibleProduct)
@@ -37,39 +115,7 @@ function useProductsTransition(products) {
     }
 
     pendingFilterTransitionRef.current = true
-
-    setVisibleProducts((previous) => {
-      const nextProductsById = new Map(products.map((product) => [product.id, product]))
-      const previousById = new Map(previous.map((item) => [item.product.id, item]))
-
-      const nextVisible = []
-
-      products.forEach((product) => {
-        const previousItem = previousById.get(product.id)
-
-        if (previousItem) {
-          nextVisible.push({
-            product,
-            isExiting: false
-          })
-          return
-        }
-
-        nextVisible.push(toVisibleProduct(product))
-      })
-
-      previous.forEach((item) => {
-        const id = item.product.id
-        if (nextProductsById.has(id)) return
-
-        nextVisible.push({
-          product: item.product,
-          isExiting: true
-        })
-      })
-
-      return nextVisible
-    })
+    setVisibleProducts((previous) => buildVisibleProducts(previous, products))
   }, [products])
 
   useEffect(() => {
@@ -116,27 +162,26 @@ function useProductsTransition(products) {
     return () => {
       exitTimersRef.current.forEach((timeoutId) => clearTimeout(timeoutId))
       exitTimersRef.current.clear()
+
       if (emptyExitTimerRef.current) {
         clearTimeout(emptyExitTimerRef.current)
       }
+
       if (sectionResizeTimeoutRef.current) {
         clearTimeout(sectionResizeTimeoutRef.current)
         sectionResizeTimeoutRef.current = null
       }
-      const currentSection = productsSectionRef.current
-      if (currentSection) {
-        currentSection.style.removeProperty('height')
-        currentSection.style.removeProperty('overflow')
-        currentSection.style.removeProperty('transition')
-        currentSection.style.removeProperty('will-change')
-      }
+
+      clearSectionInlineStyles(productsSectionRef.current)
     }
   }, [])
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches
     const previousRects = previousCardRectsRef.current
     const nextRects = new Map()
     const shouldAnimatePersistentCards = pendingFilterTransitionRef.current
@@ -151,71 +196,36 @@ function useProductsTransition(products) {
 
       const nextRect = element.getBoundingClientRect()
       nextRects.set(id, nextRect)
-
       if (prefersReducedMotion) return
 
       const previousRect = previousRects.get(id)
-      const animatePersistentReveal = () => {
-        element.animate(
-          [
-            { opacity: 0.76, transform: 'translateY(8px)' },
-            { opacity: 1, transform: 'translateY(0)' }
-          ],
-          {
-            duration: PRODUCT_PERSISTENT_REVEAL_MS,
-            delay: Math.min(index * 24, 140),
-            easing: 'cubic-bezier(0.2, 0.75, 0.2, 1)'
-          }
-        )
-      }
-
       if (!previousRect) {
         if (shouldAnimatePersistentCards) {
-          animatePersistentReveal()
+          animatePersistentReveal(element, index)
         }
         return
       }
 
       const deltaX = previousRect.left - nextRect.left
       const deltaY = previousRect.top - nextRect.top
-      const hasMeaningfulMove = Math.abs(deltaX) >= 0.5 || Math.abs(deltaY) >= 0.5
 
-      if (!hasMeaningfulMove) {
+      if (!hasMeaningfulMove(deltaX, deltaY)) {
         if (shouldAnimatePersistentCards) {
-          animatePersistentReveal()
+          animatePersistentReveal(element, index)
         }
         return
       }
 
-      element.animate(
-        [
-          { transform: `translate(${deltaX}px, ${deltaY}px)` },
-          { transform: 'translate(0, 0)' }
-        ],
-        {
-          duration: PRODUCT_FLIP_ANIMATION_MS,
-          easing: 'cubic-bezier(0.2, 0.75, 0.2, 1)'
-        }
-      )
+      animateFlipTransition(element, deltaX, deltaY)
     })
 
     const currentSection = productsSectionRef.current
-    const clearSectionResizeStyles = () => {
-      if (!currentSection) return
-      currentSection.style.removeProperty('height')
-      currentSection.style.removeProperty('overflow')
-      currentSection.style.removeProperty('transition')
-      currentSection.style.removeProperty('will-change')
-    }
 
     if (currentSection && shouldAnimateSectionResize && !prefersReducedMotion) {
       const previousSectionHeight = previousSectionHeightRef.current
       const nextSectionHeight = currentSection.getBoundingClientRect().height
-      const hasMeaningfulHeightChange =
-        typeof previousSectionHeight === 'number' &&
-        Math.abs(previousSectionHeight - nextSectionHeight) >= 1
 
-      if (hasMeaningfulHeightChange) {
+      if (hasMeaningfulHeightChange(previousSectionHeight, nextSectionHeight)) {
         if (sectionResizeTimeoutRef.current) {
           clearTimeout(sectionResizeTimeoutRef.current)
           sectionResizeTimeoutRef.current = null
@@ -229,19 +239,14 @@ function useProductsTransition(products) {
         currentSection.style.height = `${nextSectionHeight}px`
 
         sectionResizeTimeoutRef.current = setTimeout(() => {
-          const sectionToCleanup = productsSectionRef.current
-          if (!sectionToCleanup) return
-          sectionToCleanup.style.removeProperty('height')
-          sectionToCleanup.style.removeProperty('overflow')
-          sectionToCleanup.style.removeProperty('transition')
-          sectionToCleanup.style.removeProperty('will-change')
+          clearSectionInlineStyles(productsSectionRef.current)
           sectionResizeTimeoutRef.current = null
         }, PRODUCTS_RESIZE_ANIMATION_MS)
       } else {
-        clearSectionResizeStyles()
+        clearSectionInlineStyles(currentSection)
       }
     } else {
-      clearSectionResizeStyles()
+      clearSectionInlineStyles(currentSection)
     }
 
     if (currentSection) {
@@ -261,6 +266,7 @@ function useProductsTransition(products) {
         clearTimeout(emptyExitTimerRef.current)
         emptyExitTimerRef.current = null
       }
+
       setIsEmptyMounted(true)
       setIsEmptyExiting(false)
       return
