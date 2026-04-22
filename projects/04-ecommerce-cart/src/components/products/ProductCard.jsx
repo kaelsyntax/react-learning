@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { AddIcon, CartIcon, RemoveIcon } from '../shared/icons'
 import { formatPrice } from '../../utils/format-price'
 import { useProductCardStepper } from '../../hooks/useProductCardStepper'
@@ -16,6 +17,7 @@ function ProductCard({
   onDecreaseQuantity
 }) {
   const displayedStock = isOutOfStock ? 0 : inCartQuantity > 0 ? remainingStock : product.stock
+  const plusButtonRef = useRef(null)
   const {
     stepperFeedback,
     canIncreaseQuantity,
@@ -23,7 +25,9 @@ function ProductCard({
     shouldShowQuantityStepper,
     blockedIncreaseReason,
     handleIncrease,
-    handleDecrease
+    handleDecrease,
+    handleStepperFocus,
+    handleStepperBlur
   } = useProductCardStepper({
     product,
     isOutOfStock,
@@ -32,6 +36,49 @@ function ProductCard({
     onIncreaseQuantity,
     onDecreaseQuantity
   })
+
+  function focusPlusButtonWithRetry() {
+    const focusPlusButton = () => {
+      if (!plusButtonRef.current) return false
+      plusButtonRef.current.focus()
+      return document.activeElement === plusButtonRef.current
+    }
+
+    requestAnimationFrame(() => {
+      if (focusPlusButton()) return
+      setTimeout(() => {
+        focusPlusButton()
+      }, 60)
+    })
+  }
+
+  function handleStepperGroupBlur(event) {
+    const nextFocusedNode = event.relatedTarget
+    if (event.currentTarget.contains(nextFocusedNode)) return
+    handleStepperBlur()
+  }
+
+  function handleStepperKeyDown(event) {
+    const increaseKeys = ['ArrowUp', 'ArrowRight']
+    const decreaseKeys = ['ArrowDown', 'ArrowLeft']
+
+    if (increaseKeys.includes(event.key)) {
+      event.preventDefault()
+      handleIncrease()
+      return
+    }
+
+    if (decreaseKeys.includes(event.key)) {
+      event.preventDefault()
+      handleDecrease()
+    }
+  }
+
+  function handleAddButtonActivate(event) {
+    handleIncrease()
+    event.currentTarget.blur()
+    focusPlusButtonWithRetry()
+  }
 
   return (
     <li
@@ -81,7 +128,7 @@ function ProductCard({
           <button
             className={`product-add-button ${shouldShowQuantityStepper ? 'is-hidden' : 'is-visible'}`}
             type="button"
-            onClick={handleIncrease}
+            onClick={handleAddButtonActivate}
             aria-hidden={canShowQuantityStepper && shouldShowQuantityStepper}
             tabIndex={shouldShowQuantityStepper ? -1 : 0}
           >
@@ -94,6 +141,9 @@ function ProductCard({
             role="group"
             aria-label={`Quantity controls for ${product.title}`}
             aria-hidden={!shouldShowQuantityStepper}
+            onFocus={handleStepperFocus}
+            onBlur={handleStepperGroupBlur}
+            onKeyDown={handleStepperKeyDown}
           >
             <button
               className={`product-stepper-button product-stepper-button--minus ${stepperFeedback === 'minus' ? 'is-pulsing' : ''}`}
@@ -118,6 +168,7 @@ function ProductCard({
             <button
               className={`product-stepper-button product-stepper-button--plus ${canIncreaseQuantity ? '' : 'is-disabled'} ${stepperFeedback === 'plus' ? 'is-pulsing' : ''} ${stepperFeedback === 'blocked-plus' ? 'is-blocked-pulse' : ''}`}
               type="button"
+              ref={plusButtonRef}
               onClick={handleIncrease}
               disabled={!shouldShowQuantityStepper}
               aria-disabled={!canIncreaseQuantity}

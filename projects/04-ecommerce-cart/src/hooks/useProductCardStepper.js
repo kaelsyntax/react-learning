@@ -13,6 +13,7 @@ function useProductCardStepper({
 }) {
   const [stepperFeedback, setStepperFeedback] = useState('')
   const [isStepperCollapsed, setIsStepperCollapsed] = useState(false)
+  const [isStepperFocused, setIsStepperFocused] = useState(false)
   const [stepperInteractionToken, setStepperInteractionToken] = useState(0)
   const feedbackTimerRef = useRef(null)
 
@@ -35,7 +36,8 @@ function useProductCardStepper({
   }, [])
 
   useEffect(() => {
-    const shouldAutoCollapse = inCartQuantity > 0 && !isOutOfStock && !isStepperCollapsed
+    const shouldAutoCollapse =
+      inCartQuantity > 0 && !isOutOfStock && !isStepperCollapsed && !isStepperFocused
     if (!shouldAutoCollapse) return undefined
 
     const timeoutId = setTimeout(() => {
@@ -43,10 +45,20 @@ function useProductCardStepper({
     }, STEPPER_AUTO_COLLAPSE_MS)
 
     return () => clearTimeout(timeoutId)
-  }, [inCartQuantity, isOutOfStock, isStepperCollapsed, stepperInteractionToken])
+  }, [inCartQuantity, isOutOfStock, isStepperCollapsed, isStepperFocused, stepperInteractionToken])
 
   function markStepperInteraction() {
     setIsStepperCollapsed(false)
+    setStepperInteractionToken((current) => current + 1)
+  }
+
+  function handleStepperFocus() {
+    setIsStepperFocused(true)
+    markStepperInteraction()
+  }
+
+  function handleStepperBlur() {
+    setIsStepperFocused(false)
     setStepperInteractionToken((current) => current + 1)
   }
 
@@ -90,7 +102,9 @@ function useProductCardStepper({
     shouldShowQuantityStepper,
     blockedIncreaseReason,
     handleIncrease,
-    handleDecrease
+    handleDecrease,
+    handleStepperFocus,
+    handleStepperBlur
   }
 }
 
