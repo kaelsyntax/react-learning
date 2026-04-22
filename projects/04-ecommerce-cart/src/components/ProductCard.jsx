@@ -25,6 +25,7 @@ function ProductCard({
   const canIncreaseQuantity = !isOutOfStock && !isAtStockLimit
   const canShowQuantityStepper = isOutOfStock || inCartQuantity > 0
   const shouldShowQuantityStepper = canShowQuantityStepper && !isStepperCollapsed
+  const displayedStock = isOutOfStock ? 0 : inCartQuantity > 0 ? remainingStock : product.stock
 
   useEffect(() => {
     return () => {
@@ -116,12 +117,10 @@ function ProductCard({
 
       <div className="product-meta">
         <strong className="product-price">{formatPrice(product.priceInCents)}</strong>
-        <span className="product-stock">
-          {isOutOfStock
-            ? 'No stock available'
-            : inCartQuantity > 0
-            ? `Remaining: ${remainingStock}`
-            : `Stock: ${product.stock}`}
+        <span
+          className={`product-stock ${stepperFeedback === 'blocked-plus' ? 'is-blocked' : ''}`}
+        >
+          {`Stock: ${displayedStock}`}
         </span>
       </div>
 
