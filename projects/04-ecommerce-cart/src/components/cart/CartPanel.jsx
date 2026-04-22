@@ -1,9 +1,11 @@
-import { useId } from 'react'
+import { useEffect, useId, useState } from 'react'
 import { AddIcon, CartAddIcon, CartIcon, CloseIcon, RemoveIcon, TrashIcon } from '../shared/icons'
 import { useCart } from '../../hooks/useCart'
 import { useCartPanelModal } from '../../hooks/useCartPanelModal'
 import { formatPrice } from '../../utils/format-price'
 import './cart.css'
+
+const CART_VIEW_SWAP_MS = 180
 
 function getStockMessage(item) {
   if (item.stock === 0) {
@@ -51,6 +53,22 @@ function CartPanel() {
     removeFromCart,
     clearCart
   } = useCart()
+  const hasItems = cartItems.length > 0
+  const [renderedCartView, setRenderedCartView] = useState(hasItems ? 'items' : 'empty')
+  const [isCartViewClosing, setIsCartViewClosing] = useState(false)
+
+  useEffect(() => {
+    const targetView = hasItems ? 'items' : 'empty'
+    if (targetView === renderedCartView) return undefined
+
+    setIsCartViewClosing(true)
+    const timeoutId = setTimeout(() => {
+      setRenderedCartView(targetView)
+      setIsCartViewClosing(false)
+    }, CART_VIEW_SWAP_MS)
+
+    return () => clearTimeout(timeoutId)
+  }, [hasItems, renderedCartView])
 
   return (
     <>
@@ -78,7 +96,7 @@ function CartPanel() {
         >
           <aside
             ref={modalRef}
-            className={`cart-modal ${isClosing ? 'is-closing' : ''} ${!cartItems.length ? 'cart-modal--empty' : ''}`}
+            className={`cart-modal ${isClosing ? 'is-closing' : ''} ${renderedCartView === 'empty' ? 'cart-modal--empty' : ''}`}
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
@@ -99,90 +117,94 @@ function CartPanel() {
               </button>
             </header>
 
-            {!cartItems.length ? (
-              <div className="cart-empty">
-                <div className="cart-empty-icon" aria-hidden="true">
-                  <CartAddIcon size={36} />
+            {renderedCartView === 'empty' ? (
+              <div className={`cart-view cart-view--empty ${isCartViewClosing ? 'is-closing' : ''}`}>
+                <div className="cart-empty">
+                  <div className="cart-empty-icon" aria-hidden="true">
+                    <CartAddIcon size={36} />
+                  </div>
+                  <p className="cart-empty-title">Your cart is empty</p>
+                  <p className="cart-empty-text">
+                    Add products from the catalog to see them here.
+                  </p>
+                  <button
+                    className="cart-empty-cta"
+                    type="button"
+                    onClick={closeCart}
+                  >
+                    Continue shopping
+                  </button>
                 </div>
-                <p className="cart-empty-title">Your cart is empty</p>
-                <p className="cart-empty-text">
-                  Add products from the catalog to see them here.
-                </p>
-                <button
-                  className="cart-empty-cta"
-                  type="button"
-                  onClick={closeCart}
-                >
-                  Continue shopping
-                </button>
               </div>
             ) : (
-              <ul className="cart-items">
-                {cartItems.map((item) => {
-                  const stockInfo = getStockMessage(item)
+              <div className={`cart-view cart-view--items ${isCartViewClosing ? 'is-closing' : ''}`}>
+                <ul className="cart-items">
+                  {cartItems.map((item) => {
+                    const stockInfo = getStockMessage(item)
 
-                  return (
-                    <li key={item.id} className="cart-item">
-                      <div className="cart-item-head">
-                        <div className="cart-item-thumb" aria-hidden="true">
-                          <img
-                            className="cart-item-image"
-                            src={item.image}
-                            alt=""
-                            loading="lazy"
-                            decoding="async"
-                          />
+                    return (
+                      <li key={item.id} className="cart-item">
+                        <div className="cart-item-head">
+                          <div className="cart-item-thumb" aria-hidden="true">
+                            <img
+                              className="cart-item-image"
+                              src={item.image}
+                              alt=""
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          </div>
+
+                          <div className="cart-item-main">
+                            <p className="cart-item-title">{item.title}</p>
+                            <p className="cart-item-meta">
+                              {formatPrice(item.priceInCents)} each
+                            </p>
+                          </div>
                         </div>
 
-                        <div className="cart-item-main">
-                          <p className="cart-item-title">{item.title}</p>
-                          <p className="cart-item-meta">
-                            {formatPrice(item.priceInCents)} each
-                          </p>
+                        <div className="cart-item-controls">
+                          <button
+                            className="cart-icon-button"
+                            type="button"
+                            onClick={() => decreaseQuantity(item.id)}
+                            aria-label={`Decrease quantity of ${item.title}`}
+                          >
+                            <RemoveIcon size={16} aria-hidden="true" />
+                          </button>
+
+                          <span className="cart-quantity" aria-label="Quantity">
+                            {item.quantity}
+                          </span>
+
+                          <button
+                            className="cart-icon-button"
+                            type="button"
+                            onClick={() => addToCart(item)}
+                            disabled={item.quantity >= item.stock}
+                            aria-label={`Increase quantity of ${item.title}`}
+                          >
+                            <AddIcon size={16} aria-hidden="true" />
+                          </button>
+
+                          <button
+                            className="cart-icon-button cart-icon-button--danger"
+                            type="button"
+                            onClick={() => removeFromCart(item.id)}
+                            aria-label={`Remove ${item.title} from cart`}
+                          >
+                            <TrashIcon size={16} aria-hidden="true" />
+                          </button>
                         </div>
-                      </div>
 
-                      <div className="cart-item-controls">
-                        <button
-                          className="cart-icon-button"
-                          type="button"
-                          onClick={() => decreaseQuantity(item.id)}
-                          aria-label={`Decrease quantity of ${item.title}`}
-                        >
-                          <RemoveIcon size={16} aria-hidden="true" />
-                        </button>
-
-                        <span className="cart-quantity" aria-label="Quantity">
-                          {item.quantity}
-                        </span>
-
-                        <button
-                          className="cart-icon-button"
-                          type="button"
-                          onClick={() => addToCart(item)}
-                          disabled={item.quantity >= item.stock}
-                          aria-label={`Increase quantity of ${item.title}`}
-                        >
-                          <AddIcon size={16} aria-hidden="true" />
-                        </button>
-
-                        <button
-                          className="cart-icon-button cart-icon-button--danger"
-                          type="button"
-                          onClick={() => removeFromCart(item.id)}
-                          aria-label={`Remove ${item.title} from cart`}
-                        >
-                          <TrashIcon size={16} aria-hidden="true" />
-                        </button>
-                      </div>
-
-                      <p className={`cart-item-stock ${stockInfo.toneClass}`}>
-                        {stockInfo.text}
-                      </p>
-                    </li>
-                  )
-                })}
-              </ul>
+                        <p className={`cart-item-stock ${stockInfo.toneClass}`}>
+                          {stockInfo.text}
+                        </p>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
             )}
 
             <footer className="cart-footer">
