@@ -6,6 +6,7 @@ import { formatPrice } from '../../utils/format-price'
 import './cart.css'
 
 const CART_VIEW_SWAP_MS = 180
+const CART_TOTAL_ROLL_MS = 210
 
 function getStockMessage(item) {
   if (item.stock === 0) {
@@ -56,6 +57,11 @@ function CartPanel() {
   const hasItems = cartItems.length > 0
   const [renderedCartView, setRenderedCartView] = useState(hasItems ? 'items' : 'empty')
   const [isCartViewClosing, setIsCartViewClosing] = useState(false)
+  const [totalRollState, setTotalRollState] = useState({
+    from: totalPriceInCents,
+    to: totalPriceInCents,
+    direction: ''
+  })
 
   useEffect(() => {
     const targetView = hasItems ? 'items' : 'empty'
@@ -69,6 +75,32 @@ function CartPanel() {
 
     return () => clearTimeout(timeoutId)
   }, [hasItems, renderedCartView])
+
+  useEffect(() => {
+    setTotalRollState((current) => {
+      if (totalPriceInCents === current.to) return current
+
+      return {
+        from: current.to,
+        to: totalPriceInCents,
+        direction: totalPriceInCents > current.to ? 'up' : 'down'
+      }
+    })
+  }, [totalPriceInCents])
+
+  useEffect(() => {
+    if (!totalRollState.direction) return undefined
+
+    const timeoutId = setTimeout(() => {
+      setTotalRollState((current) => ({
+        from: current.to,
+        to: current.to,
+        direction: ''
+      }))
+    }, CART_TOTAL_ROLL_MS)
+
+    return () => clearTimeout(timeoutId)
+  }, [totalRollState.direction])
 
   return (
     <>
@@ -209,7 +241,23 @@ function CartPanel() {
 
             <footer className="cart-footer">
               <p className="cart-total">
-                Total: <strong>{formatPrice(totalPriceInCents)}</strong>
+                Total:{' '}
+                <strong className="cart-total-value">
+                  {totalRollState.direction ? (
+                    <span className={`cart-total-roll-track is-roll-${totalRollState.direction}`}>
+                      <span className="cart-total-roll-number cart-total-roll-number--from">
+                        {formatPrice(totalRollState.from)}
+                      </span>
+                      <span className="cart-total-roll-number cart-total-roll-number--to">
+                        {formatPrice(totalRollState.to)}
+                      </span>
+                    </span>
+                  ) : (
+                    <span className="cart-total-value-text">
+                      {formatPrice(totalRollState.to)}
+                    </span>
+                  )}
+                </strong>
               </p>
               <button
                 className="cart-clear"
