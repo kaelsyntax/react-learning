@@ -59,6 +59,16 @@ function ProductCard({
     handleStepperBlur()
   }
 
+  function handleStepperGroupFocus(event) {
+    const focusTarget = event.target
+    const isKeyboardStyleFocus =
+      typeof focusTarget?.matches === 'function' && focusTarget.matches(':focus-visible')
+
+    if (isKeyboardStyleFocus) {
+      handleStepperFocus()
+    }
+  }
+
   function handleStepperKeyDown(event) {
     const increaseKeys = ['ArrowUp', 'ArrowRight']
     const decreaseKeys = ['ArrowDown', 'ArrowLeft']
@@ -83,9 +93,13 @@ function ProductCard({
   }
 
   function handleAddButtonActivate(event) {
+    const isKeyboardActivation = event.detail === 0
     handleIncrease()
-    event.currentTarget.blur()
-    focusPlusButtonWithRetry()
+
+    if (isKeyboardActivation) {
+      event.currentTarget.blur()
+      focusPlusButtonWithRetry()
+    }
   }
 
   return (
@@ -149,7 +163,7 @@ function ProductCard({
             role="group"
             aria-label={`Quantity controls for ${product.title}`}
             aria-hidden={!shouldShowQuantityStepper}
-            onFocus={handleStepperFocus}
+            onFocus={handleStepperGroupFocus}
             onBlur={handleStepperGroupBlur}
             onKeyDown={handleStepperKeyDown}
           >
