@@ -49,11 +49,13 @@ function ProductCard({
       <div className="product-content">
         <div className="product-category-row">
           <p className="product-category">{product.category}</p>
-          {inCartQuantity > 0 && (
-            <span className="product-in-cart-badge" aria-label={`${inCartQuantity} in cart`}>
-              In cart · {inCartQuantity}
-            </span>
-          )}
+          <span
+            className={`product-in-cart-badge ${inCartQuantity > 0 ? 'is-visible' : 'is-empty'}`}
+            aria-hidden={inCartQuantity === 0}
+            aria-label={inCartQuantity > 0 ? `${inCartQuantity} in cart` : undefined}
+          >
+            {`In cart · ${inCartQuantity}`}
+          </span>
         </div>
         <h2 className="product-title">{product.title}</h2>
         <p className="product-brand">{product.brand}</p>
