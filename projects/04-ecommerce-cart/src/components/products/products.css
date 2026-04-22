@@ -41,6 +41,8 @@
   --products-stepper-feedback-duration: 240ms;
   --products-stepper-quantity-bump-duration: 200ms;
   --products-stepper-feedback-easing: cubic-bezier(0.22, 0.7, 0.2, 1);
+  --products-badge-fade-duration: 260ms;
+  --products-badge-fade-easing: cubic-bezier(0.22, 0.7, 0.2, 1);
   --products-stepper-surface: linear-gradient(180deg, rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.68));
   --products-stepper-surface-hover: rgba(37, 99, 235, 0.18);
   --products-stepper-surface-disabled-hover: rgba(148, 163, 184, 0.12);
@@ -202,17 +204,24 @@
   line-height: 1.1;
   white-space: nowrap;
   box-shadow: 0 2px 5px rgba(2, 6, 23, 0.18);
+  transition:
+    opacity var(--products-badge-fade-duration) var(--products-badge-fade-easing),
+    transform var(--products-badge-fade-duration) var(--products-badge-fade-easing),
+    visibility 0s linear var(--products-badge-fade-duration);
 }
 
 .product-in-cart-badge.is-empty {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  transform: translateY(-4px);
 }
 
 .product-in-cart-badge.is-visible {
   opacity: 1;
   visibility: visible;
+  transform: translateY(0);
+  transition-delay: 0s;
 }
 
 .product-image--tight-crop {
