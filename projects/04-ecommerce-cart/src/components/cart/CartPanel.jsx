@@ -241,7 +241,7 @@ function CartPanel() {
 
             <footer className="cart-footer">
               <p className="cart-total">
-                Total:{' '}
+                <span className="cart-total-label">Total:</span>
                 <strong className="cart-total-value">
                   {totalRollState.direction ? (
                     <span className={`cart-total-roll-track is-roll-${totalRollState.direction}`}>
