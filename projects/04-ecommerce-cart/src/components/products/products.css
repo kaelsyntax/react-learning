@@ -47,6 +47,10 @@
   --products-stepper-surface-hover: rgba(37, 99, 235, 0.18);
   --products-stepper-surface-disabled-hover: rgba(148, 163, 184, 0.12);
   --products-stepper-blocked-accent: var(--color-danger-300);
+  --products-stepper-focus-minus-ring: rgba(191, 219, 254, 0.82);
+  --products-stepper-focus-plus-ring: rgba(96, 165, 250, 0.9);
+  --products-stepper-focus-minus-glow: rgba(148, 163, 184, 0.26);
+  --products-stepper-focus-plus-glow: rgba(59, 130, 246, 0.28);
   width: 100%;
 }
 
@@ -421,19 +425,25 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   cursor: pointer;
   transition:
     background var(--transition-fast),
     color var(--transition-fast),
-    opacity var(--transition-fast);
+    opacity var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .product-stepper-button--minus {
   color: var(--color-text-primary);
+  border-top-left-radius: calc(var(--products-button-radius) - 1px);
+  border-bottom-left-radius: calc(var(--products-button-radius) - 1px);
 }
 
 .product-stepper-button--plus {
   color: var(--color-accent-200);
+  border-top-right-radius: calc(var(--products-button-radius) - 1px);
+  border-bottom-right-radius: calc(var(--products-button-radius) - 1px);
 }
 
 .product-stepper-button--minus:not(:disabled):not(.is-disabled):hover {
@@ -447,8 +457,22 @@
 }
 
 .product-stepper-button:focus-visible {
-  outline: 2px solid var(--products-focus-ring);
-  outline-offset: -2px;
+  outline: none;
+  z-index: 1;
+}
+
+.product-stepper-button--minus:focus-visible {
+  background: rgba(148, 163, 184, 0.08);
+  box-shadow:
+    inset 0 0 0 1px var(--products-stepper-focus-minus-ring),
+    0 0 0 2px var(--products-stepper-focus-minus-glow);
+}
+
+.product-stepper-button--plus:focus-visible {
+  background: rgba(37, 99, 235, 0.14);
+  box-shadow:
+    inset 0 0 0 1px var(--products-stepper-focus-plus-ring),
+    0 0 0 2px var(--products-stepper-focus-plus-glow);
 }
 
 .product-stepper-button:disabled {
