@@ -217,6 +217,7 @@
   --cart-modal-surface: rgba(15, 23, 42, 0.95);
   --cart-modal-border: rgba(148, 163, 184, 0.26);
   --cart-modal-space: var(--space-md);
+  --cart-modal-min-height: clamp(420px, 70vh, 760px);
   --cart-overlay-enter-duration: 200ms;
   --cart-overlay-exit-duration: 220ms;
   position: fixed;
@@ -238,6 +239,7 @@
   --cart-modal-enter-duration: 200ms;
   --cart-modal-exit-duration: 220ms;
   width: min(640px, 100%);
+  min-height: var(--cart-modal-min-height);
   max-height: min(85vh, 760px);
   overflow: auto;
   scrollbar-width: thin;
@@ -246,14 +248,14 @@
   border-radius: var(--radius-lg);
   background: var(--cart-modal-surface);
   display: grid;
+  align-content: start;
   gap: var(--cart-modal-space);
   padding: var(--cart-modal-space);
   animation: cart-modal-enter var(--cart-modal-enter-duration) ease-out both;
 }
 
 .cart-modal--empty {
-  height: clamp(420px, 76vh, 760px);
-  max-height: none;
+  min-height: clamp(420px, 76vh, 760px);
   overflow: hidden;
   grid-template-rows: auto 1fr;
   gap: 0;
@@ -558,7 +560,7 @@
   }
 
   .cart-modal--empty {
-    height: clamp(420px, 82vh, 680px);
+    min-height: clamp(420px, 82vh, 680px);
   }
 
   .cart-footer {
