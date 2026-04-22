@@ -17,6 +17,7 @@ function ProductCard({
   onDecreaseQuantity
 }) {
   const displayedStock = isOutOfStock ? 0 : inCartQuantity > 0 ? remainingStock : product.stock
+  const minusButtonRef = useRef(null)
   const plusButtonRef = useRef(null)
   const {
     stepperFeedback,
@@ -62,14 +63,21 @@ function ProductCard({
     const increaseKeys = ['ArrowUp', 'ArrowRight']
     const decreaseKeys = ['ArrowDown', 'ArrowLeft']
 
+    function focusButton(buttonRef) {
+      if (!buttonRef.current || buttonRef.current.disabled) return
+      buttonRef.current.focus()
+    }
+
     if (increaseKeys.includes(event.key)) {
       event.preventDefault()
+      focusButton(plusButtonRef)
       handleIncrease()
       return
     }
 
     if (decreaseKeys.includes(event.key)) {
       event.preventDefault()
+      focusButton(minusButtonRef)
       handleDecrease()
     }
   }
@@ -148,6 +156,7 @@ function ProductCard({
             <button
               className={`product-stepper-button product-stepper-button--minus ${stepperFeedback === 'minus' ? 'is-pulsing' : ''}`}
               type="button"
+              ref={minusButtonRef}
               onClick={handleDecrease}
               disabled={!shouldShowQuantityStepper || inCartQuantity === 0}
               aria-label={`Decrease quantity of ${product.title}`}
