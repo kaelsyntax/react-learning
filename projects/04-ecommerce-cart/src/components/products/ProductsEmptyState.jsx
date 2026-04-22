@@ -1,4 +1,4 @@
-import { FilterIcon } from './icons'
+import { FilterIcon } from '../shared/icons'
 
 function ProductsEmptyState({ isExiting, hasActiveFilters, onResetFilters }) {
   return (

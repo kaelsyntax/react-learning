@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState } from 'react'
-import { formatPrice } from '../utils/format-price'
+import { formatPrice } from '../../utils/format-price'
 
 const RANGE_STEP_IN_CENTS = 1000
 const RANGE_COMMIT_DEBOUNCE_MS = 180

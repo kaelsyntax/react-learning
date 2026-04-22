@@ -1,8 +1,8 @@
 import { useId } from 'react'
-import { AddIcon, CartAddIcon, CartIcon, CloseIcon, RemoveIcon, TrashIcon } from './icons'
-import { useCart } from '../hooks/useCart'
-import { useCartPanelModal } from '../hooks/useCartPanelModal'
-import { formatPrice } from '../utils/format-price'
+import { AddIcon, CartAddIcon, CartIcon, CloseIcon, RemoveIcon, TrashIcon } from '../shared/icons'
+import { useCart } from '../../hooks/useCart'
+import { useCartPanelModal } from '../../hooks/useCartPanelModal'
+import { formatPrice } from '../../utils/format-price'
 import './cart.css'
 
 function getStockMessage(item) {

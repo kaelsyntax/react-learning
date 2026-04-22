@@ -1,6 +1,6 @@
 import './products.css'
-import { useFilters } from '../hooks/useFilters'
-import { useProductsTransition } from '../hooks/useProductsTransition'
+import { useFilters } from '../../hooks/useFilters'
+import { useProductsTransition } from '../../hooks/useProductsTransition'
 import ProductCard from './ProductCard'
 import ProductsEmptyState from './ProductsEmptyState'
 

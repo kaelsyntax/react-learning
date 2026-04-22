@@ -1,6 +1,6 @@
-import { AddIcon, CartIcon, RemoveIcon } from './icons'
-import { formatPrice } from '../utils/format-price'
-import { useProductCardStepper } from '../hooks/useProductCardStepper'
+import { AddIcon, CartIcon, RemoveIcon } from '../shared/icons'
+import { formatPrice } from '../../utils/format-price'
+import { useProductCardStepper } from '../../hooks/useProductCardStepper'
 
 function ProductCard({
   product,

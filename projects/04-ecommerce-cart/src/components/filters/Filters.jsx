@@ -1,9 +1,9 @@
-import { FilterIcon } from './icons'
+import { FilterIcon } from '../shared/icons'
 import CategoryFilter from './CategoryFilter'
 import SortFilter from './SortFilter'
 import PriceFilter from './PriceFilter'
 import './filters.css'
-import { useFilters } from '../hooks/useFilters'
+import { useFilters } from '../../hooks/useFilters'
 
 const sortOptions = ['featured', 'price-asc', 'price-desc', 'name-asc']
 
