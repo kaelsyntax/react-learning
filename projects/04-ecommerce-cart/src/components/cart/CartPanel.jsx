@@ -84,6 +84,7 @@ function CartPanel() {
   const [stockTonePulseById, setStockTonePulseById] = useState({})
   const previousStockTonesRef = useRef(new Map())
   const stockTonePulseTimersRef = useRef(new Map())
+  const pendingRemoveFocusRef = useRef(null)
 
   useEffect(() => {
     if (!isCartViewClosing) return undefined
@@ -225,6 +226,60 @@ function CartPanel() {
     }
   }, [])
 
+  useEffect(() => {
+    const pendingFocusTarget = pendingRemoveFocusRef.current
+    if (!pendingFocusTarget || !isOpen || renderedCartView !== 'items') return
+
+    const targetEntry = visibleCartItems.find(
+      (entry) => String(entry.item.id) === pendingFocusTarget.itemId
+    )
+
+    if (!targetEntry || targetEntry.isExiting) return
+
+    const modalElement = modalRef.current
+    if (!modalElement) return
+
+    const preferredSelectors = [
+      'remove',
+      'increase',
+      'decrease'
+    ].map(
+      (action) =>
+        `button[data-cart-item-id="${pendingFocusTarget.itemId}"][data-cart-action="${action}"]:not(:disabled)`
+    )
+
+    let nextFocusTarget = null
+
+    for (const selector of preferredSelectors) {
+      nextFocusTarget = modalElement.querySelector(selector)
+      if (nextFocusTarget) break
+    }
+
+    if (!nextFocusTarget) {
+      nextFocusTarget = modalElement.querySelector(
+        'button[data-cart-action="remove"]:not(:disabled), button[data-cart-action="increase"]:not(:disabled), button[data-cart-action="decrease"]:not(:disabled)'
+      )
+    }
+
+    if (nextFocusTarget) {
+      nextFocusTarget.focus()
+    }
+
+    pendingRemoveFocusRef.current = null
+  }, [visibleCartItems, renderedCartView, isOpen, modalRef])
+
+  function handleRemoveWithFocus(itemId) {
+    const currentIndex = cartItems.findIndex((item) => item.id === itemId)
+    const nextFocusableItem =
+      cartItems[currentIndex + 1] ?? cartItems[currentIndex - 1] ?? null
+
+    pendingRemoveFocusRef.current = nextFocusableItem
+      ? { itemId: String(nextFocusableItem.id) }
+      : null
+
+    removeFromCart(itemId)
+  }
+
   return (
     <>
       <button
@@ -342,6 +397,8 @@ function CartPanel() {
                               type="button"
                               onClick={() => decreaseQuantity(item.id)}
                               disabled={isExiting}
+                              data-cart-item-id={item.id}
+                              data-cart-action="decrease"
                               aria-label={`Decrease quantity of ${item.title}`}
                             >
                               <RemoveIcon size={16} aria-hidden="true" />
@@ -356,6 +413,8 @@ function CartPanel() {
                               type="button"
                               onClick={() => addToCart(item)}
                               disabled={isExiting || item.quantity >= item.stock}
+                              data-cart-item-id={item.id}
+                              data-cart-action="increase"
                               aria-label={`Increase quantity of ${item.title}`}
                             >
                               <AddIcon size={16} aria-hidden="true" />
@@ -369,8 +428,10 @@ function CartPanel() {
                           <button
                             className="cart-icon-button cart-icon-button--danger cart-item-remove"
                             type="button"
-                            onClick={() => removeFromCart(item.id)}
+                            onClick={() => handleRemoveWithFocus(item.id)}
                             disabled={isExiting}
+                            data-cart-item-id={item.id}
+                            data-cart-action="remove"
                             aria-label={`Remove ${item.title} from cart`}
                           >
                             <TrashIcon size={16} aria-hidden="true" />
