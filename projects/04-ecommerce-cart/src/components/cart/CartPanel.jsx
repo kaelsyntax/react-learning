@@ -11,7 +11,7 @@ const CART_TOTAL_ROLL_MS = 210
 function getStockMessage(item) {
   if (item.stock === 0) {
     return {
-      text: 'No stock available',
+      text: 'Out of stock',
       toneClass: 'cart-item-stock--danger'
     }
   }
@@ -20,13 +20,20 @@ function getStockMessage(item) {
 
   if (remainingStock === 0) {
     return {
-      text: 'No more stock available',
+      text: 'No units left',
+      toneClass: 'cart-item-stock--danger'
+    }
+  }
+
+  if (remainingStock <= 2) {
+    return {
+      text: `Low stock: ${remainingStock}`,
       toneClass: 'cart-item-stock--warning'
     }
   }
 
   return {
-    text: `In cart: ${item.quantity} | Remaining: ${remainingStock}`,
+    text: `Stock: ${remainingStock}`,
     toneClass: 'cart-item-stock--default'
   }
 }
@@ -225,6 +232,10 @@ function CartPanel() {
                             </button>
                           </div>
 
+                          <p className={`cart-item-stock ${stockInfo.toneClass}`}>
+                            {stockInfo.text}
+                          </p>
+
                           <button
                             className="cart-icon-button cart-icon-button--danger cart-item-remove"
                             type="button"
@@ -234,10 +245,6 @@ function CartPanel() {
                             <TrashIcon size={16} aria-hidden="true" />
                           </button>
                         </div>
-
-                        <p className={`cart-item-stock ${stockInfo.toneClass}`}>
-                          {stockInfo.text}
-                        </p>
                       </li>
                     )
                   })}

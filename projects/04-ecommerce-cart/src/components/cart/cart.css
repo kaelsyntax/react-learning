@@ -219,7 +219,7 @@
   --cart-modal-space: var(--space-md);
   --cart-modal-min-height: clamp(420px, 70vh, 760px);
   --cart-item-thumb-size: 56px;
-  --cart-item-min-height: 154px;
+  --cart-item-min-height: 136px;
   --cart-view-enter-duration: 200ms;
   --cart-view-exit-duration: 180ms;
   --cart-overlay-enter-duration: 200ms;
@@ -421,7 +421,7 @@
 
 .cart-item {
   display: grid;
-  grid-template-rows: auto auto auto;
+  grid-template-rows: auto auto;
   align-content: start;
   gap: var(--space-sm);
   min-height: var(--cart-item-min-height);
@@ -522,7 +522,7 @@
 
 .cart-item-controls {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   gap: var(--space-xs);
   min-height: 32px;
@@ -561,12 +561,16 @@
 
 .cart-item-stock {
   margin: 0;
-  font-size: 0.82rem;
-  font-weight: 600;
-  line-height: 1.25;
-  min-height: 1.25em;
-  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.15;
 }
 
 .cart-item-stock--default {
@@ -641,7 +645,12 @@
 }
 
 .cart-item-remove {
-  flex: 0 0 auto;
+  flex: 0 0 32px;
+  align-self: stretch;
+}
+
+.cart-item-remove:hover {
+  background: rgba(185, 28, 28, 0.24);
 }
 
 .cart-footer {
@@ -769,7 +778,7 @@
 
 @media (max-width: 560px) {
   .cart-overlay {
-    --cart-item-min-height: 148px;
+    --cart-item-min-height: 132px;
   }
 
   .cart-toggle--floating {
@@ -794,6 +803,10 @@
 
   .cart-item {
     padding: var(--space-xs) var(--space-sm);
+  }
+
+  .cart-item-stock {
+    font-size: 0.78rem;
   }
 
   .cart-clear {
