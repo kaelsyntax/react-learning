@@ -80,8 +80,10 @@ function CartPanel() {
     to: totalItems,
     direction: ''
   })
+  const [badgeLiveMessage, setBadgeLiveMessage] = useState('')
   const continueShoppingButtonRef = useRef(null)
   const previousRenderedCartViewRef = useRef(renderedCartView)
+  const previousBadgeCountRef = useRef(totalItems)
   const previousCartMetricsRef = useRef({
     isOpen: false,
     totalItems,
@@ -91,6 +93,7 @@ function CartPanel() {
   const [stockTonePulseById, setStockTonePulseById] = useState({})
   const previousStockTonesRef = useRef(new Map())
   const stockTonePulseTimersRef = useRef(new Map())
+  const badgeLiveResetTimerRef = useRef(null)
   const pendingRemoveFocusRef = useRef(null)
   const [stepperSymbolPulseByKey, setStepperSymbolPulseByKey] = useState({})
   const stepperSymbolPulseTimersRef = useRef(new Map())
@@ -156,6 +159,43 @@ function CartPanel() {
 
     return () => clearTimeout(timeoutId)
   }, [badgeRollState.direction])
+
+  useEffect(() => {
+    const previousBadgeCount = previousBadgeCountRef.current
+    if (previousBadgeCount === totalItems) return
+
+    if (!isOpen) {
+      const delta = totalItems - previousBadgeCount
+      const units = Math.abs(delta)
+      const itemLabel = units === 1 ? 'item' : 'items'
+
+      const nextMessage =
+        totalItems === 0
+          ? 'Cart is now empty.'
+          : delta > 0
+            ? `${units} ${itemLabel} added. ${totalItems} total in cart.`
+            : `${units} ${itemLabel} removed. ${totalItems} total in cart.`
+
+      setBadgeLiveMessage(nextMessage)
+
+      if (badgeLiveResetTimerRef.current) {
+        clearTimeout(badgeLiveResetTimerRef.current)
+      }
+
+      badgeLiveResetTimerRef.current = setTimeout(() => {
+        setBadgeLiveMessage('')
+        badgeLiveResetTimerRef.current = null
+      }, 1400)
+    } else if (badgeLiveMessage) {
+      setBadgeLiveMessage('')
+      if (badgeLiveResetTimerRef.current) {
+        clearTimeout(badgeLiveResetTimerRef.current)
+        badgeLiveResetTimerRef.current = null
+      }
+    }
+
+    previousBadgeCountRef.current = totalItems
+  }, [totalItems, isOpen, badgeLiveMessage])
 
   useEffect(() => {
     const previousView = previousRenderedCartViewRef.current
@@ -258,6 +298,11 @@ function CartPanel() {
     return () => {
       stockTonePulseTimersRef.current.forEach((timeoutId) => clearTimeout(timeoutId))
       stockTonePulseTimersRef.current.clear()
+
+      if (badgeLiveResetTimerRef.current) {
+        clearTimeout(badgeLiveResetTimerRef.current)
+        badgeLiveResetTimerRef.current = null
+      }
     }
   }, [])
 
@@ -386,6 +431,9 @@ function CartPanel() {
           )}
         </span>
       </button>
+      <p className="cart-a11y-live" role="status" aria-live="polite" aria-atomic="true">
+        {badgeLiveMessage}
+      </p>
 
       {isOpen && (
         <div
