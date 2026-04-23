@@ -189,6 +189,7 @@
 }
 
 .cart-badge {
+  position: relative;
   min-width: 2.2ch;
   height: 24px;
   border-radius: var(--radius-pill);
@@ -203,7 +204,45 @@
   font-feature-settings: 'tnum' 1;
   padding: 0 6px;
   color: var(--cart-toggle-icon-hover);
+  overflow: hidden;
+  line-height: 1;
   transition: none;
+}
+
+.cart-badge-value {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.cart-badge-roll-track {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 1em;
+}
+
+.cart-badge-roll-number {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.cart-badge-roll-track.is-roll-up .cart-badge-roll-number--from {
+  animation: cart-badge-old-up 170ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
+}
+
+.cart-badge-roll-track.is-roll-up .cart-badge-roll-number--to {
+  animation: cart-badge-new-up 170ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
+}
+
+.cart-badge-roll-track.is-roll-down .cart-badge-roll-number--from {
+  animation: cart-badge-old-down 170ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
+}
+
+.cart-badge-roll-track.is-roll-down .cart-badge-roll-number--to {
+  animation: cart-badge-new-down 170ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
 }
 
 .cart-toggle:hover .cart-badge,
@@ -962,7 +1001,11 @@
   .cart-total-roll-track.is-roll-up .cart-total-roll-number--from,
   .cart-total-roll-track.is-roll-up .cart-total-roll-number--to,
   .cart-total-roll-track.is-roll-down .cart-total-roll-number--from,
-  .cart-total-roll-track.is-roll-down .cart-total-roll-number--to {
+  .cart-total-roll-track.is-roll-down .cart-total-roll-number--to,
+  .cart-badge-roll-track.is-roll-up .cart-badge-roll-number--from,
+  .cart-badge-roll-track.is-roll-up .cart-badge-roll-number--to,
+  .cart-badge-roll-track.is-roll-down .cart-badge-roll-number--from,
+  .cart-badge-roll-track.is-roll-down .cart-badge-roll-number--to {
     animation: none;
   }
 }
@@ -1085,6 +1128,50 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes cart-badge-old-up {
+  from {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -80%);
+  }
+}
+
+@keyframes cart-badge-new-up {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 80%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes cart-badge-old-down {
+  from {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, 80%);
+  }
+}
+
+@keyframes cart-badge-new-down {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -80%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
   }
 }
 

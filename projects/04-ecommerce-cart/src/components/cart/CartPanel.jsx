@@ -10,6 +10,7 @@ const CART_VIEW_SWAP_MS = 180
 const CART_TOTAL_ROLL_MS = 210
 const STOCK_TONE_PULSE_MS = 160
 const STEPPER_SYMBOL_PULSE_MS = 140
+const CART_BADGE_ROLL_MS = 170
 
 function getStockMessage(item) {
   if (item.stock === 0) {
@@ -74,6 +75,11 @@ function CartPanel() {
     to: totalPriceInCents,
     direction: ''
   })
+  const [badgeRollState, setBadgeRollState] = useState({
+    from: totalItems,
+    to: totalItems,
+    direction: ''
+  })
   const continueShoppingButtonRef = useRef(null)
   const previousRenderedCartViewRef = useRef(renderedCartView)
   const previousCartMetricsRef = useRef({
@@ -124,6 +130,32 @@ function CartPanel() {
 
     return () => clearTimeout(timeoutId)
   }, [totalRollState.direction])
+
+  useEffect(() => {
+    setBadgeRollState((current) => {
+      if (totalItems === current.to) return current
+
+      return {
+        from: current.to,
+        to: totalItems,
+        direction: totalItems > current.to ? 'up' : 'down'
+      }
+    })
+  }, [totalItems])
+
+  useEffect(() => {
+    if (!badgeRollState.direction) return undefined
+
+    const timeoutId = setTimeout(() => {
+      setBadgeRollState((current) => ({
+        from: current.to,
+        to: current.to,
+        direction: ''
+      }))
+    }, CART_BADGE_ROLL_MS)
+
+    return () => clearTimeout(timeoutId)
+  }, [badgeRollState.direction])
 
   useEffect(() => {
     const previousView = previousRenderedCartViewRef.current
@@ -339,7 +371,20 @@ function CartPanel() {
       >
         <CartIcon size={18} aria-hidden="true" />
         <span>Cart</span>
-        <span className="cart-badge">{totalItems}</span>
+        <span className="cart-badge" aria-hidden="true">
+          {badgeRollState.direction ? (
+            <span className={`cart-badge-roll-track is-roll-${badgeRollState.direction}`}>
+              <span className="cart-badge-roll-number cart-badge-roll-number--from">
+                {badgeRollState.from}
+              </span>
+              <span className="cart-badge-roll-number cart-badge-roll-number--to">
+                {badgeRollState.to}
+              </span>
+            </span>
+          ) : (
+            <span className="cart-badge-value">{badgeRollState.to}</span>
+          )}
+        </span>
       </button>
 
       {isOpen && (
