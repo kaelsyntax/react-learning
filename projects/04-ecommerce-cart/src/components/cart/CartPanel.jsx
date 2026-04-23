@@ -9,6 +9,7 @@ import './cart.css'
 const CART_VIEW_SWAP_MS = 180
 const CART_TOTAL_ROLL_MS = 210
 const STOCK_TONE_PULSE_MS = 160
+const STEPPER_SYMBOL_PULSE_MS = 140
 
 function getStockMessage(item) {
   if (item.stock === 0) {
@@ -85,6 +86,8 @@ function CartPanel() {
   const previousStockTonesRef = useRef(new Map())
   const stockTonePulseTimersRef = useRef(new Map())
   const pendingRemoveFocusRef = useRef(null)
+  const [stepperSymbolPulseByKey, setStepperSymbolPulseByKey] = useState({})
+  const stepperSymbolPulseTimersRef = useRef(new Map())
 
   useEffect(() => {
     if (!isCartViewClosing) return undefined
@@ -227,6 +230,13 @@ function CartPanel() {
   }, [])
 
   useEffect(() => {
+    return () => {
+      stepperSymbolPulseTimersRef.current.forEach((timeoutId) => clearTimeout(timeoutId))
+      stepperSymbolPulseTimersRef.current.clear()
+    }
+  }, [])
+
+  useEffect(() => {
     const pendingFocusTarget = pendingRemoveFocusRef.current
     if (!pendingFocusTarget || !isOpen || renderedCartView !== 'items') return
 
@@ -278,6 +288,40 @@ function CartPanel() {
       : null
 
     removeFromCart(itemId)
+  }
+
+  function triggerStepperSymbolPulse(itemId, action) {
+    const pulseKey = `${itemId}:${action}`
+    const pulseTimers = stepperSymbolPulseTimersRef.current
+
+    setStepperSymbolPulseByKey((current) => ({ ...current, [pulseKey]: true }))
+
+    if (pulseTimers.has(pulseKey)) {
+      clearTimeout(pulseTimers.get(pulseKey))
+    }
+
+    const timeoutId = setTimeout(() => {
+      setStepperSymbolPulseByKey((current) => {
+        if (!current[pulseKey]) return current
+
+        const next = { ...current }
+        delete next[pulseKey]
+        return next
+      })
+      pulseTimers.delete(pulseKey)
+    }, STEPPER_SYMBOL_PULSE_MS)
+
+    pulseTimers.set(pulseKey, timeoutId)
+  }
+
+  function handleDecreaseWithFeedback(item) {
+    triggerStepperSymbolPulse(item.id, 'decrease')
+    decreaseQuantity(item.id)
+  }
+
+  function handleIncreaseWithFeedback(item) {
+    triggerStepperSymbolPulse(item.id, 'increase')
+    addToCart(item)
   }
 
   return (
@@ -357,6 +401,10 @@ function CartPanel() {
                     const { item, isExiting } = entry
                     const stockInfo = getStockMessage(item)
                     const lineTotalInCents = item.priceInCents * item.quantity
+                    const decreasePulseKey = `${item.id}:decrease`
+                    const increasePulseKey = `${item.id}:increase`
+                    const isDecreasePulsing = Boolean(stepperSymbolPulseByKey[decreasePulseKey])
+                    const isIncreasePulsing = Boolean(stepperSymbolPulseByKey[increasePulseKey])
 
                     return (
                       <li
@@ -393,9 +441,9 @@ function CartPanel() {
                         <div className="cart-item-controls">
                           <div className="cart-quantity-stepper" role="group" aria-label={`Quantity controls for ${item.title}`}>
                             <button
-                              className="cart-icon-button cart-icon-button--stepper"
+                              className={`cart-icon-button cart-icon-button--stepper ${isDecreasePulsing ? 'is-symbol-pulse is-symbol-pulse-down' : ''}`}
                               type="button"
-                              onClick={() => decreaseQuantity(item.id)}
+                              onClick={() => handleDecreaseWithFeedback(item)}
                               disabled={isExiting}
                               data-cart-item-id={item.id}
                               data-cart-action="decrease"
@@ -409,9 +457,9 @@ function CartPanel() {
                             </span>
 
                             <button
-                              className="cart-icon-button cart-icon-button--stepper"
+                              className={`cart-icon-button cart-icon-button--stepper ${isIncreasePulsing ? 'is-symbol-pulse is-symbol-pulse-up' : ''}`}
                               type="button"
-                              onClick={() => addToCart(item)}
+                              onClick={() => handleIncreaseWithFeedback(item)}
                               disabled={isExiting || item.quantity >= item.stock}
                               data-cart-item-id={item.id}
                               data-cart-action="increase"
