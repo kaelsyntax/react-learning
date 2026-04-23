@@ -194,14 +194,16 @@ function CartPanel() {
                           </div>
 
                           <div className="cart-item-main">
-                            <p className="cart-item-title">{item.title}</p>
-                            {item.brand ? <p className="cart-item-brand">{item.brand}</p> : null}
-                            <p className="cart-item-meta">
-                              <span className="cart-item-unit-price">{formatPrice(item.priceInCents)} each</span>
+                            <div className="cart-item-title-row">
+                              <p className="cart-item-title">{item.title}</p>
                               <span className="cart-item-line-total">
                                 <span className="cart-item-line-total-label">Subtotal</span>
                                 <strong>{formatPrice(lineTotalInCents)}</strong>
                               </span>
+                            </div>
+                            {item.brand ? <p className="cart-item-brand">{item.brand}</p> : null}
+                            <p className="cart-item-meta">
+                              <span className="cart-item-unit-price">{formatPrice(item.priceInCents)} each</span>
                             </p>
                           </div>
                         </div>
