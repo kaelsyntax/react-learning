@@ -630,6 +630,10 @@
   background: rgba(185, 28, 28, 0.12);
 }
 
+.cart-item-stock.is-tone-pulse {
+  animation: cart-stock-tone-pulse 160ms cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
 .cart-icon-button {
   width: 32px;
   height: 32px;
@@ -914,6 +918,10 @@
     transition: none;
   }
 
+  .cart-item-stock.is-tone-pulse {
+    animation: none;
+  }
+
   .cart-total-roll-track.is-roll-up .cart-total-roll-number--from,
   .cart-total-roll-track.is-roll-up .cart-total-roll-number--to,
   .cart-total-roll-track.is-roll-down .cart-total-roll-number--from,
@@ -981,6 +989,21 @@
   to {
     opacity: 0;
     transform: translateY(6px);
+  }
+}
+
+@keyframes cart-stock-tone-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(147, 197, 253, 0);
+    filter: saturate(1);
+  }
+  55% {
+    box-shadow: 0 0 0 2px rgba(147, 197, 253, 0.2);
+    filter: saturate(1.08);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(147, 197, 253, 0);
+    filter: saturate(1);
   }
 }
 

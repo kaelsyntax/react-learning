@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { AddIcon, CartAddIcon, CartIcon, CloseIcon, RemoveIcon, TrashIcon } from '../shared/icons'
 import { useCart } from '../../hooks/useCart'
 import { useCartPanelModal } from '../../hooks/useCartPanelModal'
@@ -8,6 +8,7 @@ import './cart.css'
 
 const CART_VIEW_SWAP_MS = 180
 const CART_TOTAL_ROLL_MS = 210
+const STOCK_TONE_PULSE_MS = 160
 
 function getStockMessage(item) {
   if (item.stock === 0) {
@@ -72,6 +73,9 @@ function CartPanel() {
     to: totalPriceInCents,
     direction: ''
   })
+  const [stockTonePulseById, setStockTonePulseById] = useState({})
+  const previousStockTonesRef = useRef(new Map())
+  const stockTonePulseTimersRef = useRef(new Map())
 
   useEffect(() => {
     if (!isCartViewClosing) return undefined
@@ -108,6 +112,63 @@ function CartPanel() {
 
     return () => clearTimeout(timeoutId)
   }, [totalRollState.direction])
+
+  useEffect(() => {
+    const nextStockTones = new Map()
+    const pulseTimers = stockTonePulseTimersRef.current
+
+    cartItems.forEach((item) => {
+      const itemId = String(item.id)
+      const nextToneClass = getStockMessage(item).toneClass
+      const previousToneClass = previousStockTonesRef.current.get(itemId)
+
+      nextStockTones.set(itemId, nextToneClass)
+
+      if (!previousToneClass || previousToneClass === nextToneClass) return
+
+      setStockTonePulseById((current) => ({ ...current, [itemId]: true }))
+
+      if (pulseTimers.has(itemId)) {
+        clearTimeout(pulseTimers.get(itemId))
+      }
+
+      const timeoutId = setTimeout(() => {
+        setStockTonePulseById((current) => {
+          if (!current[itemId]) return current
+
+          const next = { ...current }
+          delete next[itemId]
+          return next
+        })
+        pulseTimers.delete(itemId)
+      }, STOCK_TONE_PULSE_MS)
+
+      pulseTimers.set(itemId, timeoutId)
+    })
+
+    pulseTimers.forEach((timeoutId, itemId) => {
+      if (nextStockTones.has(itemId)) return
+
+      clearTimeout(timeoutId)
+      pulseTimers.delete(itemId)
+      setStockTonePulseById((current) => {
+        if (!current[itemId]) return current
+
+        const next = { ...current }
+        delete next[itemId]
+        return next
+      })
+    })
+
+    previousStockTonesRef.current = nextStockTones
+  }, [cartItems])
+
+  useEffect(() => {
+    return () => {
+      stockTonePulseTimersRef.current.forEach((timeoutId) => clearTimeout(timeoutId))
+      stockTonePulseTimersRef.current.clear()
+    }
+  }, [])
 
   return (
     <>
@@ -242,7 +303,7 @@ function CartPanel() {
                             </button>
                           </div>
 
-                          <p className={`cart-item-stock ${stockInfo.toneClass}`}>
+                          <p className={`cart-item-stock ${stockInfo.toneClass} ${stockTonePulseById[String(item.id)] ? 'is-tone-pulse' : ''}`}>
                             {stockInfo.text}
                           </p>
 
