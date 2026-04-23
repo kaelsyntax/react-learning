@@ -8,6 +8,7 @@ function ProductCard({
   isExiting,
   cardRef,
   cardEnterDelayMs,
+  shouldPrioritizeImage,
   needsTightImageCrop,
   isAtStockLimit,
   isOutOfStock,
@@ -112,7 +113,9 @@ function ProductCard({
         className={`product-image ${needsTightImageCrop ? 'product-image--tight-crop' : ''}`}
         src={product.image}
         alt={product.title}
-        loading="lazy"
+        loading={shouldPrioritizeImage ? 'eager' : 'lazy'}
+        fetchPriority={shouldPrioritizeImage ? 'high' : 'auto'}
+        decoding="async"
       />
 
       <div className="product-content">

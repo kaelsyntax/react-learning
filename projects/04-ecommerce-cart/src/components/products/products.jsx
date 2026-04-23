@@ -28,6 +28,7 @@ function buildProductCardViewModel(item, cartItems, enterOrderByProductId) {
   const needsTightImageCrop = TIGHT_CROP_PRODUCT_IDS.has(product.id)
   const enterSequence = enterOrderByProductId.get(product.id) ?? 0
   const cardEnterDelayMs = isExiting ? 0 : Math.min(enterSequence * 45, 280)
+  const shouldPrioritizeImage = !isExiting && enterSequence === 0
 
   return {
     product,
@@ -37,7 +38,8 @@ function buildProductCardViewModel(item, cartItems, enterOrderByProductId) {
     isAtStockLimit,
     isOutOfStock,
     needsTightImageCrop,
-    cardEnterDelayMs
+    cardEnterDelayMs,
+    shouldPrioritizeImage
   }
 }
 
@@ -88,6 +90,7 @@ function Products({
         isExiting={cardViewModel.isExiting}
         cardRef={(node) => setProductCardElement(cardViewModel.product.id, node)}
         cardEnterDelayMs={cardViewModel.cardEnterDelayMs}
+        shouldPrioritizeImage={cardViewModel.shouldPrioritizeImage}
         needsTightImageCrop={cardViewModel.needsTightImageCrop}
         isAtStockLimit={cardViewModel.isAtStockLimit}
         isOutOfStock={cardViewModel.isOutOfStock}
