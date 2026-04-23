@@ -171,6 +171,7 @@ function CartPanel() {
                 <ul className="cart-items">
                   {cartItems.map((item) => {
                     const stockInfo = getStockMessage(item)
+                    const lineTotalInCents = item.priceInCents * item.quantity
 
                     return (
                       <li key={item.id} className="cart-item">
@@ -187,8 +188,13 @@ function CartPanel() {
 
                           <div className="cart-item-main">
                             <p className="cart-item-title">{item.title}</p>
+                            {item.brand ? <p className="cart-item-brand">{item.brand}</p> : null}
                             <p className="cart-item-meta">
-                              {formatPrice(item.priceInCents)} each
+                              <span className="cart-item-unit-price">{formatPrice(item.priceInCents)} each</span>
+                              <span className="cart-item-line-total">
+                                <span className="cart-item-line-total-label">Subtotal</span>
+                                <strong>{formatPrice(lineTotalInCents)}</strong>
+                              </span>
                             </p>
                           </div>
                         </div>
