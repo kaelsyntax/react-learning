@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 const CART_ITEM_EXIT_ANIMATION_MS = 180
-const CART_ITEM_FLIP_ANIMATION_MS = 240
+const CART_ITEM_FLIP_ANIMATION_MS = 220
 
 function toVisibleCartItem(item, isExiting = false) {
   return {
@@ -46,50 +46,163 @@ function useCartItemsTransition(cartItems) {
   )
   const itemElementsRef = useRef(new Map())
   const previousItemRectsRef = useRef(new Map())
-  const exitTimersRef = useRef(new Map())
+  const exitAnimationsRef = useRef(new Map())
+  const skipNextFlipRef = useRef(false)
+
+  const removeVisibleItem = useCallback((itemId) => {
+    setVisibleCartItems((current) =>
+      current.filter((currentEntry) => currentEntry.item.id !== itemId)
+    )
+  }, [])
 
   useEffect(() => {
     setVisibleCartItems((previous) => buildVisibleCartItems(previous, cartItems))
   }, [cartItems])
 
   useEffect(() => {
-    const timers = exitTimersRef.current
+    const activeExits = exitAnimationsRef.current
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     visibleCartItems.forEach((entry) => {
       const id = entry.item.id
 
       if (!entry.isExiting) {
-        if (timers.has(id)) {
-          clearTimeout(timers.get(id))
-          timers.delete(id)
+        if (activeExits.has(id)) {
+          const activeExit = activeExits.get(id)
+
+          if (activeExit.animation) {
+            activeExit.animation.cancel()
+          }
+
+          if (activeExit.timeoutId) {
+            clearTimeout(activeExit.timeoutId)
+          }
+
+          activeExits.delete(id)
+        }
+
+        const element = itemElementsRef.current.get(id)
+        if (element) {
+          element.style.removeProperty('height')
+          element.style.removeProperty('min-height')
+          element.style.removeProperty('overflow')
+          element.style.removeProperty('will-change')
         }
         return
       }
 
-      if (timers.has(id)) return
+      if (activeExits.has(id)) return
+
+      if (prefersReducedMotion) {
+        removeVisibleItem(id)
+        return
+      }
+
+      const element = itemElementsRef.current.get(id)
+      if (!element) {
+        const timeoutId = setTimeout(() => {
+          activeExits.delete(id)
+          removeVisibleItem(id)
+        }, CART_ITEM_EXIT_ANIMATION_MS)
+
+        activeExits.set(id, { timeoutId })
+        return
+      }
+
+      const computedStyles = getComputedStyle(element)
+      const currentRect = element.getBoundingClientRect()
+      const currentHeight = Math.max(currentRect.height, 1)
+
+      element.style.height = `${currentHeight}px`
+      element.style.minHeight = `${currentHeight}px`
+      element.style.overflow = 'hidden'
+      element.style.willChange = 'height, min-height, opacity, transform, padding, margin'
+
+      const animation = element.animate(
+        [
+          {
+            height: `${currentHeight}px`,
+            minHeight: `${currentHeight}px`,
+            opacity: 1,
+            transform: 'translateY(0)',
+            paddingTop: computedStyles.paddingTop,
+            paddingBottom: computedStyles.paddingBottom,
+            marginTop: computedStyles.marginTop,
+            marginBottom: computedStyles.marginBottom,
+            borderColor: computedStyles.borderColor
+          },
+          {
+            height: '0px',
+            minHeight: '0px',
+            opacity: 0,
+            transform: 'translateY(4px)',
+            paddingTop: '0px',
+            paddingBottom: '0px',
+            marginTop: '0px',
+            marginBottom: '0px',
+            borderColor: 'rgba(148, 163, 184, 0)'
+          }
+        ],
+        {
+          duration: 170,
+          easing: 'cubic-bezier(0.24, 0.7, 0.34, 1)',
+          fill: 'forwards'
+        }
+      )
+
+      const finishExit = () => {
+        if (!activeExits.has(id)) return
+
+        const activeExit = activeExits.get(id)
+        if (activeExit?.timeoutId) {
+          clearTimeout(activeExit.timeoutId)
+        }
+
+        activeExits.delete(id)
+        skipNextFlipRef.current = true
+        removeVisibleItem(id)
+      }
+
+      animation.addEventListener('finish', finishExit, { once: true })
 
       const timeoutId = setTimeout(() => {
-        setVisibleCartItems((current) =>
-          current.filter((currentEntry) => currentEntry.item.id !== id)
-        )
-        timers.delete(id)
-      }, CART_ITEM_EXIT_ANIMATION_MS)
+        finishExit()
+      }, CART_ITEM_EXIT_ANIMATION_MS + 80)
 
-      timers.set(id, timeoutId)
+      activeExits.set(id, { animation, timeoutId })
     })
 
     const currentIds = new Set(visibleCartItems.map((entry) => entry.item.id))
-    timers.forEach((timeoutId, id) => {
+    activeExits.forEach((activeExit, id) => {
       if (currentIds.has(id)) return
-      clearTimeout(timeoutId)
-      timers.delete(id)
+
+      if (activeExit.animation) {
+        activeExit.animation.cancel()
+      }
+
+      if (activeExit.timeoutId) {
+        clearTimeout(activeExit.timeoutId)
+      }
+
+      activeExits.delete(id)
     })
-  }, [visibleCartItems])
+  }, [visibleCartItems, removeVisibleItem])
 
   useEffect(() => {
     return () => {
-      exitTimersRef.current.forEach((timeoutId) => clearTimeout(timeoutId))
-      exitTimersRef.current.clear()
+      exitAnimationsRef.current.forEach((activeExit) => {
+        if (activeExit.animation) {
+          activeExit.animation.cancel()
+        }
+
+        if (activeExit.timeoutId) {
+          clearTimeout(activeExit.timeoutId)
+        }
+      })
+
+      exitAnimationsRef.current.clear()
     }
   }, [])
 
@@ -101,6 +214,14 @@ function useCartItemsTransition(cartItems) {
     ).matches
     const nextRects = new Map()
     const previousRects = previousItemRectsRef.current
+    const hasExitingItems =
+      visibleCartItems.some((entry) => entry.isExiting) ||
+      exitAnimationsRef.current.size > 0
+    const shouldSkipFlip = skipNextFlipRef.current
+
+    if (shouldSkipFlip) {
+      skipNextFlipRef.current = false
+    }
 
     visibleCartItems.forEach((entry) => {
       if (entry.isExiting) return
@@ -112,6 +233,8 @@ function useCartItemsTransition(cartItems) {
       nextRects.set(entry.item.id, nextRect)
 
       if (prefersReducedMotion) return
+      if (hasExitingItems) return
+      if (shouldSkipFlip) return
 
       const previousRect = previousRects.get(entry.item.id)
       if (!previousRect) return

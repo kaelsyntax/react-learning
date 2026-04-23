@@ -220,6 +220,7 @@
   --cart-modal-min-height: clamp(420px, 70vh, 760px);
   --cart-item-thumb-size: 56px;
   --cart-item-min-height: 152px;
+  --cart-items-gap: var(--space-sm);
   --cart-view-enter-duration: 200ms;
   --cart-view-exit-duration: 180ms;
   --cart-overlay-enter-duration: 200ms;
@@ -243,7 +244,8 @@
   --cart-modal-enter-duration: 200ms;
   --cart-modal-exit-duration: 220ms;
   width: min(640px, 100%);
-  min-height: var(--cart-modal-min-height);
+  height: min(85vh, 760px);
+  min-height: min(85vh, 760px);
   max-height: min(85vh, 760px);
   overflow: hidden;
   border: 1px solid var(--cart-modal-border);
@@ -257,7 +259,9 @@
 }
 
 .cart-modal--empty {
-  min-height: var(--cart-modal-min-height);
+  height: min(85vh, 760px);
+  min-height: min(85vh, 760px);
+  max-height: min(85vh, 760px);
   overflow: hidden;
   grid-template-rows: auto minmax(0, 1fr) auto;
   gap: 0;
@@ -419,7 +423,7 @@
   scrollbar-color: var(--color-accent-500) var(--color-bg-overlay);
   display: grid;
   align-content: start;
-  gap: var(--space-sm);
+  gap: 0;
 }
 
 .cart-item {
@@ -428,30 +432,21 @@
   align-content: start;
   gap: var(--space-sm);
   min-height: var(--cart-item-min-height);
-  max-height: 260px;
   border: 1px solid rgba(148, 163, 184, 0.2);
   border-radius: var(--radius-md);
   padding: var(--space-sm);
+  margin-bottom: var(--cart-items-gap);
   background: rgba(15, 23, 42, 0.68);
-  overflow: clip;
-  transform-origin: top;
-  transition:
-    opacity 180ms ease,
-    transform 180ms ease,
-    max-height 180ms ease,
-    padding-top 180ms ease,
-    padding-bottom 180ms ease,
-    border-color 180ms ease;
+  overflow: hidden;
+  will-change: transform, opacity;
+  transition: border-color 160ms ease;
+}
+
+.cart-item:last-child {
+  margin-bottom: 0;
 }
 
 .cart-item.is-exiting {
-  opacity: 0;
-  transform: translateY(6px) scale(0.985);
-  max-height: 0;
-  min-height: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  border-color: transparent;
   pointer-events: none;
 }
 
@@ -837,6 +832,7 @@
 @media (max-width: 560px) {
   .cart-overlay {
     --cart-item-min-height: 146px;
+    --cart-items-gap: var(--space-xs);
   }
 
   .cart-toggle--floating {
@@ -862,10 +858,6 @@
   .cart-total-value {
     min-width: 8.2ch;
     font-size: 1.05rem;
-  }
-
-  .cart-items {
-    gap: var(--space-xs);
   }
 
   .cart-item {
