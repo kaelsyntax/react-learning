@@ -696,11 +696,16 @@
   margin: 0;
   color: var(--color-text-muted);
   display: inline-flex;
-  align-items: center;
-  gap: var(--space-2xs);
+  align-items: baseline;
+  gap: var(--space-xs);
 }
 
 .cart-total-label {
+  color: var(--color-text-soft);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   white-space: nowrap;
   line-height: 1;
 }
@@ -714,11 +719,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: flex-end;
-  min-width: 8ch;
-  height: 1.3em;
+  min-width: 8.8ch;
+  height: 1.35em;
   overflow: hidden;
   text-align: right;
+  font-size: 1.12rem;
+  font-weight: 800;
   line-height: 1;
+  letter-spacing: -0.01em;
   flex: 0 0 auto;
 }
 
@@ -825,6 +833,15 @@
   .cart-footer {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .cart-total {
+    justify-content: space-between;
+  }
+
+  .cart-total-value {
+    min-width: 8.2ch;
+    font-size: 1.05rem;
   }
 
   .cart-items {
