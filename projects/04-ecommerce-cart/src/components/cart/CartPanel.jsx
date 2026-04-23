@@ -73,6 +73,14 @@ function CartPanel() {
     to: totalPriceInCents,
     direction: ''
   })
+  const continueShoppingButtonRef = useRef(null)
+  const previousRenderedCartViewRef = useRef(renderedCartView)
+  const previousCartMetricsRef = useRef({
+    isOpen: false,
+    totalItems,
+    totalPriceInCents
+  })
+  const [cartLiveMessage, setCartLiveMessage] = useState('')
   const [stockTonePulseById, setStockTonePulseById] = useState({})
   const previousStockTonesRef = useRef(new Map())
   const stockTonePulseTimersRef = useRef(new Map())
@@ -112,6 +120,53 @@ function CartPanel() {
 
     return () => clearTimeout(timeoutId)
   }, [totalRollState.direction])
+
+  useEffect(() => {
+    const previousView = previousRenderedCartViewRef.current
+    const switchedToEmptyView = previousView === 'items' && renderedCartView === 'empty'
+    previousRenderedCartViewRef.current = renderedCartView
+
+    if (!switchedToEmptyView || !isOpen || isClosing) return undefined
+
+    const animationFrameId = requestAnimationFrame(() => {
+      continueShoppingButtonRef.current?.focus()
+    })
+
+    return () => cancelAnimationFrame(animationFrameId)
+  }, [renderedCartView, isOpen, isClosing])
+
+  useEffect(() => {
+    const previousMetrics = previousCartMetricsRef.current
+
+    if (!isOpen) {
+      previousCartMetricsRef.current = {
+        isOpen: false,
+        totalItems,
+        totalPriceInCents
+      }
+      return
+    }
+
+    if (
+      previousMetrics.isOpen &&
+      (previousMetrics.totalItems !== totalItems ||
+        previousMetrics.totalPriceInCents !== totalPriceInCents)
+    ) {
+      if (totalItems === 0) {
+        setCartLiveMessage('Cart is now empty.')
+      } else {
+        setCartLiveMessage(
+          `Cart updated. ${totalItems} item${totalItems === 1 ? '' : 's'}. Total ${formatPrice(totalPriceInCents)}.`
+        )
+      }
+    }
+
+    previousCartMetricsRef.current = {
+      isOpen: true,
+      totalItems,
+      totalPriceInCents
+    }
+  }, [isOpen, totalItems, totalPriceInCents])
 
   useEffect(() => {
     const nextStockTones = new Map()
@@ -216,6 +271,9 @@ function CartPanel() {
                 <CloseIcon size={18} aria-hidden="true" />
               </button>
             </header>
+            <p className="cart-a11y-live" role="status" aria-live="polite" aria-atomic="true">
+              {cartLiveMessage}
+            </p>
 
             {renderedCartView === 'empty' ? (
               <div className={`cart-view cart-view--empty ${isCartViewClosing ? 'is-closing' : ''}`}>
@@ -228,6 +286,7 @@ function CartPanel() {
                     Add products from the catalog to see them here.
                   </p>
                   <button
+                    ref={continueShoppingButtonRef}
                     className="cart-empty-cta"
                     type="button"
                     onClick={closeCart}
