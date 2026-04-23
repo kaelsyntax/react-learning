@@ -2,6 +2,7 @@ import { useEffect, useId, useState } from 'react'
 import { AddIcon, CartAddIcon, CartIcon, CloseIcon, RemoveIcon, TrashIcon } from '../shared/icons'
 import { useCart } from '../../hooks/useCart'
 import { useCartPanelModal } from '../../hooks/useCartPanelModal'
+import { useCartItemsTransition } from '../../hooks/useCartItemsTransition'
 import { formatPrice } from '../../utils/format-price'
 import './cart.css'
 
@@ -61,6 +62,7 @@ function CartPanel() {
     removeFromCart,
     clearCart
   } = useCart()
+  const { visibleCartItems, setCartItemElement } = useCartItemsTransition(cartItems)
   const hasItems = cartItems.length > 0
   const targetView = hasItems ? 'items' : 'empty'
   const [renderedCartView, setRenderedCartView] = useState(targetView)
@@ -176,12 +178,17 @@ function CartPanel() {
             ) : (
               <div className={`cart-view cart-view--items ${isCartViewClosing ? 'is-closing' : ''}`}>
                 <ul className="cart-items">
-                  {cartItems.map((item) => {
+                  {visibleCartItems.map((entry) => {
+                    const { item, isExiting } = entry
                     const stockInfo = getStockMessage(item)
                     const lineTotalInCents = item.priceInCents * item.quantity
 
                     return (
-                      <li key={item.id} className="cart-item">
+                      <li
+                        key={item.id}
+                        className={`cart-item ${isExiting ? 'is-exiting' : ''}`}
+                        ref={(node) => setCartItemElement(item.id, node)}
+                      >
                         <div className="cart-item-head">
                           <div className="cart-item-thumb" aria-hidden="true">
                             <img
@@ -214,6 +221,7 @@ function CartPanel() {
                               className="cart-icon-button cart-icon-button--stepper"
                               type="button"
                               onClick={() => decreaseQuantity(item.id)}
+                              disabled={isExiting}
                               aria-label={`Decrease quantity of ${item.title}`}
                             >
                               <RemoveIcon size={16} aria-hidden="true" />
@@ -227,7 +235,7 @@ function CartPanel() {
                               className="cart-icon-button cart-icon-button--stepper"
                               type="button"
                               onClick={() => addToCart(item)}
-                              disabled={item.quantity >= item.stock}
+                              disabled={isExiting || item.quantity >= item.stock}
                               aria-label={`Increase quantity of ${item.title}`}
                             >
                               <AddIcon size={16} aria-hidden="true" />
@@ -242,6 +250,7 @@ function CartPanel() {
                             className="cart-icon-button cart-icon-button--danger cart-item-remove"
                             type="button"
                             onClick={() => removeFromCart(item.id)}
+                            disabled={isExiting}
                             aria-label={`Remove ${item.title} from cart`}
                           >
                             <TrashIcon size={16} aria-hidden="true" />
