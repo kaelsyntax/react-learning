@@ -200,31 +200,33 @@ function CartPanel() {
                         </div>
 
                         <div className="cart-item-controls">
-                          <button
-                            className="cart-icon-button"
-                            type="button"
-                            onClick={() => decreaseQuantity(item.id)}
-                            aria-label={`Decrease quantity of ${item.title}`}
-                          >
-                            <RemoveIcon size={16} aria-hidden="true" />
-                          </button>
+                          <div className="cart-quantity-stepper" role="group" aria-label={`Quantity controls for ${item.title}`}>
+                            <button
+                              className="cart-icon-button cart-icon-button--stepper"
+                              type="button"
+                              onClick={() => decreaseQuantity(item.id)}
+                              aria-label={`Decrease quantity of ${item.title}`}
+                            >
+                              <RemoveIcon size={16} aria-hidden="true" />
+                            </button>
 
-                          <span className="cart-quantity" aria-label="Quantity">
-                            {item.quantity}
-                          </span>
+                            <span className="cart-quantity" aria-label="Quantity">
+                              {item.quantity}
+                            </span>
+
+                            <button
+                              className="cart-icon-button cart-icon-button--stepper"
+                              type="button"
+                              onClick={() => addToCart(item)}
+                              disabled={item.quantity >= item.stock}
+                              aria-label={`Increase quantity of ${item.title}`}
+                            >
+                              <AddIcon size={16} aria-hidden="true" />
+                            </button>
+                          </div>
 
                           <button
-                            className="cart-icon-button"
-                            type="button"
-                            onClick={() => addToCart(item)}
-                            disabled={item.quantity >= item.stock}
-                            aria-label={`Increase quantity of ${item.title}`}
-                          >
-                            <AddIcon size={16} aria-hidden="true" />
-                          </button>
-
-                          <button
-                            className="cart-icon-button cart-icon-button--danger"
+                            className="cart-icon-button cart-icon-button--danger cart-item-remove"
                             type="button"
                             onClick={() => removeFromCart(item.id)}
                             aria-label={`Remove ${item.title} from cart`}
