@@ -1,20 +1,20 @@
 .cart-toggle {
-  --cart-toggle-border: rgba(96, 165, 250, 0.72);
-  --cart-toggle-border-hover: rgba(125, 180, 255, 0.8);
+  --cart-toggle-border: rgba(96, 165, 250, 0.76);
+  --cart-toggle-border-hover: rgba(147, 197, 253, 0.9);
   --cart-toggle-border-open: rgba(147, 197, 253, 0.9);
   --cart-toggle-text: var(--color-text-accent-strong);
   --cart-toggle-icon: var(--color-accent-200);
   --cart-toggle-icon-hover: var(--color-text-accent-soft);
-  --cart-toggle-bg: linear-gradient(180deg, rgba(37, 99, 235, 0.5), rgba(30, 64, 175, 0.42));
+  --cart-toggle-bg: linear-gradient(180deg, rgba(37, 99, 235, 0.54), rgba(30, 64, 175, 0.44));
   --cart-toggle-bg-hover: linear-gradient(
     180deg,
-    rgba(37, 99, 235, 0.58),
-    rgba(30, 64, 175, 0.5)
+    rgba(59, 130, 246, 0.66),
+    rgba(37, 99, 235, 0.56)
   );
   --cart-toggle-bg-open: linear-gradient(
     180deg,
-    rgba(37, 99, 235, 0.64),
-    rgba(30, 64, 175, 0.56)
+    rgba(59, 130, 246, 0.7),
+    rgba(37, 99, 235, 0.6)
   );
   --cart-toggle-focus-ring: rgba(147, 197, 253, 0.28);
   --cart-toggle-focus-ring-strong: rgba(147, 197, 253, 0.9);
@@ -22,6 +22,18 @@
   --cart-toggle-halo-strong: rgba(59, 130, 246, 0.3);
   --cart-toggle-frame: rgba(191, 219, 254, 0.22);
   --cart-toggle-frame-hover: rgba(191, 219, 254, 0.34);
+  --cart-toggle-base-shadow:
+    0 9px 20px rgba(2, 6, 23, 0.26),
+    0 2px 8px rgba(37, 99, 235, 0.18),
+    inset 0 1px 0 rgba(191, 219, 254, 0.24);
+  --cart-toggle-hover-shadow:
+    0 14px 28px rgba(2, 6, 23, 0.36),
+    0 4px 14px rgba(59, 130, 246, 0.22),
+    inset 0 1px 0 rgba(191, 219, 254, 0.3);
+  --cart-toggle-active-shadow:
+    0 8px 16px rgba(2, 6, 23, 0.3),
+    0 2px 10px rgba(59, 130, 246, 0.16),
+    inset 0 1px 0 rgba(191, 219, 254, 0.22);
   --cart-badge-inline-size: 3.4ch;
   position: relative;
   isolation: isolate;
@@ -40,15 +52,13 @@
   font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
-  box-shadow:
-    0 8px 18px rgba(2, 6, 23, 0.24),
-    var(--shadow-sm),
-    inset 0 1px 0 rgba(191, 219, 254, 0.2);
+  box-shadow: var(--cart-toggle-base-shadow);
   transition:
     background var(--transition-fast),
     border-color var(--transition-fast),
     transform var(--transition-fast),
-    box-shadow var(--transition-fast);
+    box-shadow var(--transition-fast),
+    filter var(--transition-fast);
 }
 
 .cart-toggle::before {
@@ -74,7 +84,9 @@
   inset: -2px;
   border-radius: calc(var(--radius-md) + 2px);
   border: 1px solid var(--cart-toggle-frame);
-  background: linear-gradient(180deg, rgba(148, 163, 184, 0.06), rgba(148, 163, 184, 0.01));
+  background:
+    linear-gradient(180deg, rgba(191, 219, 254, 0.08), rgba(148, 163, 184, 0.02)),
+    linear-gradient(120deg, rgba(191, 219, 254, 0.08), rgba(191, 219, 254, 0) 38%);
   opacity: 0.68;
   pointer-events: none;
   z-index: 1;
@@ -98,12 +110,15 @@
   opacity: 0;
   pointer-events: none;
   transform: translateY(-8px) scale(0.96);
+  transform-origin: top right;
+  filter: saturate(1.02);
   transition:
     opacity var(--cart-toggle-modal-fade-duration) ease,
     transform var(--cart-toggle-modal-fade-duration) ease,
     background var(--transition-fast),
     border-color var(--transition-fast),
-    box-shadow var(--transition-fast);
+    box-shadow var(--transition-fast),
+    filter var(--transition-fast);
 }
 
 .cart-toggle--floating.is-visible {
@@ -131,9 +146,8 @@
   background: var(--cart-toggle-bg-hover);
   border-color: var(--cart-toggle-border-hover);
   transform: translateY(-1px) scale(1.01);
-  box-shadow:
-    0 12px 24px rgba(2, 6, 23, 0.36),
-    inset 0 1px 0 rgba(191, 219, 254, 0.24);
+  box-shadow: var(--cart-toggle-hover-shadow);
+  filter: saturate(1.06);
 }
 
 .cart-toggle:hover::before {
@@ -151,6 +165,8 @@
 
 .cart-toggle:active {
   transform: translateY(0) scale(0.99);
+  box-shadow: var(--cart-toggle-active-shadow);
+  filter: saturate(1.02);
 }
 
 .cart-toggle[aria-expanded='true'] {
