@@ -218,6 +218,8 @@
   --cart-modal-border: rgba(148, 163, 184, 0.26);
   --cart-modal-space: var(--space-md);
   --cart-modal-min-height: clamp(420px, 70vh, 760px);
+  --cart-item-thumb-size: 56px;
+  --cart-item-min-height: 154px;
   --cart-view-enter-duration: 200ms;
   --cart-view-exit-duration: 180ms;
   --cart-overlay-enter-duration: 200ms;
@@ -406,18 +408,23 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  padding-right: 2px;
   min-height: 0;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--color-accent-500) var(--color-bg-overlay);
   display: grid;
   align-content: start;
+  grid-auto-rows: minmax(var(--cart-item-min-height), auto);
   gap: var(--space-sm);
 }
 
 .cart-item {
   display: grid;
+  grid-template-rows: auto auto auto;
+  align-content: start;
   gap: var(--space-sm);
+  min-height: var(--cart-item-min-height);
   border: 1px solid rgba(148, 163, 184, 0.2);
   border-radius: var(--radius-md);
   padding: var(--space-sm);
@@ -426,14 +433,15 @@
 
 .cart-item-head {
   display: grid;
-  grid-template-columns: 56px minmax(0, 1fr);
+  grid-template-columns: var(--cart-item-thumb-size) minmax(0, 1fr);
   gap: var(--space-sm);
-  align-items: start;
+  align-items: stretch;
+  min-height: var(--cart-item-thumb-size);
 }
 
 .cart-item-thumb {
-  width: 56px;
-  height: 56px;
+  width: var(--cart-item-thumb-size);
+  height: var(--cart-item-thumb-size);
   border-radius: var(--radius-sm);
   border: 1px solid rgba(148, 163, 184, 0.24);
   background:
@@ -456,7 +464,9 @@
 
 .cart-item-main {
   display: grid;
+  align-content: start;
   gap: 4px;
+  min-height: var(--cart-item-thumb-size);
 }
 
 .cart-item-title {
@@ -515,6 +525,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-xs);
+  min-height: 32px;
 }
 
 .cart-quantity-stepper {
@@ -552,6 +563,10 @@
   margin: 0;
   font-size: 0.82rem;
   font-weight: 600;
+  line-height: 1.25;
+  min-height: 1.25em;
+  display: flex;
+  align-items: center;
 }
 
 .cart-item-stock--default {
@@ -753,6 +768,10 @@
 }
 
 @media (max-width: 560px) {
+  .cart-overlay {
+    --cart-item-min-height: 148px;
+  }
+
   .cart-toggle--floating {
     top: calc(env(safe-area-inset-top, 0px) + 14px);
     right: 10px;
@@ -767,6 +786,14 @@
   .cart-footer {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .cart-items {
+    gap: var(--space-xs);
+  }
+
+  .cart-item {
+    padding: var(--space-xs) var(--space-sm);
   }
 
   .cart-clear {
