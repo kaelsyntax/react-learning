@@ -101,6 +101,7 @@ function useProductsTransition(products) {
   const productsSectionRef = useRef(null)
   const previousSectionHeightRef = useRef(null)
   const shouldAnimateSectionResizeRef = useRef(false)
+  const skipNextSectionResizeAnimationRef = useRef(false)
   const sectionResizeTimeoutRef = useRef(null)
   const pendingFilterTransitionRef = useRef(false)
   const emptyExitTimerRef = useRef(null)
@@ -135,12 +136,8 @@ function useProductsTransition(products) {
       if (timers.has(id)) return
 
       const timeoutId = setTimeout(() => {
-        const currentSection = productsSectionRef.current
-        if (currentSection) {
-          previousSectionHeightRef.current = currentSection.getBoundingClientRect().height
-          shouldAnimateSectionResizeRef.current = true
-        }
-
+        // Avoid extra layout reads on the exit path.
+        skipNextSectionResizeAnimationRef.current = true
         setVisibleProducts((current) =>
           current.filter((currentItem) => currentItem.product.id !== id)
         )
@@ -221,6 +218,19 @@ function useProductsTransition(products) {
 
     const currentSection = productsSectionRef.current
 
+    if (skipNextSectionResizeAnimationRef.current) {
+      skipNextSectionResizeAnimationRef.current = false
+      clearSectionInlineStyles(currentSection)
+      if (currentSection) {
+        previousSectionHeightRef.current = currentSection.getBoundingClientRect().height
+      }
+
+      previousCardRectsRef.current = nextRects
+      pendingFilterTransitionRef.current = false
+      shouldAnimateSectionResizeRef.current = false
+      return
+    }
+
     if (currentSection && shouldAnimateSectionResize && !prefersReducedMotion) {
       const previousSectionHeight = previousSectionHeightRef.current
       const nextSectionHeight = currentSection.getBoundingClientRect().height
@@ -234,9 +244,13 @@ function useProductsTransition(products) {
         currentSection.style.height = `${previousSectionHeight}px`
         currentSection.style.overflow = 'hidden'
         currentSection.style.willChange = 'height'
-        void currentSection.offsetHeight
-        currentSection.style.transition = `height ${PRODUCTS_RESIZE_ANIMATION_MS}ms cubic-bezier(0.2, 0.75, 0.2, 1)`
-        currentSection.style.height = `${nextSectionHeight}px`
+        currentSection.style.transition = 'none'
+
+        requestAnimationFrame(() => {
+          if (!currentSection.isConnected) return
+          currentSection.style.transition = `height ${PRODUCTS_RESIZE_ANIMATION_MS}ms cubic-bezier(0.2, 0.75, 0.2, 1)`
+          currentSection.style.height = `${nextSectionHeight}px`
+        })
 
         sectionResizeTimeoutRef.current = setTimeout(() => {
           clearSectionInlineStyles(productsSectionRef.current)
