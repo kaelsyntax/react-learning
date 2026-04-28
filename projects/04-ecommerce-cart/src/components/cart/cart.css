@@ -307,10 +307,10 @@
 .cart-modal {
   --cart-modal-enter-duration: 200ms;
   --cart-modal-exit-duration: 220ms;
-  width: min(640px, 100%);
-  height: min(85vh, 760px);
-  min-height: min(85vh, 760px);
-  max-height: min(85vh, 760px);
+  width: min(680px, 100%);
+  height: min(86vh, 780px);
+  min-height: min(86vh, 780px);
+  max-height: min(86vh, 780px);
   overflow: hidden;
   border: 1px solid var(--cart-modal-border);
   border-radius: var(--radius-lg);
@@ -323,9 +323,9 @@
 }
 
 .cart-modal--empty {
-  height: min(85vh, 760px);
-  min-height: min(85vh, 760px);
-  max-height: min(85vh, 760px);
+  height: min(86vh, 780px);
+  min-height: min(86vh, 780px);
+  max-height: min(86vh, 780px);
   overflow: hidden;
   grid-template-rows: auto minmax(0, 1fr) auto;
   gap: 0;
@@ -338,6 +338,30 @@
 
 .cart-modal.is-closing {
   animation: cart-modal-exit var(--cart-modal-exit-duration) ease-in both;
+}
+
+.cart-modal {
+  padding: clamp(14px, 1.8vw, 18px);
+}
+
+@media (min-width: 920px) {
+  .cart-overlay {
+    padding: clamp(22px, 3vw, 36px);
+  }
+
+  .cart-modal {
+    width: min(760px, 88vw);
+    height: min(88vh, 820px);
+    min-height: min(88vh, 820px);
+    max-height: min(88vh, 820px);
+    padding: clamp(16px, 2vw, 22px);
+  }
+
+  .cart-modal--empty {
+    height: min(88vh, 820px);
+    min-height: min(88vh, 820px);
+    max-height: min(88vh, 820px);
+  }
 }
 
 .cart-items::-webkit-scrollbar {
