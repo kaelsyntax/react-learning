@@ -116,7 +116,7 @@ function useProductsTransition(products) {
     }
 
     pendingFilterTransitionRef.current = true
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- transition state must sync with incoming products
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setVisibleProducts((previous) => buildVisibleProducts(previous, products))
   }, [products])
 
@@ -137,7 +137,6 @@ function useProductsTransition(products) {
       if (timers.has(id)) return
 
       const timeoutId = setTimeout(() => {
-        // Avoid extra layout reads on the exit path.
         skipNextSectionResizeAnimationRef.current = true
         setVisibleProducts((current) =>
           current.filter((currentItem) => currentItem.product.id !== id)
@@ -285,7 +284,7 @@ function useProductsTransition(products) {
         emptyExitTimerRef.current = null
       }
 
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- empty-state mount must reflect transition state
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsEmptyMounted(true)
       setIsEmptyExiting(false)
       return
