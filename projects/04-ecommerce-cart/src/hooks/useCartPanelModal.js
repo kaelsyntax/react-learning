@@ -74,8 +74,6 @@ function useCartPanelModal() {
       setIsDesktopViewport(event.matches)
     }
 
-    setIsDesktopViewport(mediaQuery.matches)
-
     if (typeof mediaQuery.addEventListener === 'function') {
       mediaQuery.addEventListener('change', handleMediaQueryChange)
       return () => mediaQuery.removeEventListener('change', handleMediaQueryChange)
