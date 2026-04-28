@@ -116,6 +116,7 @@ function useProductsTransition(products) {
     }
 
     pendingFilterTransitionRef.current = true
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- transition state must sync with incoming products
     setVisibleProducts((previous) => buildVisibleProducts(previous, products))
   }, [products])
 
@@ -156,9 +157,12 @@ function useProductsTransition(products) {
   }, [visibleProducts])
 
   useEffect(() => {
+    const exitTimers = exitTimersRef.current
+    const sectionElement = productsSectionRef.current
+
     return () => {
-      exitTimersRef.current.forEach((timeoutId) => clearTimeout(timeoutId))
-      exitTimersRef.current.clear()
+      exitTimers.forEach((timeoutId) => clearTimeout(timeoutId))
+      exitTimers.clear()
 
       if (emptyExitTimerRef.current) {
         clearTimeout(emptyExitTimerRef.current)
@@ -169,7 +173,7 @@ function useProductsTransition(products) {
         sectionResizeTimeoutRef.current = null
       }
 
-      clearSectionInlineStyles(productsSectionRef.current)
+      clearSectionInlineStyles(sectionElement)
     }
   }, [])
 
@@ -281,6 +285,7 @@ function useProductsTransition(products) {
         emptyExitTimerRef.current = null
       }
 
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- empty-state mount must reflect transition state
       setIsEmptyMounted(true)
       setIsEmptyExiting(false)
       return
