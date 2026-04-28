@@ -109,6 +109,7 @@ function CartPanel() {
   }, [isCartViewClosing, targetView])
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- roll state must react to cart total changes
     setTotalRollState((current) => {
       if (totalPriceInCents === current.to) return current
 
@@ -135,6 +136,7 @@ function CartPanel() {
   }, [totalRollState.direction])
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- roll state must react to cart count changes
     setBadgeRollState((current) => {
       if (totalItems === current.to) return current
 
@@ -176,6 +178,7 @@ function CartPanel() {
             ? `${units} ${itemLabel} added. ${totalItems} total in cart.`
             : `${units} ${itemLabel} removed. ${totalItems} total in cart.`
 
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- live region message is intentionally updated from cart delta effect
       setBadgeLiveMessage(nextMessage)
 
       if (badgeLiveResetTimerRef.current) {
@@ -229,6 +232,7 @@ function CartPanel() {
         previousMetrics.totalPriceInCents !== totalPriceInCents)
     ) {
       if (totalItems === 0) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- live region status must sync with opened cart updates
         setCartLiveMessage('Cart is now empty.')
       } else {
         setCartLiveMessage(
@@ -295,9 +299,11 @@ function CartPanel() {
   }, [cartItems])
 
   useEffect(() => {
+    const stockTonePulseTimers = stockTonePulseTimersRef.current
+
     return () => {
-      stockTonePulseTimersRef.current.forEach((timeoutId) => clearTimeout(timeoutId))
-      stockTonePulseTimersRef.current.clear()
+      stockTonePulseTimers.forEach((timeoutId) => clearTimeout(timeoutId))
+      stockTonePulseTimers.clear()
 
       if (badgeLiveResetTimerRef.current) {
         clearTimeout(badgeLiveResetTimerRef.current)
@@ -307,9 +313,11 @@ function CartPanel() {
   }, [])
 
   useEffect(() => {
+    const stepperSymbolPulseTimers = stepperSymbolPulseTimersRef.current
+
     return () => {
-      stepperSymbolPulseTimersRef.current.forEach((timeoutId) => clearTimeout(timeoutId))
-      stepperSymbolPulseTimersRef.current.clear()
+      stepperSymbolPulseTimers.forEach((timeoutId) => clearTimeout(timeoutId))
+      stepperSymbolPulseTimers.clear()
     }
   }, [])
 
