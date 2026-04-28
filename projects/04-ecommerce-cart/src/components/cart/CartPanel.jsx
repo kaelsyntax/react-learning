@@ -109,7 +109,7 @@ function CartPanel() {
   }, [isCartViewClosing, targetView])
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- roll state must react to cart total changes
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTotalRollState((current) => {
       if (totalPriceInCents === current.to) return current
 
@@ -136,7 +136,7 @@ function CartPanel() {
   }, [totalRollState.direction])
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- roll state must react to cart count changes
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setBadgeRollState((current) => {
       if (totalItems === current.to) return current
 
@@ -178,7 +178,7 @@ function CartPanel() {
             ? `${units} ${itemLabel} added. ${totalItems} total in cart.`
             : `${units} ${itemLabel} removed. ${totalItems} total in cart.`
 
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- live region message is intentionally updated from cart delta effect
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setBadgeLiveMessage(nextMessage)
 
       if (badgeLiveResetTimerRef.current) {
@@ -232,7 +232,7 @@ function CartPanel() {
         previousMetrics.totalPriceInCents !== totalPriceInCents)
     ) {
       if (totalItems === 0) {
-        // eslint-disable-next-line react-hooks/set-state-in-effect -- live region status must sync with opened cart updates
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setCartLiveMessage('Cart is now empty.')
       } else {
         setCartLiveMessage(
