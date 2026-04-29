@@ -132,6 +132,25 @@ npm run build
 
 ---
 
+## 📸 Screenshots
+
+### 🖥️ Desktop - Home
+
+![Desktop Home](./docs/desktop-home.webp)
+
+### 🖥️ Desktop - Cart
+
+![Desktop Cart](./docs/desktop-cart.webp)
+
+### 📱 Mobile - Home
+
+![Mobile Home](./docs/mobile-home.webp)
+
+### 📱 Mobile - Cart
+
+![Mobile Cart](./docs/mobile-cart.webp)
+
+---
 ## 👤 Author
 
 **KaelSyntax**
