@@ -126,7 +126,7 @@ function ProductCard({
             aria-hidden={inCartQuantity === 0}
             aria-label={inCartQuantity > 0 ? `${inCartQuantity} in cart` : undefined}
           >
-            <span className="product-in-cart-label">In cart ·</span>
+            <span className="product-in-cart-label">In cart &middot;</span>
             <span className="product-in-cart-count-wrap" aria-live="polite">
               <span key={inCartQuantity} className="product-in-cart-count">
                 {inCartQuantity}
@@ -212,3 +212,4 @@ function ProductCard({
 }
 
 export default ProductCard
+
