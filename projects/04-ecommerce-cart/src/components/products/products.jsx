@@ -1,10 +1,9 @@
 import './products.css'
 import { useFilters } from '../../hooks/useFilters'
 import { useProductsTransition } from '../../hooks/useProductsTransition'
+import { needsTightImageCropByProductId } from '../../utils/product-image-crop'
 import ProductCard from './ProductCard'
 import ProductsEmptyState from './ProductsEmptyState'
-
-const TIGHT_CROP_PRODUCT_IDS = new Set([1, 3, 4, 12, 16])
 
 function getInCartQuantity(cartItems, productId) {
   const cartItem = cartItems.find((item) => item.id === productId)
@@ -25,7 +24,7 @@ function buildProductCardViewModel(item, cartItems, enterOrderByProductId) {
   const remainingStock = Math.max(product.stock - inCartQuantity, 0)
   const isAtStockLimit = remainingStock === 0
   const isOutOfStock = product.stock === 0
-  const needsTightImageCrop = TIGHT_CROP_PRODUCT_IDS.has(product.id)
+  const needsTightImageCrop = needsTightImageCropByProductId(product.id)
   const enterSequence = enterOrderByProductId.get(product.id) ?? 0
   const cardEnterDelayMs = isExiting ? 0 : Math.min(enterSequence * 45, 280)
   const shouldPrioritizeImage = !isExiting && enterSequence === 0

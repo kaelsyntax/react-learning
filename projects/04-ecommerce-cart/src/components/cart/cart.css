@@ -689,6 +689,12 @@
   padding: 2px;
 }
 
+.cart-item-image--tight-crop {
+  object-fit: cover;
+  object-position: center 56%;
+  padding: 0;
+}
+
 .cart-item-main {
   display: grid;
   align-content: start;

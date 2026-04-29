@@ -4,6 +4,7 @@ import { useCart } from '../../hooks/useCart'
 import { useCartPanelModal } from '../../hooks/useCartPanelModal'
 import { useCartItemsTransition } from '../../hooks/useCartItemsTransition'
 import { formatPrice } from '../../utils/format-price'
+import { needsTightImageCropByProductId } from '../../utils/product-image-crop'
 import './cart.css'
 
 const CART_VIEW_SWAP_MS = 180
@@ -516,7 +517,7 @@ function CartPanel() {
                         <div className="cart-item-head">
                           <div className="cart-item-thumb" aria-hidden="true">
                             <img
-                              className="cart-item-image"
+                              className={`cart-item-image ${needsTightImageCropByProductId(item.id) ? 'cart-item-image--tight-crop' : ''}`}
                               src={item.image}
                               alt=""
                               loading="lazy"
