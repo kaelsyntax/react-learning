@@ -38,14 +38,14 @@ Small projects built to apply and reinforce React concepts.
 | **01** | **React Basics** | 🟢 Completed | [View Section](./sections/01-react-basics/README.md) |
 | **02** | **React State and Effects** | 🟢 Completed | [View Section](./sections/02-react-state-and-effects/README.md) |
 | **03** | **React Data Fetching and Routing** | 🟢 Completed | Concepts, exercises, and Project 03 completed. [View Section](./sections/03-react-data-fetching-and-routing/README.md) |
-| **04** | **React Architecture and Testing** | 🟡 In Progress | Initial structure and planning in progress. [View Section](./sections/04-react-architecture-and-testing/README.md) |
+| **04** | **React Architecture and Testing** | 🟢 Completed | Concepts, exercises, and Project 04 completed. [View Section](./sections/04-react-architecture-and-testing/README.md) |
 
 ---
 
 ## 🎯 Current Focus
 
-- Build Section 04 concepts around architecture and testing
-- Start Project 04 (Ecommerce Cart) and evolve it incrementally
+- Section 04 completed with architecture + reducer patterns and integrative exercises
+- Project 04 (Ecommerce Cart) released in `v1.0.0`
 
 ---
 
@@ -62,6 +62,10 @@ Small projects built to apply and reinforce React concepts.
 - **GitHub User Finder**  
   → [View Project README](./projects/03-github-user-finder/README.md)  
   → Live: [Open Demo](https://03-github-user-finder.pages.dev/)
+
+- **Ecommerce Cart**  
+  → [View Project README](./projects/04-ecommerce-cart/README.md)  
+  → Live: [Open Demo](https://04-ecommerce-cart.pages.dev/)
 
 ---
 
