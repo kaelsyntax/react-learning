@@ -77,37 +77,37 @@ This build practices a realistic ecommerce flow:
 
 ```txt
 src/
-|-- App.jsx
-|-- App.css
-|-- index.css
-|-- main.jsx
-|-- components/
-|   |-- cart/
-|   |-- filters/
-|   |-- products/
-|   `-- shared/
-|-- context/
-|   |-- cart-context.jsx
-|   `-- filters-context.jsx
-|-- domain/
-|   `-- cart/
-|       |-- cart-actions.js
-|       |-- cart-reducer.js
-|       |-- cart-selectors.js
-|       `-- cart-transitions.js
-|-- hooks/
-|   |-- useCart.js
-|   |-- useCartItemsTransition.js
-|   |-- useCartPanelModal.js
-|   |-- useFilteredProducts.js
-|   |-- useFilters.js
-|   |-- useProductCardStepper.js
-|   `-- useProductsTransition.js
-|-- mocks/
-|   `-- products.json
-`-- utils/
-    |-- format-price.js
-    `-- product-image-crop.js
+├── App.jsx
+├── App.css
+├── index.css
+├── main.jsx
+├── components/
+│   ├── cart/
+│   ├── filters/
+│   ├── products/
+│   └── shared/
+├── context/
+│   ├── cart-context.jsx
+│   └── filters-context.jsx
+├── domain/
+│   └── cart/
+│       ├── cart-actions.js
+│       ├── cart-reducer.js
+│       ├── cart-selectors.js
+│       └── cart-transitions.js
+├── hooks/
+│   ├── useCart.js
+│   ├── useCartItemsTransition.js
+│   ├── useCartPanelModal.js
+│   ├── useFilteredProducts.js
+│   ├── useFilters.js
+│   ├── useProductCardStepper.js
+│   └── useProductsTransition.js
+├── mocks/
+│   └── products.json
+└── utils/
+    ├── format-price.js
+    └── product-image-crop.js
 ```
 
 ---
