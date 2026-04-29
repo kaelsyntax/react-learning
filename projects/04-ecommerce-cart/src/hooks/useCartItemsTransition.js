@@ -192,8 +192,10 @@ function useCartItemsTransition(cartItems) {
   }, [visibleCartItems, removeVisibleItem])
 
   useEffect(() => {
+    const exitAnimations = exitAnimationsRef.current
+
     return () => {
-      exitAnimationsRef.current.forEach((activeExit) => {
+      exitAnimations.forEach((activeExit) => {
         if (activeExit.animation) {
           activeExit.animation.cancel()
         }
@@ -203,7 +205,7 @@ function useCartItemsTransition(cartItems) {
         }
       })
 
-      exitAnimationsRef.current.clear()
+      exitAnimations.clear()
     }
   }, [])
 

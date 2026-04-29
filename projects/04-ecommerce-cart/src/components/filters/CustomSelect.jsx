@@ -1,4 +1,4 @@
-import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 
 const MENU_CLOSE_ANIMATION_MS = 160
 
@@ -25,6 +25,37 @@ function CustomSelect({
     return index < 0 ? 0 : index
   }, [options, value])
 
+  const clearCloseTimer = useCallback(() => {
+    if (!closeTimeoutRef.current) return
+    clearTimeout(closeTimeoutRef.current)
+    closeTimeoutRef.current = null
+  }, [])
+
+  const closeMenu = useCallback(({ focusTrigger = false, blurTrigger = false } = {}) => {
+    clearCloseTimer()
+    setIsOpen(false)
+    setIsClosing(true)
+    closeTimeoutRef.current = setTimeout(() => {
+      setIsClosing(false)
+      closeTimeoutRef.current = null
+    }, MENU_CLOSE_ANIMATION_MS)
+
+    if (focusTrigger) {
+      triggerRef.current?.focus()
+    }
+
+    if (blurTrigger) {
+      triggerRef.current?.blur()
+    }
+  }, [clearCloseTimer])
+
+  const openMenu = useCallback(() => {
+    clearCloseTimer()
+    setIsClosing(false)
+    setIsOpen(true)
+    setActiveIndex(selectedIndex)
+  }, [clearCloseTimer, selectedIndex])
+
   useEffect(() => {
     if (!isOpen) return undefined
 
@@ -41,7 +72,7 @@ function CustomSelect({
       document.removeEventListener('mousedown', handlePointerDown)
       document.removeEventListener('touchstart', handlePointerDown)
     }
-  }, [isOpen])
+  }, [isOpen, closeMenu])
 
   useEffect(
     () => () => {
@@ -62,37 +93,6 @@ function CustomSelect({
     const activeOption = optionRefs.current[activeIndex]
     activeOption?.focus()
   }, [activeIndex, isOpen])
-
-  function clearCloseTimer() {
-    if (!closeTimeoutRef.current) return
-    clearTimeout(closeTimeoutRef.current)
-    closeTimeoutRef.current = null
-  }
-
-  function openMenu() {
-    clearCloseTimer()
-    setIsClosing(false)
-    setIsOpen(true)
-    setActiveIndex(selectedIndex)
-  }
-
-  function closeMenu({ focusTrigger = false, blurTrigger = false } = {}) {
-    clearCloseTimer()
-    setIsOpen(false)
-    setIsClosing(true)
-    closeTimeoutRef.current = setTimeout(() => {
-      setIsClosing(false)
-      closeTimeoutRef.current = null
-    }, MENU_CLOSE_ANIMATION_MS)
-
-    if (focusTrigger) {
-      triggerRef.current?.focus()
-    }
-
-    if (blurTrigger) {
-      triggerRef.current?.blur()
-    }
-  }
 
   function handleTriggerClick() {
     if (isOpen) {
