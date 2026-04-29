@@ -27,6 +27,7 @@ function PriceFilter({
   const safeDraftMaxValue = Math.max(draftMaxValue, draftMinValue)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDraftMinValue(normalizedMinValue)
     setDraftMaxValue(Math.max(normalizedMaxValue, normalizedMinValue))
   }, [normalizedMinValue, normalizedMaxValue])

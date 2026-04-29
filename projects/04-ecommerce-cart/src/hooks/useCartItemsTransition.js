@@ -56,6 +56,7 @@ function useCartItemsTransition(cartItems) {
   }, [])
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setVisibleCartItems((previous) => buildVisibleCartItems(previous, cartItems))
   }, [cartItems])
 
