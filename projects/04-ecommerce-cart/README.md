@@ -18,6 +18,10 @@
 
 ---
 
+## 🚀 Live Demo
+
+🔗 [Live Demo](https://04-ecommerce-cart.pages.dev/)
+
 ## 🧠 Overview
 
 This project is the fourth practical build in the `react-learning` repository.
@@ -151,6 +155,7 @@ npm run build
 ![Mobile Cart](./docs/mobile-cart.webp)
 
 ---
+
 ## 👤 Author
 
 **KaelSyntax**
