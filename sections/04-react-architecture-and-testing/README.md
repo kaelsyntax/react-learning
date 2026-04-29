@@ -49,9 +49,9 @@ Practice-focused exercises that bridge architecture decisions and feature implem
 
 - **Project:** Ecommerce Cart (Project 04)
 - **Description:** Product listing, filters, and global cart state using Context + Reducer patterns
-- **Repository:** Coming soon
-- **Live Demo:** Coming soon
-- **Status:** In Progress
+- **Repository:** [View Project Folder](../../projects/04-ecommerce-cart/)
+- **Live Demo:** [Open Demo](https://04-ecommerce-cart.pages.dev/)
+- **Status:** ✅ Completed (`v1.0.0`)
 
 ---
 
@@ -67,7 +67,8 @@ Practice-focused exercises that bridge architecture decisions and feature implem
 
 ## 📌 Section Status
 
-- **Overall:** 🟡 In Progress
+- **Overall:** 🟢 Completed
 - **Completed Concepts:** 13/13
 - **Exercises Published:** 3/3
-- **Next:** Project 04 v1 completion
+- **Project 04:** ✅ Released (`v1.0.0`)
+- **Next:** Expand automated test coverage (unit + e2e)
