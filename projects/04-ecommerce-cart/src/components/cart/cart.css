@@ -416,6 +416,29 @@
     background: rgba(185, 28, 28, 0.34);
     color: #fecaca;
   }
+
+  .cart-footer {
+    padding-top: clamp(10px, 1.2vw, 14px);
+  }
+
+  .cart-footer .cart-total {
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .cart-footer .cart-total-label {
+    font-size: 0.86rem;
+    letter-spacing: 0.08em;
+    color: rgba(191, 219, 254, 0.9);
+    transform: translateY(0);
+  }
+
+  .cart-footer .cart-total-value {
+    min-width: 9.4ch;
+    height: 1.28em;
+    font-size: 1.24rem;
+    letter-spacing: -0.015em;
+  }
 }
 
 .cart-items::-webkit-scrollbar {
