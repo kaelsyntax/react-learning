@@ -1,0 +1,163 @@
+[
+    {
+        "id":  1,
+        "title":  "MX Mechanical",
+        "brand":  "Logitech",
+        "priceInCents":  17999,
+        "category":  "keyboards",
+        "stock":  9,
+        "description":  "Wireless low-profile mechanical keyboard with backlighting and a premium productivity-focused design.",
+        "image":  "/images/products/mx-mechanical-logitech.webp"
+    },
+    {
+        "id":  2,
+        "title":  "K70 RGB Pro",
+        "brand":  "Corsair",
+        "priceInCents":  15999,
+        "category":  "keyboards",
+        "stock":  7,
+        "description":  "High-end mechanical gaming keyboard with aluminum frame, RGB lighting, and fast response switches.",
+        "image":  "/images/products/k70-rgb-pro-corsair.webp"
+    },
+    {
+        "id":  3,
+        "title":  "PRO X TKL LIGHTSPEED",
+        "brand":  "Logitech G",
+        "priceInCents":  18999,
+        "category":  "keyboards",
+        "stock":  5,
+        "description":  "Tournament-ready wireless tenkeyless gaming keyboard with mechanical switches and media controls.",
+        "image":  "/images/products/pro-x-tkl-lightspeed-logitech-g.webp"
+    },
+    {
+        "id":  4,
+        "title":  "Huntsman V3 Pro Mini",
+        "brand":  "Razer",
+        "priceInCents":  9999,
+        "category":  "keyboards",
+        "stock":  6,
+        "description":  "Compact 60% esports keyboard with analog optical switches and adjustable actuation.",
+        "image":  "/images/products/huntsman-v3-pro-mini-razer.webp"
+    },
+    {
+        "id":  5,
+        "title":  "MX Master 3S",
+        "brand":  "Logitech",
+        "priceInCents":  11999,
+        "category":  "mice",
+        "stock":  11,
+        "description":  "Premium productivity mouse with an ergonomic shape, quiet clicks, and fast MagSpeed scrolling.",
+        "image":  "/images/products/mx-master-3s-logitech.webp"
+    },
+    {
+        "id":  6,
+        "title":  "PRO X SUPERLIGHT 2",
+        "brand":  "Logitech G",
+        "priceInCents":  15999,
+        "category":  "mice",
+        "stock":  6,
+        "description":  "Ultra-light wireless esports mouse designed for top-tier competitive performance and precision.",
+        "image":  "/images/products/pro-x-superlight-2-logitech-g.webp"
+    },
+    {
+        "id":  7,
+        "title":  "DeathAdder V3 Pro",
+        "brand":  "Razer",
+        "priceInCents":  14999,
+        "category":  "mice",
+        "stock":  8,
+        "description":  "Lightweight ergonomic wireless gaming mouse built for speed, comfort, and high-end competitive play.",
+        "image":  "/images/products/deathadder-v3-pro-razer.webp"
+    },
+    {
+        "id":  8,
+        "title":  "G305 LIGHTSPEED",
+        "brand":  "Logitech G",
+        "priceInCents":  3999,
+        "category":  "mice",
+        "stock":  14,
+        "description":  "Affordable lightweight wireless gaming mouse with HERO sensor and long battery life.",
+        "image":  "/images/products/g305-lightspeed-logitech-g.webp"
+    },
+    {
+        "id":  9,
+        "title":  "P2425H",
+        "brand":  "Dell",
+        "priceInCents":  19999,
+        "category":  "monitors",
+        "stock":  10,
+        "description":  "24-inch Full HD productivity monitor with IPS panel, 100Hz refresh rate, and office-friendly ergonomics.",
+        "image":  "/images/products/p2425h-dell.webp"
+    },
+    {
+        "id":  10,
+        "title":  "S2722QC",
+        "brand":  "Dell",
+        "priceInCents":  34799,
+        "category":  "monitors",
+        "stock":  7,
+        "description":  "27-inch 4K USB-C monitor with IPS panel, integrated speakers, and a clean all-rounder setup focus.",
+        "image":  "/images/products/s2722qc-dell.webp"
+    },
+    {
+        "id":  11,
+        "title":  "VG27AQ",
+        "brand":  "ASUS",
+        "priceInCents":  28999,
+        "category":  "monitors",
+        "stock":  6,
+        "description":  "27-inch QHD gaming monitor with high refresh rate, IPS panel, and excellent color accuracy.",
+        "image":  "/images/products/vg27aq-asus.webp"
+    },
+    {
+        "id":  12,
+        "title":  "Odyssey G5 34\"",
+        "brand":  "Samsung",
+        "priceInCents":  37999,
+        "category":  "monitors",
+        "stock":  4,
+        "description":  "34-inch curved ultrawide monitor designed for immersive gaming and multitasking setups.",
+        "image":  "/images/products/odyssey-g5-34-samsung.webp"
+    },
+    {
+        "id":  13,
+        "title":  "HS80 RGB Wireless",
+        "brand":  "Corsair",
+        "priceInCents":  14999,
+        "category":  "audio",
+        "stock":  8,
+        "description":  "Wireless gaming headset with immersive sound, comfortable design, and clean RGB accents.",
+        "image":  "/images/products/hs80-rgb-wireless-corsair.webp"
+    },
+    {
+        "id":  14,
+        "title":  "AirPods Pro (2nd Gen)",
+        "brand":  "Apple",
+        "priceInCents":  24999,
+        "category":  "audio",
+        "stock":  10,
+        "description":  "Premium wireless earbuds with active noise cancellation and seamless ecosystem integration.",
+        "image":  "/images/products/airpods-pro-2nd-gen-apple.webp"
+    },
+    {
+        "id":  15,
+        "title":  "Yeti USB Microphone",
+        "brand":  "Logitech G",
+        "priceInCents":  10999,
+        "category":  "audio",
+        "stock":  6,
+        "description":  "Popular USB condenser microphone for streaming, calls, voiceover, and beginner-friendly content creation.",
+        "image":  "/images/products/yeti-usb-microphone-logitech-g.webp"
+    },
+    {
+        "id":  16,
+        "title":  "Soundcore Motion+",
+        "brand":  "Anker",
+        "priceInCents":  9999,
+        "category":  "audio",
+        "stock":  11,
+        "description":  "Portable Bluetooth speaker with rich sound, strong bass, and great value for desk or travel use.",
+        "image":  "/images/products/soundcore-motion-plus-anker.webp"
+    }
+]
+
