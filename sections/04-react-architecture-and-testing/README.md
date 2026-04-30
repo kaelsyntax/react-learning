@@ -71,4 +71,4 @@ Practice-focused exercises that bridge architecture decisions and feature implem
 - **Completed Concepts:** 13/13
 - **Exercises Published:** 3/3
 - **Project 04:** ✅ Released (`v1.0.0`)
-- **Next:** Expand automated test coverage (unit + e2e)
+- **Next:** 🛠 Continue with Section 05
