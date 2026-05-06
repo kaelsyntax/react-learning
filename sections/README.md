@@ -23,7 +23,7 @@ Each section is structured to balance theory and practice:
 | **02** | **React State and Effects** | 🟢 Completed | [View Section](./02-react-state-and-effects/README.md) |
 | **03** | **React Data Fetching and Routing** | 🟢 Completed | Concepts, exercises, and Project 03 completed. [View Section](./03-react-data-fetching-and-routing/README.md) |
 | **04** | **React Architecture and Testing** | 🟢 Completed | Concepts, exercises, and Project 04 completed. [View Section](./04-react-architecture-and-testing/README.md) |
-| **05** | **React Advanced Logic, Custom Hooks & Testing** | 🟣 Planned | Scope definition and starter materials. [View Section](./05-react-advanced-logic-custom-hooks-and-testing/README.md) |
+| **05** | **React Advanced Logic, Custom Hooks & Testing** | 🟡 In Progress | Concepts and exercises completed; applied testing on Project 04 is in progress. [View Section](./05-react-advanced-logic-custom-hooks-and-testing/README.md) |
 
 ---
 
