@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   addItemTransition,
   decreaseItemTransition,
+  removeItemTransition,
 } from '../../../src/domain/cart/cart-transitions.js'
 
 describe('addItemTransition', () => {
@@ -91,5 +92,35 @@ describe('decreaseItemTransition', () => {
     const result = decreaseItemTransition(cartItems, 1)
 
     expect(result).toEqual([])
+  })
+})
+
+describe('removeItemTransition', () => {
+  it('removes only the item with the matching product id', () => {
+    const cartItems = [
+      {
+        id: 1,
+        title: 'Keyboard',
+        stock: 5,
+        quantity: 1,
+      },
+      {
+        id: 2,
+        title: 'Mouse',
+        stock: 8,
+        quantity: 2,
+      },
+    ]
+
+    const result = removeItemTransition(cartItems, 1)
+
+    expect(result).toEqual([
+      {
+        id: 2,
+        title: 'Mouse',
+        stock: 8,
+        quantity: 2,
+      },
+    ])
   })
 })
