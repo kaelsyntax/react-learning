@@ -22,4 +22,32 @@ describe('addItemTransition', () => {
       },
     ])
   })
+
+  it('does not increase quantity when item already reached stock limit', () => {
+    const cartItems = [
+      {
+        id: 1,
+        title: 'Keyboard',
+        stock: 2,
+        quantity: 2,
+      },
+    ]
+
+    const product = {
+      id: 1,
+      title: 'Keyboard',
+      stock: 2,
+    }
+
+    const result = addItemTransition(cartItems, product)
+
+    expect(result).toEqual([
+      {
+        id: 1,
+        title: 'Keyboard',
+        stock: 2,
+        quantity: 2,
+      },
+    ])
+  })
 })
