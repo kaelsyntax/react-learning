@@ -168,6 +168,5 @@ npm run build
 
 Planned next improvements:
 
-- Unit tests for cart reducer/selectors
+- UI integration tests for core cart flows
 - End-to-end flow checks for cart modal interactions
-- Final deployment metadata and screenshots
