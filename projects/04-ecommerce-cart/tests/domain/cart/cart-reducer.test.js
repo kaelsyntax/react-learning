@@ -86,4 +86,29 @@ describe('cartReducer', () => {
       },
     ])
   })
+
+  it('clears cart when action type is CLEAR_CART', () => {
+    const currentState = [
+      {
+        id: 1,
+        title: 'Keyboard',
+        stock: 5,
+        quantity: 1,
+      },
+      {
+        id: 2,
+        title: 'Mouse',
+        stock: 8,
+        quantity: 2,
+      },
+    ]
+
+    const action = {
+      type: CART_ACTIONS.CLEAR_CART,
+    }
+
+    const result = cartReducer(currentState, action)
+
+    expect(result).toEqual(initialCartItems)
+  })
 })
