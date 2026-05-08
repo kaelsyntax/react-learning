@@ -53,4 +53,37 @@ describe('cartReducer', () => {
       },
     ])
   })
+
+  it('removes item when action type is REMOVE_ITEM', () => {
+    const currentState = [
+      {
+        id: 1,
+        title: 'Keyboard',
+        stock: 5,
+        quantity: 1,
+      },
+      {
+        id: 2,
+        title: 'Mouse',
+        stock: 8,
+        quantity: 2,
+      },
+    ]
+
+    const action = {
+      type: CART_ACTIONS.REMOVE_ITEM,
+      payload: 1,
+    }
+
+    const result = cartReducer(currentState, action)
+
+    expect(result).toEqual([
+      {
+        id: 2,
+        title: 'Mouse',
+        stock: 8,
+        quantity: 2,
+      },
+    ])
+  })
 })
