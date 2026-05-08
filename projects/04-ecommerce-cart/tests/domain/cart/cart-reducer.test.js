@@ -26,5 +26,31 @@ describe('cartReducer', () => {
       },
     ])
   })
-})
 
+  it('decreases item quantity when action type is DECREASE_ITEM', () => {
+    const currentState = [
+      {
+        id: 1,
+        title: 'Keyboard',
+        stock: 5,
+        quantity: 2,
+      },
+    ]
+
+    const action = {
+      type: CART_ACTIONS.DECREASE_ITEM,
+      payload: 1,
+    }
+
+    const result = cartReducer(currentState, action)
+
+    expect(result).toEqual([
+      {
+        id: 1,
+        title: 'Keyboard',
+        stock: 5,
+        quantity: 1,
+      },
+    ])
+  })
+})
