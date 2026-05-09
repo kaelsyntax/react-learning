@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { fireEvent, render, screen, within } from '@testing-library/react'
+﻿import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import App from '../../src/App.jsx'
 import { CartProvider } from '../../src/context/cart-context.jsx'
 import { FiltersProvider } from '../../src/context/filters-context.jsx'
@@ -33,6 +33,10 @@ describe('Cart UI flow', () => {
     }))
   })
 
+  afterEach(() => {
+    cleanup()
+  })
+
   it('adds one product and reflects quantity and total in cart modal', async () => {
     render(<AppWithProviders />)
 
@@ -50,5 +54,31 @@ describe('Cart UI flow', () => {
     expect(quantity.textContent).toBe('1')
     expect(within(cartDialog).getByText('Total:')).not.toBeNull()
     expect(within(cartDialog).getAllByText('$179.99').length).toBeGreaterThan(0)
+  })
+
+  it('increases quantity and updates total in cart modal', async () => {
+    render(<AppWithProviders />)
+
+    const addButtons = screen.getAllByRole('button', { name: /add to cart/i })
+    fireEvent.click(addButtons[0])
+
+    const openCartButton = await screen.findByRole('button', {
+      name: 'Open cart (1 items)',
+    })
+    fireEvent.click(openCartButton)
+
+    const cartDialog = await screen.findByRole('dialog', { name: 'Cart' })
+
+    const increaseButton = within(cartDialog).getByRole('button', {
+      name: 'Increase quantity of MX Mechanical',
+    })
+    fireEvent.click(increaseButton)
+
+    const cartItemTitle = within(cartDialog).getByText('MX Mechanical')
+    const cartItem = cartItemTitle.closest('li')
+    const quantity = within(cartItem).getByLabelText('Quantity')
+
+    expect(quantity.textContent).toBe('2')
+    expect(within(cartDialog).getAllByText('$359.98').length).toBeGreaterThan(0)
   })
 })
