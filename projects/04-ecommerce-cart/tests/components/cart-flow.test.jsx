@@ -115,4 +115,25 @@ describe('Cart UI flow', () => {
     )
     expect(within(cartDialog).getByText('K70 RGB Pro')).not.toBeNull()
   })
+
+  it('clears cart and shows empty state', async () => {
+    render(<AppWithProviders />)
+
+    const addButtons = screen.getAllByRole('button', { name: /add to cart/i })
+    fireEvent.click(addButtons[0])
+
+    const openCartButton = await screen.findByRole('button', {
+      name: 'Open cart (1 items)',
+    })
+    fireEvent.click(openCartButton)
+
+    const cartDialog = await screen.findByRole('dialog', { name: 'Cart' })
+
+    const clearCartButton = within(cartDialog).getByRole('button', {
+      name: 'Clear cart',
+    })
+    fireEvent.click(clearCartButton)
+
+    expect(await within(cartDialog).findByText('Your cart is empty')).not.toBeNull()
+  })
 })
