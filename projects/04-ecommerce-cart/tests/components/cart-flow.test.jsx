@@ -1,5 +1,12 @@
 ﻿import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitForElementToBeRemoved,
+  within
+} from '@testing-library/react'
 import App from '../../src/App.jsx'
 import { CartProvider } from '../../src/context/cart-context.jsx'
 import { FiltersProvider } from '../../src/context/filters-context.jsx'
@@ -20,6 +27,8 @@ describe('Cart UI flow', () => {
     Element.prototype.animate = vi.fn().mockReturnValue({
       cancel: vi.fn(),
       finished: Promise.resolve(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
     })
     window.matchMedia = vi.fn().mockImplementation((query) => ({
       matches: query === '(min-width: 761px)',
@@ -80,5 +89,30 @@ describe('Cart UI flow', () => {
 
     expect(quantity.textContent).toBe('2')
     expect(within(cartDialog).getAllByText('$359.98').length).toBeGreaterThan(0)
+  })
+
+  it('removes one item and keeps remaining cart item visible', async () => {
+    render(<AppWithProviders />)
+
+    const addButtons = screen.getAllByRole('button', { name: /add to cart/i })
+    fireEvent.click(addButtons[0])
+    fireEvent.click(addButtons[1])
+
+    const openCartButton = await screen.findByRole('button', {
+      name: 'Open cart (2 items)',
+    })
+    fireEvent.click(openCartButton)
+
+    const cartDialog = await screen.findByRole('dialog', { name: 'Cart' })
+
+    const removeFirstItemButton = within(cartDialog).getByRole('button', {
+      name: 'Remove MX Mechanical from cart',
+    })
+    fireEvent.click(removeFirstItemButton)
+
+    await waitForElementToBeRemoved(() =>
+      within(cartDialog).queryByText('MX Mechanical')
+    )
+    expect(within(cartDialog).getByText('K70 RGB Pro')).not.toBeNull()
   })
 })
