@@ -35,8 +35,8 @@ Small projects built to apply and reinforce React concepts.
 
 | Module | Title | Status | Details |
 | :--- | :--- | :---: | :--- |
-| **01** | **React Basics** | 🟢 Completed | [View Section](./sections/01-react-basics/README.md) |
-| **02** | **React State and Effects** | 🟢 Completed | [View Section](./sections/02-react-state-and-effects/README.md) |
+| **01** | **React Basics** | 🟢 Completed | Concepts, exercises, and Project 01 completed. [View Section](./sections/01-react-basics/README.md) |
+| **02** | **React State and Effects** | 🟢 Completed | Concepts, exercises, and Project 02 completed. [View Section](./sections/02-react-state-and-effects/README.md) |
 | **03** | **React Data Fetching and Routing** | 🟢 Completed | Concepts, exercises, and Project 03 completed. [View Section](./sections/03-react-data-fetching-and-routing/README.md) |
 | **04** | **React Architecture and Testing** | 🟢 Completed | Concepts, exercises, and Project 04 completed. [View Section](./sections/04-react-architecture-and-testing/README.md) |
 | **05** | **Advanced Logic, Custom Hooks & Testing** | 🟢 Completed | Concepts, exercises, and applied testing on Project 04 completed. [View Section](./sections/05-react-advanced-logic-custom-hooks-and-testing/README.md) |
