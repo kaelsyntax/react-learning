@@ -48,7 +48,7 @@ The goal is to make features easier to scale, refactor, and maintain.
 - **Standalone Project:** No standalone project in this section
 - **Applied Practice:** Testing expansion over Project 04 (Ecommerce Cart)
 - **Focus:** Hook behavior checks, reducer/selectors unit tests, and core interaction-flow safety
-- **Status:** In Progress (concepts/exercises completed; applied testing in progress)
+- **Status:** ✅ Completed (concepts/exercises + applied testing in Project 04)
 
 ---
 
@@ -64,8 +64,8 @@ The goal is to make features easier to scale, refactor, and maintain.
 
 ## 📌 Section Status
 
-- **Overall:** 🟡 In Progress
+- **Overall:** 🟢 Completed
 - **Completed Concepts:** 7/7
 - **Exercises Published:** 3/3
-- **Applied Testing Target:** Project 04
-- **Next:** Add practical tests to Project 04 and document results
+- **Applied Testing Target:** ✅ Project 04 (domain, hooks, and UI flows)
+- **Next:** 🛠 Continue with Section 06
