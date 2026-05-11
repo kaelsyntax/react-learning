@@ -112,6 +112,20 @@ src/
 └── utils/
     ├── format-price.js
     └── product-image-crop.js
+
+tests/
+├── components/
+│   └── cart-flow.test.jsx
+├── domain/
+│   └── cart/
+│       ├── cart-reducer.test.js
+│       ├── cart-selectors.test.js
+│       └── cart-transitions.test.js
+└── hooks/
+    ├── useCart.test.jsx
+    ├── useFilteredProducts.test.jsx
+    └── useFilters.test.jsx
+
 ```
 
 ---
@@ -131,6 +145,7 @@ npm run dev
 
 ```bash
 npm run lint
+npm run test
 npm run build
 ```
 
@@ -168,5 +183,4 @@ npm run build
 
 Planned next improvements:
 
-- UI integration tests for core cart flows
 - End-to-end flow checks for cart modal interactions
