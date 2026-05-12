@@ -40,12 +40,13 @@ Small projects built to apply and reinforce React concepts.
 | **03** | **React Data Fetching and Routing** | 🟢 Completed | Concepts, exercises, and Project 03 completed. [View Section](./sections/03-react-data-fetching-and-routing/README.md) |
 | **04** | **React Architecture and Testing** | 🟢 Completed | Concepts, exercises, and Project 04 completed. [View Section](./sections/04-react-architecture-and-testing/README.md) |
 | **05** | **Advanced Logic, Custom Hooks & Testing** | 🟢 Completed | Concepts, exercises, and applied testing on Project 04 completed. [View Section](./sections/05-react-advanced-logic-custom-hooks-and-testing/README.md) |
+| **06** | **Performance, Rendering and Optimization** | ⚪ Planned | Section scaffold and Project 05 base created. [View Section](./sections/06-react-performance-rendering-and-optimization/README.md) |
 
 ---
 
 ## 🎯 Current Focus
 
-- Start Section 06: define concepts, structure, and learning scope
+- Build Section 06 concepts and start Project 05 implementation
 
 ---
 
@@ -66,6 +67,10 @@ Small projects built to apply and reinforce React concepts.
 - **Ecommerce Cart**  
   → [View Project README](./projects/04-ecommerce-cart/README.md)  
   → Live: [Open Demo](https://04-ecommerce-cart.pages.dev/)
+
+- **Media Search Performance Lab**  
+  → [View Project README](./projects/05-media-search-performance-lab/README.md)  
+  → Status: Planned
 
 ---
 
