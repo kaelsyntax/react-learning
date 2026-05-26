@@ -29,9 +29,9 @@ The goal is to improve performance without introducing unnecessary complexity.
 
 | Range | Area | Status |
 | :--- | :--- | :---: |
-| 01-03 | **Rendering and Measurement** (render mental model, bottlenecks, profiling) | [ ] |
-| 04-06 | **Memoization Toolkit** (`React.memo`, `useMemo`, `useCallback`) | [ ] |
-| 07-09 | **Real-World Optimization** (debounce/throttle, lazy/suspense, strategy/tradeoffs) | [ ] |
+| 01-03 | **Rendering and Measurement** (render mental model, bottlenecks, profiling) | [x] |
+| 04-06 | **Memoization Toolkit** (`React.memo`, `useMemo`, `useCallback`) | [x] |
+| 07-09 | **Real-World Optimization** (debounce/throttle, lazy/suspense, strategy/tradeoffs) | [x] |
 
 > [Concepts workspace](./concepts/)
 
@@ -49,7 +49,7 @@ The goal is to improve performance without introducing unnecessary complexity.
 
 - **Project:** Media Search Performance Lab (`mode: anime | movies`)
 - **Description:** Search-driven media catalog with separated anime/movie modes, focused on render control, memoization strategy, and responsive perceived performance
-- **Status:** 🟡 Planned
+- **Status:** 🟡 In Progress (base setup ready; implementation phase in progress)
 
 ---
 
@@ -65,8 +65,8 @@ The goal is to improve performance without introducing unnecessary complexity.
 
 ## 📌 Section Status
 
-- **Overall:** ⚪ Planned
-- **Completed Concepts:** 0/9
+- **Overall:** 🟡 In Progress
+- **Completed Concepts:** 9/9
 - **Exercises Published:** 0/3
-- **Project Status:** 🟡 Planned
-- **Next:** 🛠 Build concept notes and start the first optimization baseline
+- **Project Status:** 🟡 In Progress
+- **Next:** 🛠 Publish exercises and continue Project 05 implementation
