@@ -29,7 +29,7 @@ You’ll learn how to think in components, manage state, and build reusable UI s
 | 01–04 | **Foundations** (JSX, Vite, DOM) | [x] |
 | 05–09 | **Components and Styles** (Reusability, Layout) | [x] |
 | 10–15 | **Deep Dive into Props** (Functions, Elements, Children) | [x] |
-| 16–20 | **Logic and State** (Virtual DOM, Lists, Hooks) | [x] |
+| 16–21 | **Logic and State** (Virtual DOM, Lists, Hooks, `useRef`) | [x] |
 
 > [View all detailed notes](./concepts/)
 
