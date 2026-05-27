@@ -39,9 +39,9 @@ The goal is to improve performance without introducing unnecessary complexity.
 
 ## 🧩 Integrative Exercises
 
-- [ ] **01** Optimization Baseline and Render Audit
-- [ ] **02** Memoization and Input Performance Flow
-- [ ] **03** Lazy Loading and Practical Tradeoff Review
+- [x] **01** [Optimization Baseline and Render Audit](./exercises/01-optimization-baseline-and-render-audit-exercise.md)
+- [x] **02** [Memoization and Input Performance Flow](./exercises/02-memoization-and-input-performance-flow-exercise.md)
+- [x] **03** [Lazy Loading and Practical Tradeoff Review](./exercises/03-lazy-loading-and-practical-tradeoff-review-exercise.md)
 
 ---
 
@@ -67,6 +67,6 @@ The goal is to improve performance without introducing unnecessary complexity.
 
 - **Overall:** 🟡 In Progress
 - **Completed Concepts:** 9/9
-- **Exercises Published:** 0/3
+- **Exercises Published:** 3/3
 - **Project Status:** 🟡 In Progress
-- **Next:** 🛠 Publish exercises and continue Project 05 implementation
+- **Next:** 🛠 Continue Project 05 implementation
