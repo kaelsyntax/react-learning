@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { searchAnime } from './services/anime-api'
 import './App.css'
+
+const DEBOUNCE_DELAY_MS = 400
 
 function sortMediaItems(items, sort) {
   const sorted = [...items]
@@ -31,17 +33,19 @@ function App() {
   const [results, setResults] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+  const [hasSearched, setHasSearched] = useState(false)
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-
+  const runSearch = useCallback(async (rawQuery) => {
     setError('')
 
-    const trimmedQuery = query.trim()
+    const trimmedQuery = rawQuery.trim()
     if (!trimmedQuery) {
       setResults([])
+      setHasSearched(false)
       return
     }
+
+    setHasSearched(true)
 
     if (mode === 'movies') {
       setResults([])
@@ -59,7 +63,37 @@ function App() {
     } finally {
       setIsLoading(false)
     }
+  }, [mode])
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    void runSearch(query)
   }
+
+  const handleQueryChange = (event) => {
+    const nextQuery = event.target.value
+    setQuery(nextQuery)
+
+    if (!nextQuery.trim()) {
+      setResults([])
+      setError('')
+      setHasSearched(false)
+    }
+  }
+
+  useEffect(() => {
+    const trimmedQuery = query.trim()
+
+    if (!trimmedQuery) {
+      return
+    }
+
+    const timerId = setTimeout(() => {
+      void runSearch(query)
+    }, DEBOUNCE_DELAY_MS)
+
+    return () => clearTimeout(timerId)
+  }, [query, runSearch])
 
   const visibleResults = sortMediaItems(results, sort)
 
@@ -76,7 +110,7 @@ function App() {
               id="search-input"
               type="search"
               value={query}
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={handleQueryChange}
               placeholder="Search title..."
             />
             <button type="submit">Search</button>
@@ -119,8 +153,12 @@ function App() {
           <p className="results-message is-error">{error}</p>
         ) : null}
 
-        {!isLoading && !error && visibleResults.length === 0 ? (
+        {!isLoading && !error && !hasSearched ? (
           <p className="results-message">No results yet. Run a search above.</p>
+        ) : null}
+
+        {!isLoading && !error && hasSearched && visibleResults.length === 0 ? (
+          <p className="results-message">No matches found for this query.</p>
         ) : null}
 
         {!isLoading && !error && visibleResults.length > 0 ? (
