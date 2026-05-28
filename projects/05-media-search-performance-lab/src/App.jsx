@@ -1,6 +1,15 @@
+import { useState } from 'react'
 import './App.css'
 
 function App() {
+  const [query, setQuery] = useState('')
+  const [mode, setMode] = useState('anime')
+  const [sort, setSort] = useState('score_desc')
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+  }
+
   return (
     <main className="app">
       <header className="app-header">
@@ -8,19 +17,40 @@ function App() {
         <p>Search anime and movies with performance-focused patterns.</p>
 
         <section className="controls" aria-label="Search controls">
-
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={handleSubmit}>
             <label htmlFor="search-input">Search title</label>
-            <input id="search-input" type="search" placeholder="Search title..." />
+            <input
+              id="search-input"
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search title..."
+            />
             <button type="submit">Search</button>
           </form>
 
           <div className="mode-switch" role="group" aria-label="Media type">
-            <button type="button">Anime</button>
-            <button type="button">Movies</button>
+            <button
+              type="button"
+              className={mode === 'anime' ? 'is-active' : ''}
+              onClick={() => setMode('anime')}
+            >
+              Anime
+            </button>
+            <button
+              type="button"
+              className={mode === 'movies' ? 'is-active' : ''}
+              onClick={() => setMode('movies')}
+            >
+              Movies
+            </button>
           </div>
 
-          <select defaultValue="score_desc" aria-label="Sort results">
+          <select
+            value={sort}
+            onChange={(event) => setSort(event.target.value)}
+            aria-label="Sort results"
+          >
             <option value="score_desc">Score (high to low)</option>
             <option value="score_asc">Score (low to high)</option>
             <option value="year_desc">Year (newest)</option>

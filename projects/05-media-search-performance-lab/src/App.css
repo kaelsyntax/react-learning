@@ -115,10 +115,13 @@
 .mode-switch button {
   min-height: 40px;
   cursor: pointer;
+  transition: border-color 140ms ease, box-shadow 140ms ease, background-color 140ms ease;
 }
 
-.mode-switch button:first-child {
-  border-color: rgb(122 92 255 / 60%);
+.mode-switch button.is-active {
+  border-color: rgb(122 92 255 / 70%);
+  background: rgb(122 92 255 / 16%);
+  box-shadow: 0 0 0 1px rgb(122 92 255 / 35%) inset;
 }
 
 .results {
