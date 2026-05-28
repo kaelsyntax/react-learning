@@ -1,0 +1,144 @@
+.app {
+  position: relative;
+  margin: 0 auto;
+  max-width: 1040px;
+  min-height: 100vh;
+  padding: 56px 20px 40px;
+}
+
+.app::before,
+.app::after {
+  content: '';
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 999px;
+  filter: blur(46px);
+  z-index: 0;
+}
+
+.app::before {
+  top: 24px;
+  left: -40px;
+  background: var(--shadow-primary);
+}
+
+.app::after {
+  right: -36px;
+  bottom: 48px;
+  background: var(--shadow-accent);
+}
+
+.app-header,
+.results {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(155deg, var(--surface), var(--surface-2));
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow:
+    0 20px 42px rgb(0 0 0 / 32%),
+    0 0 0 1px rgb(255 255 255 / 3%) inset;
+}
+
+.app-header {
+  padding: 26px 22px;
+  margin-bottom: 18px;
+}
+
+.app-header h1 {
+  margin: 0 0 10px;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.app-header p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.controls {
+  margin-top: 20px;
+  display: grid;
+  gap: 12px;
+}
+
+.controls form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+.controls label {
+  grid-column: 1 / -1;
+  justify-self: start;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.controls input,
+.controls select,
+.controls button {
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  background: rgb(9 10 22 / 75%);
+  font: inherit;
+}
+
+.controls input,
+.controls select {
+  min-height: 42px;
+  padding: 0 12px;
+}
+
+.controls input::placeholder {
+  color: rgb(154 167 209 / 70%);
+}
+
+.controls button[type='submit'] {
+  min-width: 98px;
+  padding: 0 14px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+  border-color: transparent;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mode-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.mode-switch button {
+  min-height: 40px;
+  cursor: pointer;
+}
+
+.mode-switch button:first-child {
+  border-color: rgb(122 92 255 / 60%);
+}
+
+.results {
+  padding: 18px;
+}
+
+.results-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.media-card {
+  border: 1px solid var(--border);
+  background: rgb(13 15 29 / 80%);
+  border-radius: 12px;
+  padding: 14px;
+  min-height: 100px;
+  color: var(--text-muted);
+}
