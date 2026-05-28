@@ -48,8 +48,21 @@ src/
 ├── App.jsx
 ├── App.css
 ├── index.css
-└── main.jsx
+├── main.jsx
+├── components/
+├── hooks/
+├── services/
+├── utils/
+├── mocks/
+└── styles/ (optional)
+
+tests/
+├── components/
+├── hooks/
+└── services/
 ```
+
+Folder plan: create directories as needed when the first real file is added.
 
 ---
 
