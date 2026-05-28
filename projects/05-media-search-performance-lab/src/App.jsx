@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import ResultsGrid from './components/results/ResultsGrid'
 import { searchAnime } from './services/anime-api'
 import './App.css'
@@ -96,7 +96,9 @@ function App() {
     return () => clearTimeout(timerId)
   }, [query, runSearch])
 
-  const visibleResults = sortMediaItems(results, sort)
+  const visibleResults = useMemo(() => {
+    return sortMediaItems(results, sort)
+  }, [results, sort])
 
   return (
     <main className="app">
