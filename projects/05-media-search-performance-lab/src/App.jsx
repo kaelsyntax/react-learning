@@ -1,14 +1,67 @@
 import { useState } from 'react'
+import { searchAnime } from './services/anime-api'
 import './App.css'
+
+function sortMediaItems(items, sort) {
+  const sorted = [...items]
+
+  if (sort === 'score_desc') {
+    return sorted.sort((a, b) => (b.score ?? -Infinity) - (a.score ?? -Infinity))
+  }
+
+  if (sort === 'score_asc') {
+    return sorted.sort((a, b) => (a.score ?? Infinity) - (b.score ?? Infinity))
+  }
+
+  if (sort === 'year_desc') {
+    return sorted.sort((a, b) => (b.year ?? -Infinity) - (a.year ?? -Infinity))
+  }
+
+  if (sort === 'year_asc') {
+    return sorted.sort((a, b) => (a.year ?? Infinity) - (b.year ?? Infinity))
+  }
+
+  return sorted
+}
 
 function App() {
   const [query, setQuery] = useState('')
   const [mode, setMode] = useState('anime')
   const [sort, setSort] = useState('score_desc')
+  const [results, setResults] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
+
+    setError('')
+
+    const trimmedQuery = query.trim()
+    if (!trimmedQuery) {
+      setResults([])
+      return
+    }
+
+    if (mode === 'movies') {
+      setResults([])
+      setError('Movies search will be connected in the next step.')
+      return
+    }
+
+    try {
+      setIsLoading(true)
+      const animeResults = await searchAnime(trimmedQuery)
+      setResults(animeResults)
+    } catch {
+      setResults([])
+      setError('Could not fetch anime results. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
   }
+
+  const visibleResults = sortMediaItems(results, sort)
 
   return (
     <main className="app">
@@ -60,11 +113,34 @@ function App() {
       </header>
 
       <section className="results" aria-label="Search results">
-        <ul className="results-grid">
-          <li className="media-card">Result card placeholder</li>
-          <li className="media-card">Result card placeholder</li>
-          <li className="media-card">Result card placeholder</li>
-        </ul>
+        {isLoading ? <p className="results-message">Loading results...</p> : null}
+
+        {!isLoading && error ? (
+          <p className="results-message is-error">{error}</p>
+        ) : null}
+
+        {!isLoading && !error && visibleResults.length === 0 ? (
+          <p className="results-message">No results yet. Run a search above.</p>
+        ) : null}
+
+        {!isLoading && !error && visibleResults.length > 0 ? (
+          <ul className="results-grid">
+            {visibleResults.map((item) => (
+              <li className="media-card" key={item.id}>
+                <img
+                  className="media-card__image"
+                  src={item.image}
+                  alt={item.title}
+                  loading="lazy"
+                />
+                <h3 className="media-card__title">{item.title}</h3>
+                <p className="media-card__meta">
+                  Year: {item.year ?? 'Unknown'} | Score: {item.score ?? 'N/A'}
+                </p>
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </section>
     </main>
   )
