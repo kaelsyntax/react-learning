@@ -37,6 +37,7 @@ function App() {
   const [error, setError] = useState('')
   const [hasSearched, setHasSearched] = useState(false)
   const lastSearchKeyRef = useRef('')
+  const resultsCacheRef = useRef(new Map())
 
   const runSearch = useCallback(async (rawQuery) => {
     setError('')
@@ -50,6 +51,16 @@ function App() {
     }
 
     const searchKey = `${mode}::${trimmedQuery.toLowerCase()}`
+
+    const cachedResults = resultsCacheRef.current.get(searchKey)
+    if (cachedResults) {
+      setError('')
+      setHasSearched(true)
+      setResults(cachedResults)
+      lastSearchKeyRef.current = searchKey
+      return
+    }
+
     if (searchKey === lastSearchKeyRef.current) {
       return
     }
@@ -66,6 +77,7 @@ function App() {
     try {
       setIsLoading(true)
       const animeResults = await searchAnime(trimmedQuery)
+      resultsCacheRef.current.set(searchKey, animeResults)
       setResults(animeResults)
     } catch {
       setResults([])
