@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import SearchInput from './components/controls/SearchInput'
 import ResultsGrid from './components/results/ResultsGrid'
 import { searchAnime } from './services/anime-api'
 import './App.css'
@@ -116,17 +117,11 @@ function App() {
         <p>Search anime and movies with performance-focused patterns.</p>
 
         <section className="controls" aria-label="Search controls">
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="search-input">Search title</label>
-            <input
-              id="search-input"
-              type="search"
-              value={query}
-              onChange={handleQueryChange}
-              placeholder="Search title..."
-            />
-            <button type="submit">Search</button>
-          </form>
+          <SearchInput
+            query={query}
+            onQueryChange={handleQueryChange}
+            onSubmit={handleSubmit}
+          />
 
           <div className="mode-switch" role="group" aria-label="Media type">
             <button
