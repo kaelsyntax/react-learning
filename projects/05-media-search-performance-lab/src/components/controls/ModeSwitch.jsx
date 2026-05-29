@@ -1,6 +1,11 @@
 function ModeSwitch({ mode, onModeChange }) {
   return (
-    <div className="mode-switch" role="group" aria-label="Media type">
+    <div
+      className={`mode-switch ${mode === 'movies' ? 'is-movies' : 'is-anime'}`}
+      role="group"
+      aria-label="Media type"
+    >
+      <span className="mode-switch__thumb" aria-hidden="true" />
       <button
         type="button"
         className={mode === 'anime' ? 'is-active' : ''}
