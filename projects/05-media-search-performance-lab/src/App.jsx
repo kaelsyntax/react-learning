@@ -51,6 +51,10 @@ function App() {
     updateQuery(event.target.value)
   }
 
+  const handleClearQuery = () => {
+    updateQuery('')
+  }
+
   const visibleResults = useMemo(() => {
     return sortMediaItems(results, sort)
   }, [results, sort])
@@ -65,6 +69,7 @@ function App() {
           <SearchInput
             query={query}
             onQueryChange={handleQueryChange}
+            onClearQuery={handleClearQuery}
             onSubmit={handleSubmit}
           />
           <div className="controls-meta">
