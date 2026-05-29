@@ -42,6 +42,8 @@
 }
 
 .app-header {
+  z-index: 3;
+  overflow: visible;
   padding: 26px 22px;
   margin-bottom: 18px;
 }
@@ -124,7 +126,95 @@
   box-shadow: 0 0 0 1px rgb(122 92 255 / 35%) inset;
 }
 
+.sort-select {
+  position: relative;
+}
+
+.sort-select__trigger {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  background: rgb(9 10 22 / 75%);
+  font: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.sort-select__trigger.is-open {
+  border-color: rgb(122 92 255 / 70%);
+  box-shadow: 0 0 0 1px rgb(122 92 255 / 35%) inset;
+}
+
+.sort-select__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sort-select__chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: transform 160ms ease;
+}
+
+.sort-select__chevron-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.sort-select__trigger.is-open .sort-select__chevron {
+  transform: rotate(180deg);
+}
+
+.sort-select__menu {
+  list-style: none;
+  display: flex;
+  gap: 6px;
+  flex-direction: column;
+  margin: 0;
+  padding: 6px;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  left: 0;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgb(9 10 22 / 96%);
+  box-shadow: 0 16px 26px rgb(0 0 0 / 35%);
+  z-index: 20;
+}
+
+.sort-select__option {
+  width: 100%;
+  min-height: 36px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--text);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.sort-select__option:hover {
+  background: rgb(122 92 255 / 12%);
+}
+
+.sort-select__option.is-active {
+  background: rgb(122 92 255 / 20%);
+}
+
 .results {
+  z-index: 1;
   padding: 18px;
 }
 
