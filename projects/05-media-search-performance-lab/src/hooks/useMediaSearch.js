@@ -12,6 +12,7 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
 
   const lastSearchKeyRef = useRef('')
   const resultsCacheRef = useRef(new Map())
+  const activeRequestIdRef = useRef(0)
 
   const runSearch = useCallback(async (rawQuery) => {
     setError('')
@@ -47,16 +48,30 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
       return
     }
 
+    const requestId = activeRequestIdRef.current + 1
+    activeRequestIdRef.current = requestId
+
     try {
       setIsLoading(true)
       const animeResults = await searchAnime(trimmedQuery)
+
+      if (requestId !== activeRequestIdRef.current) {
+        return
+      }
+
       resultsCacheRef.current.set(searchKey, animeResults)
       setResults(animeResults)
     } catch {
+      if (requestId !== activeRequestIdRef.current) {
+        return
+      }
+
       setResults([])
       setError('Could not fetch anime results. Please try again.')
     } finally {
-      setIsLoading(false)
+      if (requestId === activeRequestIdRef.current) {
+        setIsLoading(false)
+      }
     }
   }, [mode])
 
