@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import ModeSwitch from './components/controls/ModeSwitch'
 import SearchInput from './components/controls/SearchInput'
 import ResultsGrid from './components/results/ResultsGrid'
 import useMediaSearch from './hooks/useMediaSearch'
@@ -65,22 +66,7 @@ function App() {
             onSubmit={handleSubmit}
           />
 
-          <div className="mode-switch" role="group" aria-label="Media type">
-            <button
-              type="button"
-              className={mode === 'anime' ? 'is-active' : ''}
-              onClick={() => setMode('anime')}
-            >
-              Anime
-            </button>
-            <button
-              type="button"
-              className={mode === 'movies' ? 'is-active' : ''}
-              onClick={() => setMode('movies')}
-            >
-              Movies
-            </button>
-          </div>
+          <ModeSwitch mode={mode} onModeChange={setMode} />
 
           <select
             value={sort}
