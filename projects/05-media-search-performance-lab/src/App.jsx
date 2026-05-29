@@ -3,6 +3,7 @@ import ModeSwitch from './components/controls/ModeSwitch'
 import SearchInput from './components/controls/SearchInput'
 import SortSelect from './components/controls/SortSelect'
 import ResultsGrid from './components/results/ResultsGrid'
+import ResultsState from './components/results/ResultsState'
 import useMediaSearch from './hooks/useMediaSearch'
 import './App.css'
 
@@ -74,23 +75,14 @@ function App() {
       </header>
 
       <section className="results" aria-label="Search results">
-        {isLoading ? <p className="results-message">Loading results...</p> : null}
+        <ResultsState
+          isLoading={isLoading}
+          error={error}
+          hasSearched={hasSearched}
+          hasResults={visibleResults.length > 0}
+        />
 
-        {!isLoading && error ? (
-          <p className="results-message is-error">{error}</p>
-        ) : null}
-
-        {!isLoading && !error && !hasSearched ? (
-          <p className="results-message">No results yet. Run a search above.</p>
-        ) : null}
-
-        {!isLoading && !error && hasSearched && visibleResults.length === 0 ? (
-          <p className="results-message">No matches found for this query.</p>
-        ) : null}
-
-        {!isLoading && !error && visibleResults.length > 0 ? (
-          <ResultsGrid items={visibleResults} />
-        ) : null}
+        {!isLoading && !error && visibleResults.length > 0 ? <ResultsGrid items={visibleResults} /> : null}
       </section>
     </main>
   )
