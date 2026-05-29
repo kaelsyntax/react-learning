@@ -44,19 +44,35 @@
 .app-header {
   z-index: 3;
   overflow: visible;
-  padding: 26px 22px;
-  margin-bottom: 18px;
+  padding: clamp(24px, 4vw, 34px) clamp(20px, 3vw, 30px);
+  margin-bottom: 20px;
+  background:
+    linear-gradient(150deg, rgb(122 92 255 / 18%), rgb(0 229 255 / 9%) 38%, transparent 62%),
+    linear-gradient(155deg, var(--surface), var(--surface-2));
+  border-color: rgb(122 92 255 / 32%);
+  box-shadow:
+    0 24px 46px rgb(0 0 0 / 34%),
+    0 0 0 1px rgb(122 92 255 / 14%) inset,
+    0 0 28px rgb(122 92 255 / 12%);
+  backdrop-filter: blur(6px);
 }
 
 .app-header h1 {
   margin: 0 0 10px;
   font-size: clamp(1.8rem, 4vw, 2.6rem);
-  line-height: 1.08;
+  line-height: 1.04;
   letter-spacing: -0.02em;
+  background: linear-gradient(92deg, #fff, #dce6ff 45%, #b2dcff 88%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 2px 20px rgb(0 229 255 / 14%);
 }
 
 .app-header p {
   margin: 0;
+  max-width: 68ch;
+  line-height: 1.45;
   color: var(--text-muted);
 }
 
