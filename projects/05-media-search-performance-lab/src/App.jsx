@@ -58,8 +58,8 @@ function App() {
   return (
     <main className="app">
       <header className="app-header">
-        <h1>Media Search Performance Lab</h1>
-        <p>Search anime and movies with performance-focused patterns.</p>
+        <h1>Media Search Lab</h1>
+        <p>Fast anime and movie discovery with scalable React patterns.</p>
 
         <section className="controls" aria-label="Search controls">
           <SearchInput
