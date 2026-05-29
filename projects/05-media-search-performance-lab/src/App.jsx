@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import ModeSwitch from './components/controls/ModeSwitch'
 import SearchInput from './components/controls/SearchInput'
+import SortSelect from './components/controls/SortSelect'
 import ResultsGrid from './components/results/ResultsGrid'
 import useMediaSearch from './hooks/useMediaSearch'
 import './App.css'
@@ -68,16 +69,7 @@ function App() {
 
           <ModeSwitch mode={mode} onModeChange={setMode} />
 
-          <select
-            value={sort}
-            onChange={(event) => setSort(event.target.value)}
-            aria-label="Sort results"
-          >
-            <option value="score_desc">Score (high to low)</option>
-            <option value="score_asc">Score (low to high)</option>
-            <option value="year_desc">Year (newest)</option>
-            <option value="year_asc">Year (oldest)</option>
-          </select>
+          <SortSelect sort={sort} onSortChange={setSort} />
         </section>
       </header>
 
