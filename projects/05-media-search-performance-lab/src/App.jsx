@@ -67,10 +67,10 @@ function App() {
             onQueryChange={handleQueryChange}
             onSubmit={handleSubmit}
           />
-
-          <ModeSwitch mode={mode} onModeChange={setMode} />
-
-          <SortSelect sort={sort} onSortChange={setSort} />
+          <div className="controls-meta">
+            <ModeSwitch mode={mode} onModeChange={setMode} />
+            <SortSelect sort={sort} onSortChange={setSort} />
+          </div>
         </section>
       </header>
 
