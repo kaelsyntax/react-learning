@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import ResultsGrid from './components/results/ResultsGrid'
 import { searchAnime } from './services/anime-api'
 import './App.css'
@@ -35,6 +35,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [hasSearched, setHasSearched] = useState(false)
+  const lastSearchKeyRef = useRef('')
 
   const runSearch = useCallback(async (rawQuery) => {
     setError('')
@@ -43,9 +44,16 @@ function App() {
     if (!trimmedQuery) {
       setResults([])
       setHasSearched(false)
+      lastSearchKeyRef.current = ''
       return
     }
 
+    const searchKey = `${mode}::${trimmedQuery.toLowerCase()}`
+    if (searchKey === lastSearchKeyRef.current) {
+      return
+    }
+
+    lastSearchKeyRef.current = searchKey
     setHasSearched(true)
 
     if (mode === 'movies') {
@@ -79,6 +87,7 @@ function App() {
       setResults([])
       setError('')
       setHasSearched(false)
+      lastSearchKeyRef.current = ''
     }
   }
 
