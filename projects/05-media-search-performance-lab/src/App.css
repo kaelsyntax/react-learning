@@ -543,6 +543,62 @@
   color: var(--text-muted);
   display: grid;
   gap: 10px;
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 180ms ease,
+    box-shadow 220ms ease,
+    background-color 220ms ease;
+  animation: card-enter 360ms ease both;
+}
+
+.media-card:hover {
+  transform: translateY(-4px);
+  border-color: rgb(122 92 255 / 36%);
+  background: rgb(17 20 38 / 88%);
+  box-shadow:
+    0 18px 30px rgb(0 0 0 / 34%),
+    0 0 0 1px rgb(122 92 255 / 16%) inset;
+}
+
+.media-card:focus-within {
+  border-color: rgb(0 229 255 / 34%);
+  box-shadow:
+    0 0 0 2px rgb(0 229 255 / 16%),
+    0 0 0 1px rgb(122 92 255 / 18%) inset;
+}
+
+.media-card:nth-child(2) { animation-delay: 35ms; }
+.media-card:nth-child(3) { animation-delay: 70ms; }
+.media-card:nth-child(4) { animation-delay: 105ms; }
+.media-card:nth-child(5) { animation-delay: 140ms; }
+.media-card:nth-child(6) { animation-delay: 175ms; }
+.media-card:nth-child(7) { animation-delay: 210ms; }
+.media-card:nth-child(8) { animation-delay: 245ms; }
+.media-card:nth-child(9) { animation-delay: 280ms; }
+.media-card:nth-child(10) { animation-delay: 315ms; }
+.media-card:nth-child(11) { animation-delay: 350ms; }
+.media-card:nth-child(12) { animation-delay: 385ms; }
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .media-card {
+    animation: none;
+    transition: border-color 180ms ease, background-color 180ms ease;
+  }
+
+  .media-card:hover {
+    transform: none;
+  }
 }
 
 .media-card__image {
