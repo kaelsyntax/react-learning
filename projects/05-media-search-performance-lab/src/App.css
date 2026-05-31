@@ -513,16 +513,32 @@
 .results {
   z-index: 1;
   padding: 18px;
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    background-color 220ms ease;
 }
 
 .results-message {
   margin: 0;
   padding: 10px 4px 18px;
   color: var(--text-muted);
+  animation: results-message-fade 200ms ease;
 }
 
 .results-message.is-error {
   color: var(--danger);
+}
+
+@keyframes results-message-fade {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .results-grid {
@@ -591,6 +607,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .results {
+    transition: none;
+  }
+
+  .results-message {
+    animation: none;
+  }
+
   .media-card {
     animation: none;
     transition: border-color 180ms ease, background-color 180ms ease;

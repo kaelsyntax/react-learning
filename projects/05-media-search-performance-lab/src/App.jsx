@@ -59,6 +59,8 @@ function App() {
     return sortMediaItems(results, sort)
   }, [results, sort])
 
+  const hasVisibleResults = !isLoading && !error && visibleResults.length > 0
+
   return (
     <main className="app">
       <header className="app-header">
@@ -79,7 +81,10 @@ function App() {
         </section>
       </header>
 
-      <section className="results" aria-label="Search results">
+      <section
+        className="results"
+        aria-label="Search results"
+      >
         <ResultsState
           isLoading={isLoading}
           error={error}
@@ -87,7 +92,7 @@ function App() {
           hasResults={visibleResults.length > 0}
         />
 
-        {!isLoading && !error && visibleResults.length > 0 ? <ResultsGrid items={visibleResults} /> : null}
+        {hasVisibleResults ? <ResultsGrid items={visibleResults} /> : null}
       </section>
     </main>
   )
