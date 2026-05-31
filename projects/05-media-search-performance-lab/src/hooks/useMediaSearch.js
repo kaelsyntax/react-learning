@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { searchAnime } from '../services/anime-api'
 
 const DEFAULT_DEBOUNCE_DELAY_MS = 400
+const DEFAULT_DISCOVERY_QUERY = 'top anime'
+const DISCOVERY_CACHE_SUFFIX = '__discover__'
 
 function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
   const [query, setQuery] = useState('')
@@ -99,6 +101,64 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
 
     return () => clearTimeout(timerId)
   }, [query, runSearch, debounceDelayMs])
+
+  useEffect(() => {
+    const trimmedQuery = query.trim()
+    if (trimmedQuery) {
+      return
+    }
+
+    if (mode !== 'anime') {
+      setResults([])
+      setError('')
+      setHasSearched(false)
+      return
+    }
+
+    const discoveryKey = `${mode}::${DISCOVERY_CACHE_SUFFIX}`
+    const cachedDiscover = resultsCacheRef.current.get(discoveryKey)
+    if (cachedDiscover) {
+      setError('')
+      setResults(cachedDiscover)
+      return
+    }
+
+    let isCancelled = false
+    const requestId = activeRequestIdRef.current + 1
+    activeRequestIdRef.current = requestId
+
+    const runDiscover = async () => {
+      try {
+        setIsLoading(true)
+        const discoverResults = await searchAnime(DEFAULT_DISCOVERY_QUERY)
+
+        if (isCancelled || requestId !== activeRequestIdRef.current) {
+          return
+        }
+
+        resultsCacheRef.current.set(discoveryKey, discoverResults)
+        setError('')
+        setResults(discoverResults)
+      } catch {
+        if (isCancelled || requestId !== activeRequestIdRef.current) {
+          return
+        }
+
+        setResults([])
+        setError('Could not load trending anime right now.')
+      } finally {
+        if (!isCancelled && requestId === activeRequestIdRef.current) {
+          setIsLoading(false)
+        }
+      }
+    }
+
+    void runDiscover()
+
+    return () => {
+      isCancelled = true
+    }
+  }, [mode, query])
 
   return {
     query,

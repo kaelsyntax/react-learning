@@ -7,15 +7,15 @@ function ResultsState({ isLoading, error, hasSearched, hasResults }) {
     return <p className="results-message is-error">{error}</p>
   }
 
+  if (hasResults) {
+    return null
+  }
+
   if (!hasSearched) {
-    return <p className="results-message">No results yet. Run a search above.</p>
+    return <p className="results-message">Try searching a title to refine these picks.</p>
   }
 
-  if (!hasResults) {
-    return <p className="results-message">No matches found for this query.</p>
-  }
-
-  return null
+  return <p className="results-message">No matches found for this query.</p>
 }
 
 export default ResultsState
