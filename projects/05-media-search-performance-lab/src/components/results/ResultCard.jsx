@@ -20,9 +20,10 @@ function ResultCard({ item = {} }) {
         }}
       />
       <h3 className="media-card__title">{title}</h3>
-      <p className="media-card__meta">
-        Year: {year} | Score: {score}
-      </p>
+      <div className="media-card__meta-row">
+        <p className="media-card__meta">Year: {year}</p>
+        <span className="media-card__score-badge">★ {score}</span>
+      </div>
     </li>
   )
 }
