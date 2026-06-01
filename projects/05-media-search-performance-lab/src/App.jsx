@@ -37,6 +37,7 @@ function App() {
     results,
     isLoading,
     error,
+    info,
     hasSearched,
     runSearch,
     updateQuery,
@@ -96,6 +97,7 @@ function App() {
         <ResultsState
           isLoading={isLoading}
           error={error}
+          info={info}
           hasSearched={hasSearched}
           hasResults={visibleResults.length > 0}
         />

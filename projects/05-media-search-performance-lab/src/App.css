@@ -530,6 +530,10 @@
   color: var(--danger);
 }
 
+.results-message.is-info {
+  color: rgb(0 229 255 / 86%);
+}
+
 .results-context {
   margin: 0 0 12px;
   padding: 8px 4px 2px;

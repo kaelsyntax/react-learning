@@ -1,10 +1,14 @@
-function ResultsState({ isLoading, error, hasSearched, hasResults }) {
+function ResultsState({ isLoading, error, info, hasSearched, hasResults }) {
   if (isLoading) {
     return <p className="results-message">Loading results...</p>
   }
 
   if (error) {
     return <p className="results-message is-error">{error}</p>
+  }
+
+  if (info) {
+    return <p className="results-message is-info">{info}</p>
   }
 
   if (hasResults) {

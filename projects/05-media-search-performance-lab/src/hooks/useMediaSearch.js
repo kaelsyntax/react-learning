@@ -10,6 +10,7 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
   const [results, setResults] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+  const [info, setInfo] = useState('')
   const [hasSearched, setHasSearched] = useState(false)
 
   const lastSearchKeyRef = useRef('')
@@ -18,11 +19,13 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
 
   const runSearch = useCallback(async (rawQuery) => {
     setError('')
+    setInfo('')
 
     const trimmedQuery = rawQuery.trim()
     if (!trimmedQuery) {
       setResults([])
       setHasSearched(false)
+      setInfo('')
       lastSearchKeyRef.current = ''
       return
     }
@@ -32,6 +35,7 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
 
     if (cachedResults) {
       setHasSearched(true)
+      setInfo('')
       setResults(cachedResults)
       lastSearchKeyRef.current = searchKey
       return
@@ -46,7 +50,8 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
 
     if (mode === 'movies') {
       setResults([])
-      setError('Movies search will be connected in the next step.')
+      setHasSearched(false)
+      setInfo('Movies mode is coming soon. Switch to anime for now.')
       return
     }
 
@@ -83,6 +88,7 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
     if (!nextQuery.trim()) {
       setResults([])
       setError('')
+      setInfo('')
       setHasSearched(false)
       lastSearchKeyRef.current = ''
     }
@@ -111,6 +117,7 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
     if (mode !== 'anime') {
       setResults([])
       setError('')
+      setInfo('Movies mode is coming soon. Switch to anime for now.')
       setHasSearched(false)
       return
     }
@@ -119,6 +126,7 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
     const cachedDiscover = resultsCacheRef.current.get(discoveryKey)
     if (cachedDiscover) {
       setError('')
+      setInfo('')
       setResults(cachedDiscover)
       return
     }
@@ -138,6 +146,7 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
 
         resultsCacheRef.current.set(discoveryKey, discoverResults)
         setError('')
+        setInfo('')
         setResults(discoverResults)
       } catch {
         if (isCancelled || requestId !== activeRequestIdRef.current) {
@@ -165,6 +174,7 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
     results,
     isLoading,
     error,
+    info,
     hasSearched,
     runSearch,
     updateQuery,
