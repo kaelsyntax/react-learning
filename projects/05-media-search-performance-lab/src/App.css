@@ -530,6 +530,26 @@
   color: var(--danger);
 }
 
+.results-context {
+  margin: 0 0 12px;
+  padding: 8px 4px 2px;
+}
+
+.results-context__eyebrow {
+  margin: 0 0 4px;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(0 229 255 / 86%);
+}
+
+.results-context__title {
+  margin: 0;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.25;
+  color: rgb(229 237 255 / 96%);
+}
+
 @keyframes results-message-fade {
   from {
     opacity: 0;

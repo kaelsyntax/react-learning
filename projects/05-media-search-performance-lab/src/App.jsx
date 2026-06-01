@@ -60,6 +60,7 @@ function App() {
   }, [results, sort])
 
   const hasVisibleResults = !isLoading && !error && visibleResults.length > 0
+  const isDiscoveryMode = !query.trim()
 
   return (
     <main className="app">
@@ -85,6 +86,13 @@ function App() {
         className="results"
         aria-label="Search results"
       >
+        {hasVisibleResults && isDiscoveryMode ? (
+          <div className="results-context" role="status" aria-live="polite">
+            <p className="results-context__eyebrow">Trending now</p>
+            <h2 className="results-context__title">Popular anime picks</h2>
+          </div>
+        ) : null}
+
         <ResultsState
           isLoading={isLoading}
           error={error}
