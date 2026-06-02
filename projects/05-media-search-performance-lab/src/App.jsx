@@ -84,7 +84,7 @@ function App() {
       </header>
 
       <section
-        className="results"
+        className={`results ${hasVisibleResults ? 'has-results' : 'is-message-only'}`}
         aria-label="Search results"
       >
         {hasVisibleResults && isDiscoveryMode ? (
