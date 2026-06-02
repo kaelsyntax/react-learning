@@ -61,7 +61,7 @@ function App() {
   }, [results, sort])
 
   const hasVisibleResults = !isLoading && !error && visibleResults.length > 0
-  const isDiscoveryMode = !query.trim()
+  const isShowingDiscoveryResults = !hasSearched
 
   return (
     <main className="app">
@@ -87,7 +87,7 @@ function App() {
         className={`results ${hasVisibleResults ? 'has-results' : 'is-message-only'}`}
         aria-label="Search results"
       >
-        {hasVisibleResults && isDiscoveryMode ? (
+        {hasVisibleResults && isShowingDiscoveryResults ? (
           <div className="results-context" role="status" aria-live="polite">
             <p className="results-context__eyebrow">Trending now</p>
             <h2 className="results-context__title">Popular anime picks</h2>
