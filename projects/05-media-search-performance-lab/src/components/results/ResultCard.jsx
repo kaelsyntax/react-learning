@@ -22,7 +22,17 @@ function ResultCard({ item = {} }) {
       <h3 className="media-card__title">{title}</h3>
       <div className="media-card__meta-row">
         <p className="media-card__meta">Year: {year}</p>
-        <span className="media-card__score-badge">★ {score}</span>
+        <span className="media-card__score-badge">
+          <svg
+            className="media-card__score-icon"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="M12 2.8L14.6 8l5.7.8-4.1 4 1 5.7L12 15.8l-5.2 2.7 1-5.7-4.1-4 5.7-.8L12 2.8z" />
+          </svg>
+          <span>{score}</span>
+        </span>
       </div>
     </li>
   )
