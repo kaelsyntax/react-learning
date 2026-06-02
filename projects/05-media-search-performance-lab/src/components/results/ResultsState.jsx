@@ -1,8 +1,4 @@
 function ResultsState({ isLoading, error, info, hasSearched, hasResults }) {
-  if (hasResults) {
-    return null
-  }
-
   if (isLoading) {
     return (
       <div className="results-message results-message--panel" role="status" aria-live="polite">
@@ -37,6 +33,10 @@ function ResultsState({ isLoading, error, info, hasSearched, hasResults }) {
         </div>
       </div>
     )
+  }
+
+  if (hasResults) {
+    return null
   }
 
   if (!hasSearched) {
