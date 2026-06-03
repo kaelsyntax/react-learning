@@ -1,7 +1,7 @@
 const FALLBACK_POSTER =
   'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="480" height="720" viewBox="0 0 480 720"><rect width="480" height="720" fill="%2311111a"/><text x="50%25" y="48%25" text-anchor="middle" fill="%23f4f7ff" font-family="Arial, sans-serif" font-size="28">No Image</text><text x="50%25" y="55%25" text-anchor="middle" fill="%23a8b0c7" font-family="Arial, sans-serif" font-size="16">Media Search Lab</text></svg>'
 
-function ResultDetails({ item, onClose }) {
+function ResultDetails({ item, isClosing = false, onClose, onExited }) {
   if (!item) return null
 
   const title = item.title?.trim() || 'Untitled'
@@ -11,7 +11,16 @@ function ResultDetails({ item, onClose }) {
   const mediaType = item.mediaType ?? 'media'
 
   return (
-    <div className="details-overlay" role="presentation" onClick={onClose}>
+    <div
+      className={`details-overlay ${isClosing ? 'is-closing' : ''}`}
+      role="presentation"
+      onClick={onClose}
+      onAnimationEnd={(event) => {
+        if (isClosing && event.target === event.currentTarget) {
+          onExited?.()
+        }
+      }}
+    >
       <section
         className="details-panel"
         role="dialog"

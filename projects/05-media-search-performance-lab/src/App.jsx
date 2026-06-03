@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import ModeSwitch from './components/controls/ModeSwitch'
 import SearchInput from './components/controls/SearchInput'
 import SearchShortcut from './components/controls/SearchShortcut'
@@ -9,6 +9,8 @@ import ResultsGrid from './components/results/ResultsGrid'
 import ResultsState from './components/results/ResultsState'
 import useMediaSearch from './hooks/useMediaSearch'
 import './App.css'
+
+const DETAILS_EXIT_ANIMATION_MS = 180
 
 function sortMediaItems(items, sort) {
   const sorted = [...items]
@@ -36,8 +38,10 @@ function App() {
   const [mode, setMode] = useState('anime')
   const [sort, setSort] = useState('score_desc')
   const [selectedItem, setSelectedItem] = useState(null)
+  const [isDetailsClosing, setIsDetailsClosing] = useState(false)
   const [showSearchShortcut, setShowSearchShortcut] = useState(false)
   const searchInputRef = useRef(null)
+  const detailsCloseTimeoutRef = useRef(null)
   const {
     query,
     results,
@@ -74,9 +78,30 @@ function App() {
     }, 260)
   }
 
-  const handleCloseDetails = () => {
+  const handleSelectItem = useCallback((item) => {
+    window.clearTimeout(detailsCloseTimeoutRef.current)
+    setIsDetailsClosing(false)
+    setSelectedItem(item)
+  }, [])
+
+  const handleCloseDetails = useCallback(() => {
+    if (!selectedItem || isDetailsClosing) {
+      return
+    }
+
+    setIsDetailsClosing(true)
+
+    detailsCloseTimeoutRef.current = window.setTimeout(() => {
+      setSelectedItem(null)
+      setIsDetailsClosing(false)
+    }, DETAILS_EXIT_ANIMATION_MS)
+  }, [isDetailsClosing, selectedItem])
+
+  const handleDetailsExited = useCallback(() => {
+    window.clearTimeout(detailsCloseTimeoutRef.current)
     setSelectedItem(null)
-  }
+    setIsDetailsClosing(false)
+  }, [])
 
   const visibleResults = useMemo(() => {
     return sortMediaItems(results, sort)
@@ -106,6 +131,10 @@ function App() {
   }, [])
 
   useEffect(() => {
+    return () => window.clearTimeout(detailsCloseTimeoutRef.current)
+  }, [])
+
+  useEffect(() => {
     if (!selectedItem) {
       return undefined
     }
@@ -116,6 +145,17 @@ function App() {
     document.documentElement.style.overflow = 'hidden'
     document.body.style.overflow = 'hidden'
 
+    return () => {
+      document.documentElement.style.overflow = previousHtmlOverflow
+      document.body.style.overflow = previousBodyOverflow
+    }
+  }, [selectedItem])
+
+  useEffect(() => {
+    if (!selectedItem) {
+      return undefined
+    }
+
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
         handleCloseDetails()
@@ -124,12 +164,8 @@ function App() {
 
     window.addEventListener('keydown', handleKeyDown)
 
-    return () => {
-      document.documentElement.style.overflow = previousHtmlOverflow
-      document.body.style.overflow = previousBodyOverflow
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [selectedItem])
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [handleCloseDetails, selectedItem])
 
   return (
     <main className="app">
@@ -172,11 +208,16 @@ function App() {
         />
 
         {hasVisibleResults ? (
-          <ResultsGrid items={visibleResults} onSelectItem={setSelectedItem} />
+          <ResultsGrid items={visibleResults} onSelectItem={handleSelectItem} />
         ) : null}
       </section>
 
-      <ResultDetails item={selectedItem} onClose={handleCloseDetails} />
+      <ResultDetails
+        item={selectedItem}
+        isClosing={isDetailsClosing}
+        onClose={handleCloseDetails}
+        onExited={handleDetailsExited}
+      />
 
       <SearchShortcut
         isVisible={showSearchShortcut}

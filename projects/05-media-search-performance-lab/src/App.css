@@ -908,6 +908,10 @@
   animation: details-overlay-in 180ms ease both;
 }
 
+.details-overlay.is-closing {
+  animation: details-overlay-out 180ms ease both;
+}
+
 .details-panel {
   position: relative;
   width: min(100%, 760px);
@@ -925,6 +929,10 @@
     0 0 0 1px rgb(255 255 255 / 6%) inset,
     0 0 38px rgb(0 229 255 / 12%);
   animation: details-panel-in 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.details-overlay.is-closing .details-panel {
+  animation: details-panel-out 180ms ease both;
 }
 
 .details-panel__close {
@@ -1025,6 +1033,15 @@
   }
 }
 
+@keyframes details-overlay-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 @keyframes details-panel-in {
   from {
     opacity: 0;
@@ -1033,6 +1050,17 @@
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes details-panel-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
   }
 }
 
