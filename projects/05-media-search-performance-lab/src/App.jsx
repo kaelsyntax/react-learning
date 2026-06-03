@@ -110,6 +110,12 @@ function App() {
       return undefined
     }
 
+    const previousHtmlOverflow = document.documentElement.style.overflow
+    const previousBodyOverflow = document.body.style.overflow
+
+    document.documentElement.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden'
+
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
         handleCloseDetails()
@@ -118,7 +124,11 @@ function App() {
 
     window.addEventListener('keydown', handleKeyDown)
 
-    return () => window.removeEventListener('keydown', handleKeyDown)
+    return () => {
+      document.documentElement.style.overflow = previousHtmlOverflow
+      document.body.style.overflow = previousBodyOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+    }
   }, [selectedItem])
 
   return (
