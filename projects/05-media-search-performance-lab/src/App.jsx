@@ -56,6 +56,7 @@ function App() {
 
   const handleClearQuery = () => {
     updateQuery('')
+    searchInputRef.current?.focus()
   }
 
   const handleSearchShortcutClick = () => {
