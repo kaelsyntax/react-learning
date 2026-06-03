@@ -1218,13 +1218,13 @@
   }
 
   .details-overlay {
-    align-items: end;
-    padding: 12px;
+    align-items: center;
+    padding: 18px 12px;
   }
 
   .details-panel {
     width: 100%;
-    max-height: min(86vh, 680px);
+    max-height: min(92vh, 720px);
     overflow-y: auto;
     grid-template-columns: minmax(96px, 124px) 1fr;
     column-gap: 14px;
