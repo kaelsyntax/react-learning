@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { searchAnime } from '../services/anime-api'
+import { searchMovies } from '../services/movie-api'
 
 const DEFAULT_DEBOUNCE_DELAY_MS = 400
 const DEFAULT_DISCOVERY_QUERY = 'top anime'
@@ -48,33 +49,28 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
     lastSearchKeyRef.current = searchKey
     setHasSearched(true)
 
-    if (mode === 'movies') {
-      setResults([])
-      setHasSearched(false)
-      setInfo('Movies mode is coming soon. Switch to anime for now.')
-      return
-    }
-
     const requestId = activeRequestIdRef.current + 1
     activeRequestIdRef.current = requestId
 
     try {
       setIsLoading(true)
-      const animeResults = await searchAnime(trimmedQuery)
+      const nextResults = mode === 'movies'
+        ? await searchMovies(trimmedQuery)
+        : await searchAnime(trimmedQuery)
 
       if (requestId !== activeRequestIdRef.current) {
         return
       }
 
-      resultsCacheRef.current.set(searchKey, animeResults)
-      setResults(animeResults)
+      resultsCacheRef.current.set(searchKey, nextResults)
+      setResults(nextResults)
     } catch {
       if (requestId !== activeRequestIdRef.current) {
         return
       }
 
       setResults([])
-      setError('Could not fetch anime results. Please try again.')
+      setError(`Could not fetch ${mode} results. Please try again.`)
     } finally {
       if (requestId === activeRequestIdRef.current) {
         setIsLoading(false)
@@ -117,7 +113,7 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
     if (mode !== 'anime') {
       setResults([])
       setError('')
-      setInfo('Movies mode is coming soon. Switch to anime for now.')
+      setInfo('Search a movie title to explore TMDB results.')
       setHasSearched(false)
       return
     }
