@@ -3,6 +3,7 @@ import ModeSwitch from './components/controls/ModeSwitch'
 import SearchInput from './components/controls/SearchInput'
 import SearchShortcut from './components/controls/SearchShortcut'
 import SortSelect from './components/controls/SortSelect'
+import ResultsContext from './components/results/ResultsContext'
 import ResultsGrid from './components/results/ResultsGrid'
 import ResultsState from './components/results/ResultsState'
 import useMediaSearch from './hooks/useMediaSearch'
@@ -124,10 +125,10 @@ function App() {
         aria-label="Search results"
       >
         {hasVisibleResults ? (
-          <div className="results-context" role="status" aria-live="polite">
-            <p className="results-context__eyebrow">{resultsContext.eyebrow}</p>
-            <h2 className="results-context__title">{resultsContext.title}</h2>
-          </div>
+          <ResultsContext
+            eyebrow={resultsContext.eyebrow}
+            title={resultsContext.title}
+          />
         ) : null}
 
         <ResultsState
