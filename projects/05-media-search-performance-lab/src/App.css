@@ -1191,6 +1191,7 @@
     overflow: hidden;
     font-size: 0.88rem;
     line-height: 1.24;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
   }
@@ -1306,13 +1307,17 @@
   .details-panel__facts {
     grid-column: 1 / -1;
     grid-row: 7;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     margin-top: 0;
   }
 }
 
 @media (max-width: 340px) {
   .results-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .details-panel__facts {
     grid-template-columns: 1fr;
   }
 }
