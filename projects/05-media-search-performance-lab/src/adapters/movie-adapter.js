@@ -76,7 +76,7 @@ export function mapMovieItem(raw) {
     episodes: null,
     format: 'Movie',
     status: '',
-    rating: raw?.adult ? 'Adult audience' : 'General audience',
+    rating: raw?.adult ? 'Adult content' : '',
     source: raw?.original_language
       ? `Original language: ${raw.original_language.toUpperCase()}`
       : '',
@@ -90,5 +90,8 @@ export function mapMovieItem(raw) {
 
 export function mapMovieList(rawList) {
   if (!Array.isArray(rawList)) return []
-  return rawList.map(mapMovieItem)
+
+  return rawList
+    .filter((movie) => movie?.adult !== true)
+    .map(mapMovieItem)
 }
