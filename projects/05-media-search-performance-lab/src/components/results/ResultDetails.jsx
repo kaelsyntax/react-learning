@@ -60,15 +60,28 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
           </svg>
         </button>
 
-        <img
-          className="details-panel__image"
-          src={image}
-          alt={`${title} poster`}
-          onError={(event) => {
-            event.currentTarget.onerror = null
-            event.currentTarget.src = FALLBACK_POSTER
-          }}
-        />
+        <div className="details-panel__media">
+          <img
+            className="details-panel__image"
+            src={image}
+            alt={`${title} poster`}
+            onError={(event) => {
+              event.currentTarget.onerror = null
+              event.currentTarget.src = FALLBACK_POSTER
+            }}
+          />
+
+          {facts.length > 0 ? (
+            <dl className="details-panel__facts">
+              {facts.map((fact) => (
+                <div key={fact.label}>
+                  <dt>{fact.label}</dt>
+                  <dd>{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
+        </div>
 
         <div className="details-panel__content">
           <p className="details-panel__eyebrow">{mediaType}</p>
@@ -97,17 +110,6 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
           ) : null}
 
           <p className="details-panel__synopsis">{synopsis}</p>
-
-          {facts.length > 0 ? (
-            <dl className="details-panel__facts">
-              {facts.map((fact) => (
-                <div key={fact.label}>
-                  <dt>{fact.label}</dt>
-                  <dd>{fact.value}</dd>
-                </div>
-              ))}
-            </dl>
-          ) : null}
         </div>
       </section>
     </div>
