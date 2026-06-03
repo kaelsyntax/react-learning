@@ -8,6 +8,13 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
   const image = item.image?.trim() || FALLBACK_POSTER
   const year = item.year ?? 'Unknown'
   const score = item.score ?? 'N/A'
+  const episodes = item.episodes ?? 'Unknown'
+  const status = item.status?.trim() || 'Unknown'
+  const rating = item.rating?.trim() || 'Unrated'
+  const source = item.source?.trim() || 'Unknown'
+  const duration = item.duration?.trim() || 'Unknown'
+  const synopsis = item.synopsis?.trim() || 'No synopsis available for this title yet.'
+  const genres = Array.isArray(item.genres) ? item.genres.slice(0, 4) : []
   const mediaType = item.mediaType ?? 'media'
 
   return (
@@ -60,10 +67,41 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
             {title}
           </h2>
 
+          {item.titleEnglish ? (
+            <p className="details-panel__subtitle">{item.titleEnglish}</p>
+          ) : null}
+
           <div className="details-panel__stats" aria-label="Media details">
             <span>Year: {year}</span>
             <span>Score: {score}</span>
+            <span>Episodes: {episodes}</span>
+            <span>{status}</span>
           </div>
+
+          {genres.length > 0 ? (
+            <div className="details-panel__genres" aria-label="Genres">
+              {genres.map((genre) => (
+                <span key={genre}>{genre}</span>
+              ))}
+            </div>
+          ) : null}
+
+          <p className="details-panel__synopsis">{synopsis}</p>
+
+          <dl className="details-panel__facts">
+            <div>
+              <dt>Source</dt>
+              <dd>{source}</dd>
+            </div>
+            <div>
+              <dt>Duration</dt>
+              <dd>{duration}</dd>
+            </div>
+            <div>
+              <dt>Rating</dt>
+              <dd>{rating}</dd>
+            </div>
+          </dl>
         </div>
       </section>
     </div>
