@@ -62,6 +62,15 @@ function App() {
 
   const hasVisibleResults = !isLoading && !error && visibleResults.length > 0
   const isShowingDiscoveryResults = !hasSearched
+  const resultsContext = isShowingDiscoveryResults
+    ? {
+        eyebrow: 'Trending now',
+        title: 'Popular anime picks',
+      }
+    : {
+        eyebrow: 'Search results',
+        title: `Showing matches for "${query.trim()}"`,
+      }
 
   return (
     <main className="app">
@@ -87,10 +96,10 @@ function App() {
         className={`results ${hasVisibleResults ? 'has-results' : 'is-message-only'}`}
         aria-label="Search results"
       >
-        {hasVisibleResults && isShowingDiscoveryResults ? (
+        {hasVisibleResults ? (
           <div className="results-context" role="status" aria-live="polite">
-            <p className="results-context__eyebrow">Trending now</p>
-            <h2 className="results-context__title">Popular anime picks</h2>
+            <p className="results-context__eyebrow">{resultsContext.eyebrow}</p>
+            <h2 className="results-context__title">{resultsContext.title}</h2>
           </div>
         ) : null}
 
