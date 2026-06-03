@@ -1226,8 +1226,9 @@
     width: 100%;
     max-height: min(86vh, 680px);
     overflow-y: auto;
-    grid-template-columns: minmax(96px, 132px) 1fr;
-    gap: 14px;
+    grid-template-columns: minmax(96px, 124px) 1fr;
+    column-gap: 14px;
+    row-gap: 12px;
     padding: 14px;
     border-radius: 18px 18px 14px 14px;
   }
@@ -1238,23 +1239,43 @@
 
   .details-panel__image {
     grid-column: 1;
-    grid-row: 1;
+    grid-row: 1 / span 5;
   }
 
   .details-panel__content {
+    display: contents;
+  }
+
+  .details-panel__eyebrow,
+  .details-panel__title,
+  .details-panel__subtitle,
+  .details-panel__stats,
+  .details-panel__genres {
     grid-column: 2;
+    min-width: 0;
+  }
+
+  .details-panel__eyebrow {
     grid-row: 1;
-    justify-content: start;
-    padding: 8px 36px 8px 0;
+    margin: 4px 38px 0 0;
   }
 
   .details-panel__title {
+    grid-row: 2;
+    margin-right: 34px;
     font-size: clamp(1.08rem, 7vw, 1.55rem);
   }
 
+  .details-panel__subtitle {
+    grid-row: 3;
+    margin-top: 0;
+    font-size: 0.78rem;
+  }
+
   .details-panel__stats {
+    grid-row: 4;
     gap: 6px;
-    margin-top: 12px;
+    margin-top: 2px;
   }
 
   .details-panel__stats span {
@@ -1264,8 +1285,9 @@
   }
 
   .details-panel__genres {
+    grid-row: 5;
     gap: 5px;
-    margin-top: 10px;
+    margin-top: 0;
   }
 
   .details-panel__genres span {
@@ -1276,15 +1298,16 @@
 
   .details-panel__synopsis {
     grid-column: 1 / -1;
-    margin-top: 2px;
+    grid-row: 6;
+    margin-top: 4px;
     font-size: 0.84rem;
   }
 
   .details-panel__facts {
     grid-column: 1 / -1;
-    grid-row: 2;
+    grid-row: 7;
     grid-template-columns: 1fr;
-    margin-top: 10px;
+    margin-top: 0;
   }
 }
 
