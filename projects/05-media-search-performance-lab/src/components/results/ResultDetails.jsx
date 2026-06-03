@@ -1,21 +1,30 @@
 const FALLBACK_POSTER =
   'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="480" height="720" viewBox="0 0 480 720"><rect width="480" height="720" fill="%2311111a"/><text x="50%25" y="48%25" text-anchor="middle" fill="%23f4f7ff" font-family="Arial, sans-serif" font-size="28">No Image</text><text x="50%25" y="55%25" text-anchor="middle" fill="%23a8b0c7" font-family="Arial, sans-serif" font-size="16">Media Search Lab</text></svg>'
 
+function hasValue(value) {
+  return value !== null && value !== undefined && value !== ''
+}
+
 function ResultDetails({ item, isClosing = false, onClose, onExited }) {
   if (!item) return null
 
   const title = item.title?.trim() || 'Untitled'
   const image = item.image?.trim() || FALLBACK_POSTER
-  const year = item.year ?? 'Unknown'
-  const score = item.score ?? 'N/A'
-  const episodes = item.episodes ?? 'Unknown'
-  const status = item.status?.trim() || 'Unknown'
-  const rating = item.rating?.trim() || 'Unrated'
-  const source = item.source?.trim() || 'Unknown'
-  const duration = item.duration?.trim() || 'Unknown'
   const synopsis = item.synopsis?.trim() || 'No synopsis available for this title yet.'
   const genres = Array.isArray(item.genres) ? item.genres.slice(0, 4) : []
   const mediaType = item.mediaType ?? 'media'
+  const stats = [
+    hasValue(item.year) ? `Year: ${item.year}` : '',
+    hasValue(item.score) ? `Score: ${item.score}` : '',
+    hasValue(item.episodes) ? `Episodes: ${item.episodes}` : '',
+    item.status?.trim() ?? '',
+  ].filter(Boolean)
+  const facts = [
+    { label: 'Format', value: item.format },
+    { label: 'Source', value: item.source },
+    { label: 'Duration', value: item.duration },
+    { label: 'Rating', value: item.rating },
+  ].filter((fact) => hasValue(fact.value))
 
   return (
     <div
@@ -71,12 +80,13 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
             <p className="details-panel__subtitle">{item.titleEnglish}</p>
           ) : null}
 
-          <div className="details-panel__stats" aria-label="Media details">
-            <span>Year: {year}</span>
-            <span>Score: {score}</span>
-            <span>Episodes: {episodes}</span>
-            <span>{status}</span>
-          </div>
+          {stats.length > 0 ? (
+            <div className="details-panel__stats" aria-label="Media details">
+              {stats.map((stat) => (
+                <span key={stat}>{stat}</span>
+              ))}
+            </div>
+          ) : null}
 
           {genres.length > 0 ? (
             <div className="details-panel__genres" aria-label="Genres">
@@ -88,20 +98,16 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
 
           <p className="details-panel__synopsis">{synopsis}</p>
 
-          <dl className="details-panel__facts">
-            <div>
-              <dt>Source</dt>
-              <dd>{source}</dd>
-            </div>
-            <div>
-              <dt>Duration</dt>
-              <dd>{duration}</dd>
-            </div>
-            <div>
-              <dt>Rating</dt>
-              <dd>{rating}</dd>
-            </div>
-          </dl>
+          {facts.length > 0 ? (
+            <dl className="details-panel__facts">
+              {facts.map((fact) => (
+                <div key={fact.label}>
+                  <dt>{fact.label}</dt>
+                  <dd>{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
         </div>
       </section>
     </div>
