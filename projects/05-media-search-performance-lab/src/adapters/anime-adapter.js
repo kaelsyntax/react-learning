@@ -47,5 +47,8 @@ export function mapAnimeItem(raw) {
 
 export function mapAnimeList(rawList) {
   if (!Array.isArray(rawList)) return []
-  return rawList.map(mapAnimeItem)
+
+  return rawList
+    .filter((anime) => anime?.rating !== 'Rx - Hentai')
+    .map(mapAnimeItem)
 }
