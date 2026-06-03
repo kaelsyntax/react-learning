@@ -35,6 +35,17 @@ function getYear(releaseDate) {
   return new Date(parsedDate).getFullYear()
 }
 
+function getFormattedDate(releaseDate) {
+  const parsedDate = Date.parse(releaseDate)
+  if (!Number.isFinite(parsedDate)) return ''
+
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  }).format(new Date(parsedDate))
+}
+
 function getPosterUrl(path) {
   if (!path) return ''
 
@@ -59,12 +70,16 @@ export function mapMovieItem(raw) {
     titleEnglish: raw?.original_title ?? '',
     image: getPosterUrl(raw?.poster_path),
     year: getYear(raw?.release_date),
+    releaseDate: getFormattedDate(raw?.release_date),
     score: score === null ? null : Number(score.toFixed(1)),
+    popularity: toNumberOrNull(raw?.popularity),
     episodes: null,
     format: 'Movie',
     status: '',
-    rating: raw?.adult ? 'Adult' : '',
-    source: '',
+    rating: raw?.adult ? 'Adult audience' : 'General audience',
+    source: raw?.original_language
+      ? `Original language: ${raw.original_language.toUpperCase()}`
+      : '',
     duration: '',
     synopsis: raw?.overview ?? '',
     genres: mapGenreIds(raw?.genre_ids),
