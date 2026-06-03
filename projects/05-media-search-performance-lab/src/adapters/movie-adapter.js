@@ -63,6 +63,9 @@ function mapGenreIds(genreIds) {
 export function mapMovieItem(raw) {
   const id = raw?.id ?? crypto.randomUUID()
   const score = toNumberOrNull(raw?.vote_average)
+  const releaseDate = getFormattedDate(raw?.release_date)
+  const language = raw?.original_language?.toUpperCase() ?? ''
+  const popularity = toNumberOrNull(raw?.popularity)
 
   return {
     id,
@@ -70,21 +73,25 @@ export function mapMovieItem(raw) {
     titleEnglish: raw?.original_title ?? '',
     image: getPosterUrl(raw?.poster_path),
     year: getYear(raw?.release_date),
-    releaseDate: getFormattedDate(raw?.release_date),
+    releaseDate,
     score: score === null ? null : Number(score.toFixed(1)),
-    popularity: toNumberOrNull(raw?.popularity),
+    popularity,
     episodes: null,
     format: 'Movie',
     status: '',
     rating: raw?.adult ? 'Adult content' : '',
-    source: raw?.original_language
-      ? `Original language: ${raw.original_language.toUpperCase()}`
-      : '',
+    source: language ? `Original language: ${language}` : '',
     duration: '',
     synopsis: raw?.overview ?? '',
     genres: mapGenreIds(raw?.genre_ids),
     url: id ? `${TMDB_MOVIE_BASE_URL}/${id}` : '',
     mediaType: 'movie',
+    facts: [
+      { label: 'Format', value: 'Movie' },
+      { label: 'Release', value: releaseDate },
+      { label: 'Language', value: language },
+      { label: 'Popularity', value: popularity === null ? '' : popularity.toFixed(1) },
+    ],
   }
 }
 
