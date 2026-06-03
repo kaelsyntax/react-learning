@@ -1,4 +1,4 @@
-function SearchInput({ query, onQueryChange, onClearQuery, onSubmit }) {
+function SearchInput({ query, inputRef, onQueryChange, onClearQuery, onSubmit }) {
   return (
     <form className="search-form" onSubmit={onSubmit}>
       <label className="search-form__label" htmlFor="search-input">
@@ -28,6 +28,7 @@ function SearchInput({ query, onQueryChange, onClearQuery, onSubmit }) {
           <input
             className="search-form__input"
             id="search-input"
+            ref={inputRef}
             type="search"
             value={query}
             onChange={onQueryChange}
