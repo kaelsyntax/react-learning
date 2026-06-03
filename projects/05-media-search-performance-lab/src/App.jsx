@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import ModeSwitch from './components/controls/ModeSwitch'
 import SearchInput from './components/controls/SearchInput'
+import SearchShortcut from './components/controls/SearchShortcut'
 import SortSelect from './components/controls/SortSelect'
 import ResultsGrid from './components/results/ResultsGrid'
 import ResultsState from './components/results/ResultsState'
@@ -140,28 +141,10 @@ function App() {
         {hasVisibleResults ? <ResultsGrid items={visibleResults} /> : null}
       </section>
 
-      <button
-        className={`search-shortcut ${showSearchShortcut ? 'is-visible' : ''}`}
-        type="button"
+      <SearchShortcut
+        isVisible={showSearchShortcut}
         onClick={handleSearchShortcutClick}
-        aria-label="Jump to search"
-      >
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle
-            cx="11"
-            cy="11"
-            r="7"
-            stroke="currentColor"
-            strokeWidth="1.8"
-          />
-          <path
-            d="M20 20L16.6 16.6"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-          />
-        </svg>
-      </button>
+      />
     </main>
   )
 }
