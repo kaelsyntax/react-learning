@@ -738,6 +738,24 @@
   animation: card-enter 360ms ease both;
 }
 
+.media-card__button {
+  width: 100%;
+  min-height: 100%;
+  display: grid;
+  gap: 12px;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.media-card__button:focus-visible {
+  outline: 0;
+}
+
 .media-card:hover {
   transform: translateY(-4px);
   border-color: rgb(122 92 255 / 36%);
@@ -785,6 +803,11 @@
   }
 
   .results-message {
+    animation: none;
+  }
+
+  .details-overlay,
+  .details-panel {
     animation: none;
   }
 
@@ -871,6 +894,148 @@
   flex: 0 0 auto;
 }
 
+.details-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background:
+    radial-gradient(circle at 50% 20%, rgb(0 229 255 / 12%), transparent 36%),
+    rgb(3 4 10 / 72%);
+  backdrop-filter: blur(12px);
+  animation: details-overlay-in 180ms ease both;
+}
+
+.details-panel {
+  position: relative;
+  width: min(100%, 760px);
+  display: grid;
+  grid-template-columns: minmax(180px, 260px) 1fr;
+  gap: 22px;
+  padding: 18px;
+  border: 1px solid rgb(122 92 255 / 34%);
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgb(122 92 255 / 14%), rgb(0 229 255 / 7%)),
+    rgb(10 12 25 / 94%);
+  box-shadow:
+    0 28px 70px rgb(0 0 0 / 54%),
+    0 0 0 1px rgb(255 255 255 / 6%) inset,
+    0 0 38px rgb(0 229 255 / 12%);
+  animation: details-panel-in 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.details-panel__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgb(0 229 255 / 22%);
+  border-radius: 999px;
+  color: rgb(223 248 255 / 92%);
+  background: rgb(8 12 28 / 76%);
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    transform 140ms ease;
+}
+
+.details-panel__close:hover {
+  border-color: rgb(0 229 255 / 42%);
+  background: rgb(0 229 255 / 14%);
+  transform: scale(1.04);
+}
+
+.details-panel__close:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px rgb(0 229 255 / 18%);
+}
+
+.details-panel__close svg {
+  width: 14px;
+  height: 14px;
+}
+
+.details-panel__image {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 13px;
+  background: rgb(255 255 255 / 4%);
+  box-shadow: 0 18px 34px rgb(0 0 0 / 36%);
+}
+
+.details-panel__content {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12px 42px 12px 0;
+}
+
+.details-panel__eyebrow {
+  margin: 0 0 8px;
+  color: rgb(0 229 255 / 88%);
+  font-size: 0.78rem;
+  font-weight: 720;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.details-panel__title {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(1.6rem, 4vw, 2.35rem);
+  line-height: 1.08;
+}
+
+.details-panel__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.details-panel__stats span {
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgb(122 92 255 / 24%);
+  border-radius: 999px;
+  padding: 0 12px;
+  color: rgb(225 233 255 / 92%);
+  background: rgb(122 92 255 / 10%);
+  font-size: 0.86rem;
+}
+
+@keyframes details-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes details-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @media (max-width: 560px) {
   .results {
     padding: 12px;
@@ -924,6 +1089,41 @@
   .media-card__score-icon {
     width: 10px;
     height: 10px;
+  }
+
+  .details-overlay {
+    align-items: end;
+    padding: 12px;
+  }
+
+  .details-panel {
+    width: 100%;
+    max-height: min(86vh, 680px);
+    overflow-y: auto;
+    grid-template-columns: minmax(96px, 132px) 1fr;
+    gap: 14px;
+    padding: 14px;
+    border-radius: 18px 18px 14px 14px;
+  }
+
+  .details-panel__content {
+    justify-content: start;
+    padding: 8px 36px 8px 0;
+  }
+
+  .details-panel__title {
+    font-size: clamp(1.08rem, 7vw, 1.55rem);
+  }
+
+  .details-panel__stats {
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .details-panel__stats span {
+    min-height: 28px;
+    padding: 0 9px;
+    font-size: 0.76rem;
   }
 }
 

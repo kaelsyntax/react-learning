@@ -3,6 +3,7 @@ import ModeSwitch from './components/controls/ModeSwitch'
 import SearchInput from './components/controls/SearchInput'
 import SearchShortcut from './components/controls/SearchShortcut'
 import SortSelect from './components/controls/SortSelect'
+import ResultDetails from './components/results/ResultDetails'
 import ResultsContext from './components/results/ResultsContext'
 import ResultsGrid from './components/results/ResultsGrid'
 import ResultsState from './components/results/ResultsState'
@@ -34,6 +35,7 @@ function sortMediaItems(items, sort) {
 function App() {
   const [mode, setMode] = useState('anime')
   const [sort, setSort] = useState('score_desc')
+  const [selectedItem, setSelectedItem] = useState(null)
   const [showSearchShortcut, setShowSearchShortcut] = useState(false)
   const searchInputRef = useRef(null)
   const {
@@ -72,6 +74,10 @@ function App() {
     }, 260)
   }
 
+  const handleCloseDetails = () => {
+    setSelectedItem(null)
+  }
+
   const visibleResults = useMemo(() => {
     return sortMediaItems(results, sort)
   }, [results, sort])
@@ -98,6 +104,22 @@ function App() {
 
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  useEffect(() => {
+    if (!selectedItem) {
+      return undefined
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        handleCloseDetails()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedItem])
 
   return (
     <main className="app">
@@ -139,8 +161,12 @@ function App() {
           hasResults={visibleResults.length > 0}
         />
 
-        {hasVisibleResults ? <ResultsGrid items={visibleResults} /> : null}
+        {hasVisibleResults ? (
+          <ResultsGrid items={visibleResults} onSelectItem={setSelectedItem} />
+        ) : null}
       </section>
+
+      <ResultDetails item={selectedItem} onClose={handleCloseDetails} />
 
       <SearchShortcut
         isVisible={showSearchShortcut}
