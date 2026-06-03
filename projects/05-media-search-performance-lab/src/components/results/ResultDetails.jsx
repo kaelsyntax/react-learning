@@ -5,6 +5,21 @@ function hasValue(value) {
   return value !== null && value !== undefined && value !== ''
 }
 
+function getDefaultFacts(item) {
+  return [
+    { label: 'Format', value: item.format },
+    { label: 'Source', value: item.source },
+    { label: 'Duration', value: item.duration },
+    { label: 'Rating', value: item.rating },
+  ]
+}
+
+function getItemFacts(item) {
+  const facts = Array.isArray(item.facts) ? item.facts : getDefaultFacts(item)
+
+  return facts.filter((fact) => fact?.label && hasValue(fact.value))
+}
+
 function ResultDetails({ item, isClosing = false, onClose, onExited }) {
   if (!item) return null
 
@@ -19,12 +34,7 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
     hasValue(item.episodes) ? `Episodes: ${item.episodes}` : '',
     item.status?.trim() ?? '',
   ].filter(Boolean)
-  const facts = [
-    { label: 'Format', value: item.format },
-    { label: 'Source', value: item.source },
-    { label: 'Duration', value: item.duration },
-    { label: 'Rating', value: item.rating },
-  ].filter((fact) => hasValue(fact.value))
+  const facts = getItemFacts(item)
 
   return (
     <div
