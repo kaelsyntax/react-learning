@@ -1269,7 +1269,7 @@
     width: 100%;
     max-height: min(92vh, 720px);
     overflow-y: auto;
-    grid-template-columns: minmax(96px, 124px) 1fr;
+    grid-template-columns: minmax(112px, 150px) 1fr;
     column-gap: 14px;
     row-gap: 12px;
     padding: 14px;
