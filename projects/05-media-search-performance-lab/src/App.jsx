@@ -229,6 +229,7 @@ function App() {
       >
         {hasVisibleResults ? (
           <ResultsContext
+            key={`${resultsContext.eyebrow}-${resultsContext.title}`}
             eyebrow={resultsContext.eyebrow}
             title={resultsContext.title}
           />
