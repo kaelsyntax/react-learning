@@ -1,9 +1,16 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  Suspense,
+  lazy,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import ModeSwitch from './components/controls/ModeSwitch'
 import SearchInput from './components/controls/SearchInput'
 import SearchShortcut from './components/controls/SearchShortcut'
 import SortSelect from './components/controls/SortSelect'
-import ResultDetails from './components/results/ResultDetails'
 import ResultsContext from './components/results/ResultsContext'
 import ResultsGrid from './components/results/ResultsGrid'
 import ResultsState from './components/results/ResultsState'
@@ -11,6 +18,7 @@ import useMediaSearch from './hooks/useMediaSearch'
 import './App.css'
 
 const DETAILS_EXIT_ANIMATION_MS = 180
+const ResultDetails = lazy(() => import('./components/results/ResultDetails'))
 
 function sortMediaItems(items, sort) {
   const sorted = [...items]
@@ -212,12 +220,16 @@ function App() {
         ) : null}
       </section>
 
-      <ResultDetails
-        item={selectedItem}
-        isClosing={isDetailsClosing}
-        onClose={handleCloseDetails}
-        onExited={handleDetailsExited}
-      />
+      {selectedItem ? (
+        <Suspense fallback={null}>
+          <ResultDetails
+            item={selectedItem}
+            isClosing={isDetailsClosing}
+            onClose={handleCloseDetails}
+            onExited={handleDetailsExited}
+          />
+        </Suspense>
+      ) : null}
 
       <SearchShortcut
         isVisible={showSearchShortcut}
