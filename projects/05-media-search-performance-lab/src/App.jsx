@@ -19,6 +19,18 @@ import './App.css'
 
 const DETAILS_EXIT_ANIMATION_MS = 180
 const ResultDetails = lazy(() => import('./components/results/ResultDetails'))
+const HEADER_COPY = {
+  anime: {
+    eyebrow: 'Anime mode',
+    title: 'Anime discovery lab',
+    description: 'Search, sort, and inspect anime results with optimized React flows.',
+  },
+  movies: {
+    eyebrow: 'Movie mode',
+    title: 'Movie discovery lab',
+    description: 'Explore trending films and search TMDB with the same reusable UI shell.',
+  },
+}
 
 function sortMediaItems(items, sort) {
   const sorted = [...items]
@@ -117,6 +129,7 @@ function App() {
 
   const hasVisibleResults = !isLoading && !error && visibleResults.length > 0
   const isShowingDiscoveryResults = !hasSearched
+  const headerCopy = HEADER_COPY[mode]
   const discoveryTitle = mode === 'movies'
     ? 'Trending movie picks'
     : 'Popular anime picks'
@@ -181,8 +194,17 @@ function App() {
   return (
     <main className="app">
       <header className="app-header">
-        <h1>Media Search Lab</h1>
-        <p>Fast anime and movie discovery with scalable React patterns.</p>
+        <div className="app-header__content">
+          <p className="app-header__eyebrow">{headerCopy.eyebrow}</p>
+          <h1>{headerCopy.title}</h1>
+          <p>{headerCopy.description}</p>
+
+          <div className="app-header__signals" aria-label="Project safeguards and patterns">
+            <span>Safe search on</span>
+            <span>Debounced input</span>
+            <span>Lazy details</span>
+          </div>
+        </div>
 
         <section className="controls" aria-label="Search controls">
           <SearchInput
