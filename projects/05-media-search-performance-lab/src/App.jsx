@@ -117,10 +117,13 @@ function App() {
 
   const hasVisibleResults = !isLoading && !error && visibleResults.length > 0
   const isShowingDiscoveryResults = !hasSearched
+  const discoveryTitle = mode === 'movies'
+    ? 'Trending movie picks'
+    : 'Popular anime picks'
   const resultsContext = isShowingDiscoveryResults
     ? {
         eyebrow: 'Trending now',
-        title: 'Popular anime picks',
+        title: discoveryTitle,
       }
     : {
         eyebrow: 'Search results',

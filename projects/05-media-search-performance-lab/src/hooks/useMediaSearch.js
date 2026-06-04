@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { searchAnime } from '../services/anime-api'
-import { searchMovies } from '../services/movie-api'
+import { getTrendingMovies, searchMovies } from '../services/movie-api'
 
 const DEFAULT_DEBOUNCE_DELAY_MS = 400
 const DEFAULT_DISCOVERY_QUERY = 'top anime'
@@ -110,14 +110,6 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
       return
     }
 
-    if (mode !== 'anime') {
-      setResults([])
-      setError('')
-      setInfo('Search a movie title to explore TMDB results.')
-      setHasSearched(false)
-      return
-    }
-
     const discoveryKey = `${mode}::${DISCOVERY_CACHE_SUFFIX}`
     const cachedDiscover = resultsCacheRef.current.get(discoveryKey)
     if (cachedDiscover) {
@@ -134,7 +126,9 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
     const runDiscover = async () => {
       try {
         setIsLoading(true)
-        const discoverResults = await searchAnime(DEFAULT_DISCOVERY_QUERY)
+        const discoverResults = mode === 'movies'
+          ? await getTrendingMovies()
+          : await searchAnime(DEFAULT_DISCOVERY_QUERY)
 
         if (isCancelled || requestId !== activeRequestIdRef.current) {
           return
@@ -150,7 +144,7 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
         }
 
         setResults([])
-        setError('Could not load trending anime right now.')
+        setError(`Could not load trending ${mode} right now.`)
       } finally {
         if (!isCancelled && requestId === activeRequestIdRef.current) {
           setIsLoading(false)
