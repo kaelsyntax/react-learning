@@ -64,17 +64,33 @@
 .app-header__eyebrow {
   width: fit-content;
   margin: 0 0 10px;
-  border: 1px solid rgb(0 229 255 / 24%);
-  border-radius: 999px;
-  padding: 6px 10px;
-  background: rgb(0 229 255 / 8%);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
   color: rgb(0 229 255 / 86%);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   line-height: 1;
   text-transform: uppercase;
-  box-shadow: 0 0 24px rgb(0 229 255 / 10%);
+  text-shadow: 0 0 18px rgb(0 229 255 / 22%);
+}
+
+.app-header__eyebrow::before {
+  content: '';
+  width: 26px;
+  height: 1px;
+  background: linear-gradient(90deg, rgb(0 229 255 / 0%), rgb(0 229 255 / 90%));
+  box-shadow: 0 0 14px rgb(0 229 255 / 34%);
+}
+
+.app-header__eyebrow::after {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgb(255 79 216 / 88%);
+  box-shadow: 0 0 16px rgb(255 79 216 / 58%);
 }
 
 .app-header h1 {
@@ -606,8 +622,12 @@
 
   .app-header__eyebrow {
     margin-bottom: 8px;
-    padding: 5px 9px;
+    gap: 7px;
     font-size: 0.66rem;
+  }
+
+  .app-header__eyebrow::before {
+    width: 20px;
   }
 
   .app-header__signals {
