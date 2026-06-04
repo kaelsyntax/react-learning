@@ -61,6 +61,10 @@
   max-width: 780px;
 }
 
+.app-header__copy {
+  animation: header-copy-in 170ms ease-out both;
+}
+
 .app-header__eyebrow {
   width: fit-content;
   margin: 0 0 10px;
@@ -133,6 +137,18 @@
   font-size: 0.76rem;
   font-weight: 700;
   box-shadow: 0 10px 28px rgb(0 0 0 / 14%);
+}
+
+@keyframes header-copy-in {
+  from {
+    opacity: 0;
+    transform: translateX(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .controls {
@@ -927,6 +943,10 @@
   }
 
   .results-message {
+    animation: none;
+  }
+
+  .app-header__copy {
     animation: none;
   }
 
