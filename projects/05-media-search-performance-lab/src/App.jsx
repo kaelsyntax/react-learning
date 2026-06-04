@@ -197,7 +197,7 @@ function App() {
         <div className="app-header__content">
           <p className="app-header__eyebrow">{headerCopy.eyebrow}</p>
           <h1>{headerCopy.title}</h1>
-          <p>{headerCopy.description}</p>
+          <p className="app-header__description">{headerCopy.description}</p>
 
           <div className="app-header__signals" aria-label="Project safeguards and patterns">
             <span>Safe search on</span>

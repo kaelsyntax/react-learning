@@ -103,9 +103,10 @@
   text-shadow: 0 1px 12px rgb(122 92 255 / 14%);
 }
 
-.app-header p {
+.app-header__description {
   margin: 0;
   max-width: 58ch;
+  min-height: calc(1.55em * 2);
   line-height: 1.55;
   font-size: clamp(0.95rem, 2.1vw, 1.04rem);
   color: rgb(186 197 232 / 95%);
@@ -615,7 +616,8 @@
     line-height: 1.04;
   }
 
-  .app-header p {
+  .app-header__description {
+    min-height: calc(1.45em * 2);
     font-size: 0.9rem;
     line-height: 1.45;
   }
