@@ -9,7 +9,7 @@
 .app::before,
 .app::after {
   content: '';
-  position: absolute;
+  position: fixed;
   width: 260px;
   height: 260px;
   border-radius: 999px;
