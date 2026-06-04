@@ -24,12 +24,26 @@ function mapNamedList(rawList) {
     .filter(Boolean)
 }
 
+function getAnimeImages(raw) {
+  const webp = raw?.images?.webp
+  const jpg = raw?.images?.jpg
+
+  return {
+    small: webp?.image_url ?? jpg?.image_url ?? webp?.large_image_url ?? jpg?.large_image_url ?? '',
+    large: webp?.large_image_url ?? jpg?.large_image_url ?? webp?.image_url ?? jpg?.image_url ?? '',
+  }
+}
+
 export function mapAnimeItem(raw) {
+  const images = getAnimeImages(raw)
+
   return {
     id: raw?.mal_id ?? crypto.randomUUID(),
     title: raw?.title ?? 'Untitled',
     titleEnglish: raw?.title_english ?? '',
-    image: raw?.images?.jpg?.image_url ?? '',
+    image: images.large,
+    imageSmall: images.small,
+    imageLarge: images.large,
     year: getYear(raw),
     score: toNumberOrNull(raw?.score),
     episodes: toNumberOrNull(raw?.episodes),

@@ -1,4 +1,4 @@
-const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500'
+const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p'
 const TMDB_MOVIE_BASE_URL = 'https://www.themoviedb.org/movie'
 
 const MOVIE_GENRES_BY_ID = {
@@ -46,10 +46,10 @@ function getFormattedDate(releaseDate) {
   }).format(new Date(parsedDate))
 }
 
-function getPosterUrl(path) {
+function getPosterUrl(path, size = 'w500') {
   if (!path) return ''
 
-  return `${TMDB_IMAGE_BASE_URL}${path}`
+  return `${TMDB_IMAGE_BASE_URL}/${size}${path}`
 }
 
 function mapGenreIds(genreIds) {
@@ -71,7 +71,9 @@ export function mapMovieItem(raw) {
     id,
     title: raw?.title ?? raw?.original_title ?? 'Untitled',
     titleEnglish: raw?.original_title ?? '',
-    image: getPosterUrl(raw?.poster_path),
+    image: getPosterUrl(raw?.poster_path, 'w500'),
+    imageSmall: getPosterUrl(raw?.poster_path, 'w342'),
+    imageLarge: getPosterUrl(raw?.poster_path, 'w780'),
     year: getYear(raw?.release_date),
     releaseDate,
     score: score === null ? null : Number(score.toFixed(1)),

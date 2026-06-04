@@ -24,7 +24,7 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
   if (!item) return null
 
   const title = item.title?.trim() || 'Untitled'
-  const image = item.image?.trim() || FALLBACK_POSTER
+  const image = item.imageLarge?.trim() || item.image?.trim() || FALLBACK_POSTER
   const synopsis = item.synopsis?.trim() || 'No synopsis available for this title yet.'
   const genres = Array.isArray(item.genres) ? item.genres.slice(0, 4) : []
   const mediaType = item.mediaType ?? 'media'
@@ -75,6 +75,7 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
             className="details-panel__image"
             src={image}
             alt={`${title} poster`}
+            decoding="async"
             onError={(event) => {
               event.currentTarget.onerror = null
               event.currentTarget.src = FALLBACK_POSTER

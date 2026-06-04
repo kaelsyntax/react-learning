@@ -3,7 +3,7 @@ const FALLBACK_POSTER =
 
 function ResultCard({ item = {}, onSelect }) {
   const title = item.title?.trim() || 'Untitled'
-  const image = item.image?.trim() || FALLBACK_POSTER
+  const image = item.imageSmall?.trim() || item.image?.trim() || FALLBACK_POSTER
   const year = item.year ?? 'Unknown'
   const score = item.score ?? 'N/A'
 
@@ -20,6 +20,7 @@ function ResultCard({ item = {}, onSelect }) {
           src={image}
           alt={`${title} poster`}
           loading="lazy"
+          decoding="async"
           onError={(event) => {
             event.currentTarget.onerror = null
             event.currentTarget.src = FALLBACK_POSTER
