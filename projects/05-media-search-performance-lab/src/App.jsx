@@ -243,7 +243,11 @@ function App() {
         />
 
         {hasVisibleResults ? (
-          <ResultsGrid items={visibleResults} onSelectItem={handleSelectItem} />
+          <ResultsGrid
+            key={sort}
+            items={visibleResults}
+            onSelectItem={handleSelectItem}
+          />
         ) : null}
       </section>
 
