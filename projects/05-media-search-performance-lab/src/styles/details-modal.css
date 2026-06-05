@@ -361,7 +361,7 @@
     column-gap: 14px;
     row-gap: 12px;
     padding: 14px;
-    border-radius: 18px 18px 14px 14px;
+    border-radius: 18px 2px 2px 18px;
   }
 
   .details-panel__media {
