@@ -45,7 +45,7 @@
 
 .search-form__label {
   justify-self: start;
-  font-size: 0.82rem;
+  font-size: 0.86rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: rgb(186 197 232 / 88%);
@@ -53,7 +53,7 @@
 }
 
 .search-form__field {
-  min-height: 48px;
+  min-height: 52px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -130,7 +130,7 @@
 }
 
 .search-form__input {
-  min-height: 38px;
+  min-height: 40px;
   width: 100%;
   border: 1px solid transparent;
   border-radius: 10px;
@@ -138,6 +138,7 @@
   padding: 0 48px 0 8px;
   color: var(--text);
   font: inherit;
+  font-size: 1.08rem;
   transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
 }
 
@@ -163,8 +164,8 @@
   right: 6px;
   top: 50%;
   transform: translateY(-50%);
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 999px;
   border: 1px solid rgb(122 92 255 / 22%);
   background: rgb(122 92 255 / 10%);
@@ -199,8 +200,8 @@
 }
 
 .search-form__submit {
-  min-width: 106px;
-  min-height: 40px;
+  min-width: 114px;
+  min-height: 42px;
   border-radius: 999px;
   padding: 0 14px;
   border: 1px solid rgb(122 92 255 / 30%);
@@ -209,7 +210,7 @@
   font-weight: 620;
   letter-spacing: 0.02em;
   text-transform: none;
-  font-size: 0.9rem;
+  font-size: 1rem;
   background:
     linear-gradient(145deg, rgb(122 92 255 / 36%), rgb(70 50 230 / 34%)),
     rgb(14 16 32 / 68%);
@@ -281,13 +282,15 @@
 }
 
 .mode-switch button {
-  min-height: 38px;
+  min-height: 42px;
   border-radius: 999px;
   border: 0;
   background: transparent;
   color: rgb(186 197 232 / 90%);
   position: relative;
   z-index: 1;
+  font-size: 1rem;
+  font-weight: 680;
   cursor: pointer;
   transition:
     color 150ms ease,
@@ -316,7 +319,7 @@
 
 .sort-select__trigger {
   width: 100%;
-  min-height: 38px;
+  min-height: 42px;
   padding: 0 12px;
   border-radius: 999px;
   border: 1px solid rgb(122 92 255 / 20%);
@@ -358,7 +361,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 620;
 }
 
 .sort-select__chevron {
@@ -406,7 +410,7 @@
 
 .sort-select__option {
   width: 100%;
-  min-height: 38px;
+  min-height: 40px;
   padding: 0 11px;
   border: 0;
   border-radius: 8px;
@@ -415,6 +419,7 @@
   text-align: left;
   cursor: pointer;
   font: inherit;
+  font-size: 0.98rem;
   transition: background-color 150ms ease, color 150ms ease;
 }
 
