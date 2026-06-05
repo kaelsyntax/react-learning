@@ -32,9 +32,25 @@ function ResultsState({ isLoading, error, info, hasSearched, hasResults }) {
   if (info) {
     return (
       <div className="results-message results-message--panel is-info" role="status" aria-live="polite">
-        <span className="results-message__icon" aria-hidden="true">i</span>
+        <span className="results-message__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M12 17V11"
+              stroke="currentColor"
+              strokeWidth="1.9"
+              strokeLinecap="round"
+            />
+            <path
+              d="M12 7.2V7"
+              stroke="currentColor"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+            />
+            <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.7" />
+          </svg>
+        </span>
         <div>
-          <p className="results-message__title">Movies mode</p>
+          <p className="results-message__title">Ready when you are</p>
           <p className="results-message__body">{info}</p>
         </div>
       </div>
@@ -47,10 +63,25 @@ function ResultsState({ isLoading, error, info, hasSearched, hasResults }) {
 
   if (!hasSearched) {
     return (
-      <div className="results-message results-message--panel" role="status" aria-live="polite">
-        <span className="results-message__icon" aria-hidden="true">*</span>
+      <div className="results-message results-message--panel is-empty" role="status" aria-live="polite">
+        <span className="results-message__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M5 12H19"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
+            <path
+              d="M12 5V19"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
+          </svg>
+        </span>
         <div>
-          <p className="results-message__title">Start with a title</p>
+          <p className="results-message__title">Search something sharp</p>
           <p className="results-message__body">Search a series or movie to narrow these picks.</p>
         </div>
       </div>
@@ -58,8 +89,24 @@ function ResultsState({ isLoading, error, info, hasSearched, hasResults }) {
   }
 
   return (
-    <div className="results-message results-message--panel" role="status" aria-live="polite">
-      <span className="results-message__icon" aria-hidden="true">?</span>
+    <div className="results-message results-message--panel is-empty" role="status" aria-live="polite">
+      <span className="results-message__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <circle cx="10.5" cy="10.5" r="5.8" stroke="currentColor" strokeWidth="1.8" />
+          <path
+            d="M15 15L19 19"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+          <path
+            d="M8.8 10.5H12.2"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+        </svg>
+      </span>
       <div>
         <p className="results-message__title">No matches found</p>
         <p className="results-message__body">Try a different title or a broader query.</p>
