@@ -70,9 +70,9 @@
   margin: 0 0 10px;
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
   color: rgb(0 229 255 / 86%);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   line-height: 1;
@@ -82,7 +82,7 @@
 
 .app-header__eyebrow::before {
   content: '';
-  width: 26px;
+  width: 30px;
   height: 1px;
   background: linear-gradient(90deg, rgb(0 229 255 / 0%), rgb(0 229 255 / 90%));
   box-shadow: 0 0 14px rgb(0 229 255 / 34%);
@@ -119,22 +119,22 @@
 .app-header__signals {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 16px;
+  gap: 10px;
+  margin-top: 18px;
 }
 
 .app-header__signals span {
   display: inline-flex;
   align-items: center;
-  min-height: 32px;
+  min-height: 38px;
   border: 1px solid rgb(122 92 255 / 20%);
   border-radius: 999px;
-  padding: 0 12px;
+  padding: 0 16px;
   background:
     linear-gradient(135deg, rgb(122 92 255 / 13%), rgb(0 229 255 / 7%)),
     rgb(8 10 22 / 42%);
   color: rgb(231 236 255 / 82%);
-  font-size: 0.78rem;
+  font-size: 0.88rem;
   font-weight: 700;
   box-shadow: 0 10px 28px rgb(0 0 0 / 14%);
 }
