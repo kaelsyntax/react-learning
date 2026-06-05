@@ -400,7 +400,7 @@
   .details-panel__subtitle {
     grid-row: 3;
     margin-top: 0;
-    font-size: 0.78rem;
+    font-size: 0.82rem;
   }
 
   .details-panel__stats {
@@ -431,7 +431,16 @@
     grid-column: 1 / -1;
     grid-row: 6;
     margin-top: 4px;
-    font-size: 0.84rem;
+    font-size: 0.9rem;
+    line-height: 1.58;
+  }
+
+  .details-panel__facts dt {
+    font-size: 0.72rem;
+  }
+
+  .details-panel__facts dd {
+    font-size: 0.86rem;
   }
 
   .details-panel__facts {
