@@ -146,6 +146,18 @@
   color: rgb(154 167 209 / 70%);
 }
 
+.search-form__input:-webkit-autofill,
+.search-form__input:-webkit-autofill:hover,
+.search-form__input:-webkit-autofill:focus {
+  border-color: rgb(122 92 255 / 52%);
+  caret-color: var(--text);
+  -webkit-text-fill-color: var(--text);
+  box-shadow:
+    0 0 0 1px rgb(122 92 255 / 24%) inset,
+    0 0 0 1000px rgb(10 11 25) inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
 .search-form__input::-webkit-search-cancel-button,
 .search-form__input::-webkit-search-decoration {
   appearance: none;
