@@ -1,11 +1,17 @@
 function ResultsState({ isLoading, error, info, hasSearched, hasResults }) {
   if (isLoading) {
     return (
-      <div className="results-message results-message--panel" role="status" aria-live="polite">
-        <span className="results-message__icon" aria-hidden="true">...</span>
+      <div className="results-message results-message--panel is-loading" role="status" aria-live="polite">
+        <span className="results-message__icon results-message__loader" aria-hidden="true">
+          <span />
+        </span>
         <div>
           <p className="results-message__title">Loading results</p>
           <p className="results-message__body">Pulling in fresh picks for you.</p>
+          <div className="results-message__skeleton" aria-hidden="true">
+            <span />
+            <span />
+          </div>
         </div>
       </div>
     )
