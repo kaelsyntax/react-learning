@@ -18,13 +18,13 @@
 
 .details-panel {
   position: relative;
-  width: min(100%, 860px);
-  max-height: min(86vh, 760px);
+  width: min(100%, 960px);
+  max-height: min(88vh, 820px);
   overflow-y: auto;
   display: grid;
-  grid-template-columns: minmax(180px, 260px) 1fr;
-  gap: 22px;
-  padding: 18px;
+  grid-template-columns: minmax(210px, 300px) 1fr;
+  gap: 26px;
+  padding: 22px;
   border: 1px solid rgb(122 92 255 / 34%);
   border-radius: 18px 2px 2px 18px;
   background:
@@ -161,7 +161,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 12px 42px 12px 0;
+  padding: 14px 48px 14px 0;
 }
 
 .details-panel__eyebrow {
@@ -176,7 +176,7 @@
 .details-panel__title {
   margin: 0;
   color: var(--text);
-  font-size: clamp(1.6rem, 4vw, 2.35rem);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
   line-height: 1.08;
 }
 
@@ -228,7 +228,7 @@
 .details-panel__synopsis {
   margin: 16px 0 0;
   color: rgb(211 220 246 / 86%);
-  font-size: 0.92rem;
+  font-size: 0.96rem;
   line-height: 1.58;
 }
 
