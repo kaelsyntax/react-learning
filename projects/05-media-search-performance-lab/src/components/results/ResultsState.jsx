@@ -20,10 +20,32 @@ function ResultsState({ isLoading, error, info, hasSearched, hasResults }) {
   if (error) {
     return (
       <div className="results-message results-message--panel is-error" role="alert">
-        <span className="results-message__icon" aria-hidden="true">!</span>
+        <span className="results-message__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M12 8.2V12.4"
+              stroke="currentColor"
+              strokeWidth="1.9"
+              strokeLinecap="round"
+            />
+            <path
+              d="M12 16.2V16"
+              stroke="currentColor"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+            />
+            <path
+              d="M10.2 4.8L3.8 16.2C3.1 17.5 4 19 5.5 19H18.5C20 19 20.9 17.5 20.2 16.2L13.8 4.8C13 3.5 11 3.5 10.2 4.8Z"
+              stroke="currentColor"
+              strokeWidth="1.7"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </span>
         <div>
           <p className="results-message__title">Something went wrong</p>
           <p className="results-message__body">{error}</p>
+          <p className="results-message__hint">Check the connection and try the search again.</p>
         </div>
       </div>
     )
