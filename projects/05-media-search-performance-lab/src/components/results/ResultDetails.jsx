@@ -1,7 +1,15 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const FALLBACK_POSTER =
   'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="480" height="720" viewBox="0 0 480 720"><rect width="480" height="720" fill="%2311111a"/><text x="50%25" y="48%25" text-anchor="middle" fill="%23f4f7ff" font-family="Arial, sans-serif" font-size="28">No Image</text><text x="50%25" y="55%25" text-anchor="middle" fill="%23a8b0c7" font-family="Arial, sans-serif" font-size="16">Media Search Lab</text></svg>'
+const FOCUSABLE_SELECTOR = [
+  'a[href]',
+  'button:not([disabled])',
+  'input:not([disabled])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  '[tabindex]:not([tabindex="-1"])',
+].join(', ')
 
 function hasValue(value) {
   return value !== null && value !== undefined && value !== ''
@@ -22,8 +30,61 @@ function getItemFacts(item) {
   return facts.filter((fact) => fact?.label && hasValue(fact.value))
 }
 
+function getFocusableElements(container) {
+  if (!container) return []
+
+  return Array.from(container.querySelectorAll(FOCUSABLE_SELECTOR)).filter((element) => {
+    return element.offsetParent !== null || element === document.activeElement
+  })
+}
+
 function ResultDetails({ item, isClosing = false, onClose, onExited }) {
   const [isImageLoading, setIsImageLoading] = useState(true)
+  const panelRef = useRef(null)
+
+  useEffect(() => {
+    if (!item) return undefined
+
+    const previousActiveElement = document.activeElement
+    const focusableElements = getFocusableElements(panelRef.current)
+
+    if (focusableElements.length > 0) {
+      focusableElements[0].focus()
+    } else {
+      panelRef.current?.focus()
+    }
+
+    return () => {
+      if (previousActiveElement instanceof HTMLElement && previousActiveElement.isConnected) {
+        previousActiveElement.focus()
+      }
+    }
+  }, [item])
+
+  const handlePanelKeyDown = (event) => {
+    if (event.key !== 'Tab') return
+
+    const focusableElements = getFocusableElements(panelRef.current)
+
+    if (focusableElements.length === 0) {
+      event.preventDefault()
+      panelRef.current?.focus()
+      return
+    }
+
+    const firstElement = focusableElements[0]
+    const lastElement = focusableElements[focusableElements.length - 1]
+
+    if (event.shiftKey && document.activeElement === firstElement) {
+      event.preventDefault()
+      lastElement.focus()
+    }
+
+    if (!event.shiftKey && document.activeElement === lastElement) {
+      event.preventDefault()
+      firstElement.focus()
+    }
+  }
 
   if (!item) return null
 
@@ -52,11 +113,14 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
       }}
     >
       <section
+        ref={panelRef}
         className="details-panel"
         role="dialog"
         aria-modal="true"
         aria-labelledby="details-title"
+        tabIndex={-1}
         onClick={(event) => event.stopPropagation()}
+        onKeyDown={handlePanelKeyDown}
       >
         <button
           className="details-panel__close"
