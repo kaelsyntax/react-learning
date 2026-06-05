@@ -63,6 +63,7 @@ function App() {
   const [hasSearchError, setHasSearchError] = useState(false)
   const searchInputRef = useRef(null)
   const detailsCloseTimeoutRef = useRef(null)
+  const searchErrorTimeoutRef = useRef(null)
   const {
     query,
     results,
@@ -80,15 +81,21 @@ function App() {
     if (!query.trim()) {
       setHasSearchError(true)
       searchInputRef.current?.focus()
+      window.clearTimeout(searchErrorTimeoutRef.current)
+      searchErrorTimeoutRef.current = window.setTimeout(() => {
+        setHasSearchError(false)
+      }, 3000)
       return
     }
 
+    window.clearTimeout(searchErrorTimeoutRef.current)
     setHasSearchError(false)
     void runSearch(query)
   }
 
   const handleQueryChange = (event) => {
     if (hasSearchError) {
+      window.clearTimeout(searchErrorTimeoutRef.current)
       setHasSearchError(false)
     }
 
@@ -168,7 +175,10 @@ function App() {
   }, [])
 
   useEffect(() => {
-    return () => window.clearTimeout(detailsCloseTimeoutRef.current)
+    return () => {
+      window.clearTimeout(detailsCloseTimeoutRef.current)
+      window.clearTimeout(searchErrorTimeoutRef.current)
+    }
   }, [])
 
   useEffect(() => {
