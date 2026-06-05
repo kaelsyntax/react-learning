@@ -1,0 +1,46 @@
+@media (prefers-reduced-motion: reduce) {
+  .results {
+    transition: none;
+  }
+
+  .results-message {
+    animation: none;
+  }
+
+  .app-header__copy {
+    animation: none;
+  }
+
+  .search-form.is-invalid .search-form__field {
+    animation: none;
+  }
+
+  .results-message__loader::before,
+  .results-message__skeleton span {
+    animation: none;
+  }
+
+  .details-overlay,
+  .details-panel {
+    animation: none;
+  }
+
+  .details-panel__image-loader,
+  .details-panel__image-loader span {
+    animation: none;
+  }
+
+  .media-card {
+    opacity: 1;
+    animation: none;
+    transition: border-color 180ms ease, background-color 180ms ease;
+  }
+
+  .search-shortcut {
+    transition: border-color 180ms ease, background-color 180ms ease;
+  }
+
+  .media-card:hover {
+    transform: none;
+  }
+}
