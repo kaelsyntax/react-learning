@@ -1020,6 +1020,7 @@
 }
 
 .media-card {
+  opacity: 0;
   border: 1px solid var(--border);
   background:
     linear-gradient(165deg, rgb(122 92 255 / 7%), transparent 36%),
@@ -1035,6 +1036,9 @@
     border-color 180ms ease,
     box-shadow 220ms ease,
     background-color 220ms ease;
+}
+
+.media-card.has-entered {
   animation: card-enter 360ms ease both;
 }
 
@@ -1130,6 +1134,7 @@
   }
 
   .media-card {
+    opacity: 1;
     animation: none;
     transition: border-color 180ms ease, background-color 180ms ease;
   }
