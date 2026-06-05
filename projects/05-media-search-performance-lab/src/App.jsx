@@ -60,6 +60,7 @@ function App() {
   const [selectedItem, setSelectedItem] = useState(null)
   const [isDetailsClosing, setIsDetailsClosing] = useState(false)
   const [showSearchShortcut, setShowSearchShortcut] = useState(false)
+  const [hasSearchError, setHasSearchError] = useState(false)
   const searchInputRef = useRef(null)
   const detailsCloseTimeoutRef = useRef(null)
   const {
@@ -75,10 +76,22 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+
+    if (!query.trim()) {
+      setHasSearchError(true)
+      searchInputRef.current?.focus()
+      return
+    }
+
+    setHasSearchError(false)
     void runSearch(query)
   }
 
   const handleQueryChange = (event) => {
+    if (hasSearchError) {
+      setHasSearchError(false)
+    }
+
     updateQuery(event.target.value)
   }
 
@@ -211,6 +224,7 @@ function App() {
         <section className="controls" aria-label="Search controls">
           <SearchInput
             query={query}
+            hasError={hasSearchError}
             inputRef={searchInputRef}
             onQueryChange={handleQueryChange}
             onClearQuery={handleClearQuery}

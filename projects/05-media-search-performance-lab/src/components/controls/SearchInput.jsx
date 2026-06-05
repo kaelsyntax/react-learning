@@ -1,8 +1,15 @@
-function SearchInput({ query, inputRef, onQueryChange, onClearQuery, onSubmit }) {
+function SearchInput({
+  query,
+  hasError = false,
+  inputRef,
+  onQueryChange,
+  onClearQuery,
+  onSubmit,
+}) {
   return (
-    <form className="search-form" onSubmit={onSubmit}>
+    <form className={`search-form ${hasError ? 'is-invalid' : ''}`} onSubmit={onSubmit}>
       <label className="search-form__label" htmlFor="search-input">
-        Search title
+        {hasError ? 'Type a title first' : 'Search title'}
       </label>
 
       <div className="search-form__field">
@@ -32,6 +39,7 @@ function SearchInput({ query, inputRef, onQueryChange, onClearQuery, onSubmit })
             type="search"
             value={query}
             onChange={onQueryChange}
+            aria-invalid={hasError}
             placeholder="Try: Naruto, Cyberpunk, Interstellar..."
           />
 
