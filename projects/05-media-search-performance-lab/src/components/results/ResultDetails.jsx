@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const FALLBACK_POSTER =
   'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="480" height="720" viewBox="0 0 480 720"><rect width="480" height="720" fill="%2311111a"/><text x="50%25" y="48%25" text-anchor="middle" fill="%23f4f7ff" font-family="Arial, sans-serif" font-size="28">No Image</text><text x="50%25" y="55%25" text-anchor="middle" fill="%23a8b0c7" font-family="Arial, sans-serif" font-size="16">Media Search Lab</text></svg>'
 
@@ -21,6 +23,8 @@ function getItemFacts(item) {
 }
 
 function ResultDetails({ item, isClosing = false, onClose, onExited }) {
+  const [isImageLoading, setIsImageLoading] = useState(true)
+
   if (!item) return null
 
   const title = item.title?.trim() || 'Untitled'
@@ -71,16 +75,26 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
         </button>
 
         <div className="details-panel__media">
-          <img
-            className="details-panel__image"
-            src={image}
-            alt={`${title} poster`}
-            decoding="async"
-            onError={(event) => {
-              event.currentTarget.onerror = null
-              event.currentTarget.src = FALLBACK_POSTER
-            }}
-          />
+          <div className={`details-panel__image-wrap ${isImageLoading ? 'is-loading' : ''}`}>
+            {isImageLoading ? (
+              <div className="details-panel__image-loader" aria-hidden="true">
+                <span />
+              </div>
+            ) : null}
+
+            <img
+              className="details-panel__image"
+              src={image}
+              alt={`${title} poster`}
+              decoding="async"
+              onLoad={() => setIsImageLoading(false)}
+              onError={(event) => {
+                event.currentTarget.onerror = null
+                event.currentTarget.src = FALLBACK_POSTER
+                setIsImageLoading(false)
+              }}
+            />
+          </div>
 
           {facts.length > 0 ? (
             <dl className="details-panel__facts">

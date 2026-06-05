@@ -1001,6 +1001,11 @@
     animation: none;
   }
 
+  .details-panel__image-loader,
+  .details-panel__image-loader span {
+    animation: none;
+  }
+
   .media-card {
     animation: none;
     transition: border-color 180ms ease, background-color 180ms ease;
@@ -1193,14 +1198,53 @@
   min-width: 0;
 }
 
-.details-panel__image {
+.details-panel__image-wrap {
+  position: relative;
   width: 100%;
   aspect-ratio: 3 / 4;
-  object-fit: cover;
+  overflow: hidden;
   border: 1px solid rgb(255 255 255 / 8%);
   border-radius: 13px;
-  background: rgb(255 255 255 / 4%);
+  background:
+    linear-gradient(135deg, rgb(122 92 255 / 12%), rgb(0 229 255 / 7%)),
+    rgb(255 255 255 / 4%);
   box-shadow: 0 18px 34px rgb(0 0 0 / 36%);
+}
+
+.details-panel__image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity 180ms ease;
+}
+
+.details-panel__image-wrap.is-loading .details-panel__image {
+  opacity: 0;
+}
+
+.details-panel__image-loader {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(110deg, transparent 20%, rgb(255 255 255 / 8%) 42%, transparent 64%),
+    linear-gradient(145deg, rgb(122 92 255 / 12%), rgb(0 229 255 / 7%)),
+    rgb(12 14 28 / 92%);
+  background-size: 180% 100%, auto, auto;
+  animation: details-image-sheen 1.2s ease-in-out infinite;
+}
+
+.details-panel__image-loader span {
+  width: 34px;
+  height: 34px;
+  border: 2px solid rgb(0 229 255 / 20%);
+  border-top-color: rgb(0 229 255 / 84%);
+  border-radius: 999px;
+  box-shadow: 0 0 22px rgb(0 229 255 / 20%);
+  animation: details-image-spin 850ms linear infinite;
 }
 
 .details-panel__content {
@@ -1352,6 +1396,22 @@
   }
 }
 
+@keyframes details-image-sheen {
+  from {
+    background-position: 140% 0, 0 0, 0 0;
+  }
+
+  to {
+    background-position: -60% 0, 0 0, 0 0;
+  }
+}
+
+@keyframes details-image-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
 @media (max-width: 560px) {
   .results {
     padding: 12px;
@@ -1428,7 +1488,7 @@
     display: contents;
   }
 
-  .details-panel__image {
+  .details-panel__image-wrap {
     grid-column: 1;
     grid-row: 1 / span 5;
   }
