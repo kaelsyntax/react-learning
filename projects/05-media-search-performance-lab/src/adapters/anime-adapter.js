@@ -29,7 +29,7 @@ function getAnimeImages(raw) {
   const jpg = raw?.images?.jpg
 
   return {
-    small: webp?.image_url ?? jpg?.image_url ?? webp?.large_image_url ?? jpg?.large_image_url ?? '',
+    small: webp?.large_image_url ?? jpg?.large_image_url ?? webp?.image_url ?? jpg?.image_url ?? '',
     large: webp?.large_image_url ?? jpg?.large_image_url ?? webp?.image_url ?? jpg?.image_url ?? '',
   }
 }
