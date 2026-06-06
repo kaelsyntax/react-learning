@@ -554,6 +554,30 @@
   .details-panel.has-compact-mobile-summary .details-panel__facts {
     grid-row: 7;
   }
+
+  .details-panel.has-compact-mobile-subtitle .details-panel__image-wrap {
+    grid-row: 1 / span 6;
+  }
+
+  .details-panel.has-compact-mobile-subtitle .details-panel__stats,
+  .details-panel.has-compact-mobile-subtitle .details-panel__genres,
+  .details-panel.has-compact-mobile-subtitle .details-panel__external-link {
+    grid-column: 2;
+    min-width: 0;
+  }
+
+  .details-panel.has-compact-mobile-subtitle .details-panel__stats {
+    grid-row: 4;
+    margin-top: 0;
+  }
+
+  .details-panel.has-compact-mobile-subtitle .details-panel__genres {
+    grid-row: 5;
+  }
+
+  .details-panel.has-compact-mobile-subtitle .details-panel__external-link {
+    grid-row: 6;
+  }
 }
 
 @media (max-width: 340px) {

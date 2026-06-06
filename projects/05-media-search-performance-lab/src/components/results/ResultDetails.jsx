@@ -118,7 +118,13 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
   ].filter(Boolean)
   const facts = getItemFacts(item)
   const metadataCount = stats.length + genres.length
-  const hasCompactMobileSummary = !hasUsefulSubtitle && metadataCount <= 5
+  const hasCompactMobileSummary = !hasUsefulSubtitle && metadataCount <= 6
+  const hasCompactMobileSubtitle = hasUsefulSubtitle && subtitle.length <= 32 && metadataCount <= 4
+  const panelClassName = [
+    'details-panel',
+    hasCompactMobileSummary ? 'has-compact-mobile-summary' : '',
+    hasCompactMobileSubtitle ? 'has-compact-mobile-subtitle' : '',
+  ].filter(Boolean).join(' ')
 
   return (
     <div
@@ -133,7 +139,7 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
     >
       <section
         ref={panelRef}
-        className={`details-panel ${hasCompactMobileSummary ? 'has-compact-mobile-summary' : ''}`}
+        className={panelClassName}
         role="dialog"
         aria-modal="true"
         aria-labelledby="details-title"
