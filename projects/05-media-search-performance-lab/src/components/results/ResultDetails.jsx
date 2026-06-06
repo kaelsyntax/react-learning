@@ -42,6 +42,13 @@ function getExternalLinkLabel(mediaType) {
   return mediaType === 'movie' ? 'View on TMDB' : 'View on MyAnimeList'
 }
 
+function normalizeComparableText(value) {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+}
+
 function ResultDetails({ item, isClosing = false, onClose, onExited }) {
   const [isImageLoading, setIsImageLoading] = useState(true)
   const panelRef = useRef(null)
@@ -93,6 +100,10 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
   if (!item) return null
 
   const title = item.title?.trim() || 'Untitled'
+  const subtitle = item.titleEnglish?.trim() ?? ''
+  const hasUsefulSubtitle = Boolean(
+    subtitle && normalizeComparableText(subtitle) !== normalizeComparableText(title),
+  )
   const image = item.imageLarge?.trim() || item.image?.trim() || FALLBACK_POSTER
   const synopsis = item.synopsis?.trim() || 'No synopsis available for this title yet.'
   const genres = Array.isArray(item.genres) ? item.genres.slice(0, 4) : []
@@ -184,8 +195,8 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
             {title}
           </h2>
 
-          {item.titleEnglish ? (
-            <p className="details-panel__subtitle">{item.titleEnglish}</p>
+          {hasUsefulSubtitle ? (
+            <p className="details-panel__subtitle">{subtitle}</p>
           ) : null}
 
           {stats.length > 0 ? (
