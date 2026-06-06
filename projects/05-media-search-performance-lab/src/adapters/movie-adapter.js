@@ -60,6 +60,20 @@ function mapGenreIds(genreIds) {
     .filter(Boolean)
 }
 
+function removeDuplicateMovies(rawList) {
+  const seenIds = new Set()
+
+  return rawList.filter((movie) => {
+    const id = movie?.id
+
+    if (id === null || id === undefined) return true
+    if (seenIds.has(id)) return false
+
+    seenIds.add(id)
+    return true
+  })
+}
+
 export function mapMovieItem(raw) {
   const id = raw?.id ?? crypto.randomUUID()
   const score = toNumberOrNull(raw?.vote_average)
@@ -100,7 +114,7 @@ export function mapMovieItem(raw) {
 export function mapMovieList(rawList) {
   if (!Array.isArray(rawList)) return []
 
-  return rawList
+  return removeDuplicateMovies(rawList)
     .filter((movie) => movie?.adult !== true)
     .map(mapMovieItem)
 }

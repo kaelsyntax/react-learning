@@ -34,6 +34,20 @@ function getAnimeImages(raw) {
   }
 }
 
+function removeDuplicateAnime(rawList) {
+  const seenIds = new Set()
+
+  return rawList.filter((anime) => {
+    const id = anime?.mal_id
+
+    if (id === null || id === undefined) return true
+    if (seenIds.has(id)) return false
+
+    seenIds.add(id)
+    return true
+  })
+}
+
 export function mapAnimeItem(raw) {
   const images = getAnimeImages(raw)
 
@@ -62,7 +76,7 @@ export function mapAnimeItem(raw) {
 export function mapAnimeList(rawList) {
   if (!Array.isArray(rawList)) return []
 
-  return rawList
+  return removeDuplicateAnime(rawList)
     .filter((anime) => anime?.rating !== 'Rx - Hentai')
     .map(mapAnimeItem)
 }
