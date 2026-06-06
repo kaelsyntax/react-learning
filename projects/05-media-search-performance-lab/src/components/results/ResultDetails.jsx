@@ -117,6 +117,8 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
     item.status?.trim() ?? '',
   ].filter(Boolean)
   const facts = getItemFacts(item)
+  const metadataCount = stats.length + genres.length
+  const hasCompactMobileSummary = !hasUsefulSubtitle && metadataCount <= 5
 
   return (
     <div
@@ -131,7 +133,7 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
     >
       <section
         ref={panelRef}
-        className="details-panel"
+        className={`details-panel ${hasCompactMobileSummary ? 'has-compact-mobile-summary' : ''}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="details-title"
