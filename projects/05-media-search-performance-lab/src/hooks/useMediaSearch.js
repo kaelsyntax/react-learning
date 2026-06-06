@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { searchAnime } from '../services/anime-api'
+import { getTrendingAnime, searchAnime } from '../services/anime-api'
 import { getTrendingMovies, searchMovies } from '../services/movie-api'
 
 const DEFAULT_DEBOUNCE_DELAY_MS = 400
-const DEFAULT_DISCOVERY_QUERY = 'top anime'
 const DISCOVERY_CACHE_SUFFIX = '__discover__'
 
 function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
@@ -128,7 +127,7 @@ function useMediaSearch({ mode, debounceDelayMs = DEFAULT_DEBOUNCE_DELAY_MS }) {
         setIsLoading(true)
         const discoverResults = mode === 'movies'
           ? await getTrendingMovies()
-          : await searchAnime(DEFAULT_DISCOVERY_QUERY)
+          : await getTrendingAnime()
 
         if (isCancelled || requestId !== activeRequestIdRef.current) {
           return

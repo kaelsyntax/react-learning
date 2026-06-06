@@ -152,7 +152,7 @@ function App() {
   const headerCopy = HEADER_COPY[mode]
   const discoveryTitle = mode === 'movies'
     ? 'Trending movie picks'
-    : 'Popular anime picks'
+    : 'Top airing anime picks'
   const resultsContext = isShowingDiscoveryResults
     ? {
         eyebrow: 'Trending now',
