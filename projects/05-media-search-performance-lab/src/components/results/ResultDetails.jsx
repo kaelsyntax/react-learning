@@ -38,6 +38,10 @@ function getFocusableElements(container) {
   })
 }
 
+function getExternalLinkLabel(mediaType) {
+  return mediaType === 'movie' ? 'View on TMDB' : 'View on MyAnimeList'
+}
+
 function ResultDetails({ item, isClosing = false, onClose, onExited }) {
   const [isImageLoading, setIsImageLoading] = useState(true)
   const panelRef = useRef(null)
@@ -93,6 +97,8 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
   const synopsis = item.synopsis?.trim() || 'No synopsis available for this title yet.'
   const genres = Array.isArray(item.genres) ? item.genres.slice(0, 4) : []
   const mediaType = item.mediaType ?? 'media'
+  const externalUrl = item.url?.trim() ?? ''
+  const externalLinkLabel = getExternalLinkLabel(mediaType)
   const stats = [
     hasValue(item.year) ? `Year: ${item.year}` : '',
     hasValue(item.score) ? `Score: ${item.score}` : '',
@@ -196,6 +202,27 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
                 <span key={genre}>{genre}</span>
               ))}
             </div>
+          ) : null}
+
+          {externalUrl ? (
+            <a
+              className="details-panel__external-link"
+              href={externalUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${externalLinkLabel} for ${title}`}
+            >
+              <span>{externalLinkLabel}</span>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M8 7h9v9M17 7L7 17"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </a>
           ) : null}
 
           <p className="details-panel__synopsis">{synopsis}</p>
