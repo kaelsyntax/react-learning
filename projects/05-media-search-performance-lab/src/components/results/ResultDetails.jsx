@@ -117,14 +117,7 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
     item.status?.trim() ?? '',
   ].filter(Boolean)
   const facts = getItemFacts(item)
-  const metadataCount = stats.length + genres.length
-  const hasCompactMobileSummary = !hasUsefulSubtitle && metadataCount <= 6
-  const hasCompactMobileSubtitle = hasUsefulSubtitle && subtitle.length <= 32 && metadataCount <= 4
-  const panelClassName = [
-    'details-panel',
-    hasCompactMobileSummary ? 'has-compact-mobile-summary' : '',
-    hasCompactMobileSubtitle ? 'has-compact-mobile-subtitle' : '',
-  ].filter(Boolean).join(' ')
+  const hasSummaryBand = stats.length > 0 || genres.length > 0 || externalUrl
 
   return (
     <div
@@ -139,7 +132,7 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
     >
       <section
         ref={panelRef}
-        className={panelClassName}
+        className="details-panel"
         role="dialog"
         aria-modal="true"
         aria-labelledby="details-title"
@@ -207,41 +200,45 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
             <p className="details-panel__subtitle">{subtitle}</p>
           ) : null}
 
-          {stats.length > 0 ? (
-            <div className="details-panel__stats" aria-label="Media details">
-              {stats.map((stat) => (
-                <span key={stat}>{stat}</span>
-              ))}
-            </div>
-          ) : null}
+          {hasSummaryBand ? (
+            <div className="details-panel__summary-band">
+              {stats.length > 0 ? (
+                <div className="details-panel__stats" aria-label="Media details">
+                  {stats.map((stat) => (
+                    <span key={stat}>{stat}</span>
+                  ))}
+                </div>
+              ) : null}
 
-          {genres.length > 0 ? (
-            <div className="details-panel__genres" aria-label="Genres">
-              {genres.map((genre) => (
-                <span key={genre}>{genre}</span>
-              ))}
-            </div>
-          ) : null}
+              {genres.length > 0 ? (
+                <div className="details-panel__genres" aria-label="Genres">
+                  {genres.map((genre) => (
+                    <span key={genre}>{genre}</span>
+                  ))}
+                </div>
+              ) : null}
 
-          {externalUrl ? (
-            <a
-              className="details-panel__external-link"
-              href={externalUrl}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`${externalLinkLabel} for ${title}`}
-            >
-              <span>{externalLinkLabel}</span>
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path
-                  d="M8 7h9v9M17 7L7 17"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
+              {externalUrl ? (
+                <a
+                  className="details-panel__external-link"
+                  href={externalUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`${externalLinkLabel} for ${title}`}
+                >
+                  <span>{externalLinkLabel}</span>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M8 7h9v9M17 7L7 17"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </a>
+              ) : null}
+            </div>
           ) : null}
 
           <p className="details-panel__synopsis">{synopsis}</p>
