@@ -331,7 +331,33 @@
 
 .details-panel.has-short-synopsis .details-panel__facts {
   grid-column: 1 / -1;
-  grid-template-columns: repeat(4, minmax(150px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.details-panel.has-short-synopsis:not(.has-stepped-facts):not(.has-stacked-facts) {
+  grid-template-rows: auto auto;
+}
+
+.details-panel.has-short-synopsis:not(.has-stepped-facts):not(.has-stacked-facts)
+  .details-panel__media {
+  display: contents;
+}
+
+.details-panel.has-short-synopsis:not(.has-stepped-facts):not(.has-stacked-facts)
+  .details-panel__image-wrap {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.details-panel.has-short-synopsis:not(.has-stepped-facts):not(.has-stacked-facts)
+  .details-panel__content {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.details-panel.has-short-synopsis:not(.has-stepped-facts):not(.has-stacked-facts)
+  .details-panel__facts {
+  grid-row: 2;
 }
 
 .details-panel.has-stacked-facts .details-panel__facts {
@@ -348,11 +374,6 @@
 }
 
 @media (max-width: 1120px) {
-  .details-panel.has-short-synopsis .details-panel__facts {
-    grid-column: auto;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .details-panel.has-stacked-facts .details-panel__facts {
     grid-template-columns: 1fr;
   }

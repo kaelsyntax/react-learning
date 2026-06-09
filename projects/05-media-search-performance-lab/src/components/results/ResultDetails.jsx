@@ -128,7 +128,7 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
   const facts = getItemFacts(item)
   const hasLongFact = facts.some((fact) => isLongFactValue(fact.value))
   const shouldStackFacts = hasLongSynopsis
-  const shouldUseSteppedFacts = !shouldStackFacts && hasLongFact
+  const shouldUseSteppedFacts = !hasShortSynopsis && !shouldStackFacts && hasLongFact
   const hasSummaryBand = stats.length > 0 || genres.length > 0 || externalUrl
   const panelClassName = [
     'details-panel',
