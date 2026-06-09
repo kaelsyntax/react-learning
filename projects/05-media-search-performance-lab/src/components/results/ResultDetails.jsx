@@ -11,7 +11,7 @@ const FOCUSABLE_SELECTOR = [
   '[tabindex]:not([tabindex="-1"])',
 ].join(', ')
 const LONG_FACT_VALUE_LENGTH = 18
-const LONG_SYNOPSIS_LENGTH = 520
+const LONG_SYNOPSIS_LENGTH = 680
 const COMPACT_FACTS_BEFORE_WIDE_COUNT = 2
 
 function hasValue(value) {
