@@ -701,3 +701,29 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 400px) {
+  .details-panel__image-wrap {
+    grid-row: 1;
+  }
+
+  .details-panel__heading {
+    grid-row: 1;
+    align-self: center;
+  }
+
+  .details-panel__summary-band {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: 0;
+  }
+
+  .details-panel__synopsis {
+    grid-row: 3;
+  }
+
+  .details-panel__facts,
+  .details-panel.has-short-synopsis .details-panel__facts {
+    grid-row: 4;
+  }
+}
