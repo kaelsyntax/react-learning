@@ -219,14 +219,16 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
         </div>
 
         <div className="details-panel__content">
-          <p className="details-panel__eyebrow">{mediaType}</p>
-          <h2 className="details-panel__title" id="details-title">
-            {title}
-          </h2>
+          <div className="details-panel__heading">
+            <p className="details-panel__eyebrow">{mediaType}</p>
+            <h2 className="details-panel__title" id="details-title">
+              {title}
+            </h2>
 
-          {hasUsefulSubtitle ? (
-            <p className="details-panel__subtitle">{subtitle}</p>
-          ) : null}
+            {hasUsefulSubtitle ? (
+              <p className="details-panel__subtitle">{subtitle}</p>
+            ) : null}
+          </div>
 
           {hasSummaryBand ? (
             <div className="details-panel__summary-band">
