@@ -270,14 +270,14 @@
 
 .details-panel__summary-band {
   display: grid;
-  gap: 12px;
-  margin-top: 18px;
+  gap: 10px;
+  margin-top: 12px;
 }
 
 .details-panel__stats {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 7px;
   margin-top: 0;
 }
 
@@ -296,7 +296,7 @@
 .details-panel__genres {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
+  gap: 6px;
   margin-top: 0;
 }
 
@@ -450,7 +450,7 @@
     grid-column: 2;
     grid-row: 4;
     gap: 10px;
-    margin-top: 4px;
+    margin-top: 0;
   }
 
   .details-panel__synopsis {
