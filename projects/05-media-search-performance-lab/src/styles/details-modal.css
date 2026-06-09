@@ -268,13 +268,6 @@
   line-height: 1.08;
 }
 
-.details-panel__subtitle {
-  margin: 8px 0 0;
-  color: rgb(186 197 232 / 78%);
-  font-size: 1.04rem;
-  line-height: 1.35;
-}
-
 .details-panel__summary-band {
   display: grid;
   gap: 12px;
@@ -435,7 +428,7 @@
 
   .details-panel__heading {
     grid-column: 2;
-    grid-row: 1 / span 3;
+    grid-row: 1 / span 2;
     align-self: center;
     min-width: 0;
     display: flex;
@@ -451,10 +444,6 @@
   .details-panel__title {
     margin: 0;
     font-size: clamp(1.55rem, 5vw, 2.35rem);
-  }
-
-  .details-panel__subtitle {
-    margin: 0;
   }
 
   .details-panel__summary-band {
@@ -591,11 +580,6 @@
   .details-panel__title {
     margin: 0;
     font-size: clamp(1.08rem, 7vw, 1.55rem);
-  }
-
-  .details-panel__subtitle {
-    margin: 0;
-    font-size: 0.82rem;
   }
 
   .details-panel__summary-band {

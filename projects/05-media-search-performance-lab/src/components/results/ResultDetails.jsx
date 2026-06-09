@@ -45,13 +45,6 @@ function getExternalLinkLabel(mediaType) {
   return mediaType === 'movie' ? 'View on TMDB' : 'View on MyAnimeList'
 }
 
-function normalizeComparableText(value) {
-  return value
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, ' ')
-}
-
 function isLongFactValue(value) {
   return String(value).length > LONG_FACT_VALUE_LENGTH
 }
@@ -107,10 +100,6 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
   if (!item) return null
 
   const title = item.title?.trim() || 'Untitled'
-  const subtitle = item.titleEnglish?.trim() ?? ''
-  const hasUsefulSubtitle = Boolean(
-    subtitle && normalizeComparableText(subtitle) !== normalizeComparableText(title),
-  )
   const image = item.imageLarge?.trim() || item.image?.trim() || FALLBACK_POSTER
   const synopsis = item.synopsis?.trim() || 'No synopsis available for this title yet.'
   const hasShortSynopsis = synopsis.length <= 260
@@ -224,10 +213,6 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
             <h2 className="details-panel__title" id="details-title">
               {title}
             </h2>
-
-            {hasUsefulSubtitle ? (
-              <p className="details-panel__subtitle">{subtitle}</p>
-            ) : null}
           </div>
 
           {hasSummaryBand ? (
