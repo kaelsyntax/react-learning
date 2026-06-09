@@ -781,3 +781,46 @@
     grid-row: 4;
   }
 }
+
+@media (max-width: 400px) {
+  .details-panel {
+    grid-template-columns: minmax(112px, 150px) 1fr;
+  }
+
+  .details-panel__image-wrap {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: stretch;
+  }
+
+  .details-panel__heading {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    padding-right: 32px;
+    gap: 6px;
+  }
+
+  .details-panel__summary-band {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .details-panel__synopsis {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+
+  .details-panel__facts,
+  .details-panel.has-short-synopsis .details-panel__facts {
+    grid-column: 1 / -1;
+    grid-row: 4;
+  }
+}
+
+@media (max-width: 340px) {
+  .details-panel__facts,
+  .details-panel.has-short-synopsis .details-panel__facts {
+    grid-template-columns: 1fr;
+  }
+}
