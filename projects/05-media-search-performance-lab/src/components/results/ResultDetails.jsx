@@ -10,6 +10,9 @@ const FOCUSABLE_SELECTOR = [
   'textarea:not([disabled])',
   '[tabindex]:not([tabindex="-1"])',
 ].join(', ')
+const LONG_FACT_VALUE_LENGTH = 18
+const LONG_SYNOPSIS_LENGTH = 520
+const COMPACT_FACTS_BEFORE_WIDE_COUNT = 2
 
 function hasValue(value) {
   return value !== null && value !== undefined && value !== ''
@@ -47,6 +50,10 @@ function normalizeComparableText(value) {
     .trim()
     .toLowerCase()
     .replace(/\s+/g, ' ')
+}
+
+function isLongFactValue(value) {
+  return String(value).length > LONG_FACT_VALUE_LENGTH
 }
 
 function ResultDetails({ item, isClosing = false, onClose, onExited }) {
@@ -107,6 +114,7 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
   const image = item.imageLarge?.trim() || item.image?.trim() || FALLBACK_POSTER
   const synopsis = item.synopsis?.trim() || 'No synopsis available for this title yet.'
   const hasShortSynopsis = synopsis.length <= 260
+  const hasLongSynopsis = synopsis.length > LONG_SYNOPSIS_LENGTH
   const genres = Array.isArray(item.genres) ? item.genres.slice(0, 4) : []
   const mediaType = item.mediaType ?? 'media'
   const externalUrl = item.url?.trim() ?? ''
@@ -118,10 +126,15 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
     item.status?.trim() ?? '',
   ].filter(Boolean)
   const facts = getItemFacts(item)
+  const hasLongFact = facts.some((fact) => isLongFactValue(fact.value))
+  const shouldStackFacts = hasLongSynopsis
+  const shouldUseSteppedFacts = !shouldStackFacts && hasLongFact
   const hasSummaryBand = stats.length > 0 || genres.length > 0 || externalUrl
   const panelClassName = [
     'details-panel',
     hasShortSynopsis ? 'has-short-synopsis' : '',
+    shouldStackFacts ? 'has-stacked-facts' : '',
+    shouldUseSteppedFacts ? 'has-stepped-facts' : '',
   ].filter(Boolean).join(' ')
 
   return (
@@ -185,12 +198,22 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
 
           {facts.length > 0 ? (
             <dl className="details-panel__facts">
-              {facts.map((fact) => (
-                <div key={fact.label}>
-                  <dt>{fact.label}</dt>
-                  <dd>{fact.value}</dd>
-                </div>
-              ))}
+              {facts.map((fact, index) => {
+                const shouldExpandFact =
+                  shouldUseSteppedFacts &&
+                  (isLongFactValue(fact.value) || index >= COMPACT_FACTS_BEFORE_WIDE_COUNT)
+                const factClassName = [
+                  'details-panel__fact',
+                  shouldExpandFact ? 'details-panel__fact--wide' : '',
+                ].filter(Boolean).join(' ')
+
+                return (
+                  <div className={factClassName} key={fact.label}>
+                    <dt>{fact.label}</dt>
+                    <dd>{fact.value}</dd>
+                  </div>
+                )
+              })}
             </dl>
           ) : null}
         </div>
