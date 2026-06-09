@@ -337,7 +337,7 @@
   grid-template-columns: 1fr;
 }
 
-@media (max-width: 1120px) {
+@media (max-width: 900px) {
   .details-panel.has-stacked-facts .details-panel__facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
