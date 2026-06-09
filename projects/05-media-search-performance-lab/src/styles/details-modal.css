@@ -408,7 +408,7 @@
   text-overflow: ellipsis;
 }
 
-@media (min-width: 561px) and (max-width: 900px) {
+@media (min-width: 601px) and (max-width: 900px) {
   .details-panel {
     width: min(100%, 720px);
     max-height: min(92vh, 760px);
@@ -535,7 +535,7 @@
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 600px) {
   .details-overlay {
     align-items: center;
     padding: 18px 12px;
