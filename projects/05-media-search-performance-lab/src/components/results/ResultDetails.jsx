@@ -106,6 +106,7 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
   )
   const image = item.imageLarge?.trim() || item.image?.trim() || FALLBACK_POSTER
   const synopsis = item.synopsis?.trim() || 'No synopsis available for this title yet.'
+  const hasShortSynopsis = synopsis.length <= 260
   const genres = Array.isArray(item.genres) ? item.genres.slice(0, 4) : []
   const mediaType = item.mediaType ?? 'media'
   const externalUrl = item.url?.trim() ?? ''
@@ -118,6 +119,10 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
   ].filter(Boolean)
   const facts = getItemFacts(item)
   const hasSummaryBand = stats.length > 0 || genres.length > 0 || externalUrl
+  const panelClassName = [
+    'details-panel',
+    hasShortSynopsis ? 'has-short-synopsis' : '',
+  ].filter(Boolean).join(' ')
 
   return (
     <div
@@ -132,7 +137,7 @@ function ResultDetails({ item, isClosing = false, onClose, onExited }) {
     >
       <section
         ref={panelRef}
-        className="details-panel"
+        className={panelClassName}
         role="dialog"
         aria-modal="true"
         aria-labelledby="details-title"
