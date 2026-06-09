@@ -728,7 +728,7 @@
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 700px) {
   .details-panel__image-wrap {
     grid-row: 1;
   }
