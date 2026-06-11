@@ -314,16 +314,19 @@
 }
 
 .details-panel__genres span {
-  min-height: 25px;
+  min-height: 26px;
   display: inline-flex;
   align-items: center;
-  border: 1px solid rgb(0 229 255 / 20%);
+  border: 1px solid rgb(0 229 255 / 24%);
   border-radius: 999px;
-  padding: 0 10px;
-  color: rgb(204 249 255 / 88%);
-  background: rgb(0 229 255 / 7%);
-  font-size: 0.82rem;
-  font-weight: 620;
+  padding: 0 11px;
+  color: rgb(211 250 255 / 91%);
+  background:
+    linear-gradient(145deg, rgb(0 229 255 / 10%), rgb(122 92 255 / 5%)),
+    rgb(0 229 255 / 6%);
+  font-size: 0.84rem;
+  font-weight: 650;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 3%) inset;
 }
 
 .details-panel__synopsis {
