@@ -4,32 +4,53 @@ Interactive media search experience focused on React rendering behavior, render 
 
 ---
 
+## 🚀 Live Demo
+
+🔗 Live demo pending deployment.
+
+---
+
 ## 🧠 Overview
 
-This project is the fifth practical build in the `react-learning` repository.
+This project is the **fifth practical build** in the `react-learning` repository.
 
-It is designed to apply performance-focused React patterns in a realistic search-driven UI.
-
----
-
-## 🎯 Goals
-
-- Build a search-driven media interface (`mode: anime | movies`)
-- Measure and reduce unnecessary re-renders
-- Apply `React.memo`, `useMemo`, and `useCallback` with clear criteria
-- Improve input responsiveness with debounce/throttle
-- Use `lazy` + `Suspense` for code-splitting in non-critical UI
+It applies performance-focused React patterns in a search-driven interface with two data modes: anime and movies. The app combines reusable UI, custom hooks, API adapters, loading states, responsive result cards, and a lazy-loaded details modal.
 
 ---
 
-## ✨ Planned Features
+## 💡 Why This Project
 
-- Search input with debounce behavior
-- Media mode switch (`Anime` / `Movies`)
-- Filters and sort controls
-- Responsive result grid with poster cards
-- Loading, error, and empty states
-- Optional detail panel loaded with `lazy`
+This build practices performance-minded React development in a realistic search flow.
+
+It is designed to balance render optimization, perceived performance, and polished UI states without overusing memoization or adding unnecessary abstractions.
+
+---
+
+## 🎯 Key Learnings
+
+- Search-driven UI with `anime` and `movies` modes
+- Memoized derived data with `useMemo`
+- Stable interaction handlers with `useCallback`
+- Code splitting with `lazy` and `Suspense`
+- API boundaries through services and adapters
+- Perceived performance with loading, shimmer, and lazy image strategies
+- Accessible modal behavior with focus management and keyboard support
+- Responsive modal and result-grid polish across breakpoints
+
+---
+
+## ✨ Features
+
+- Anime and movie search modes.
+- Trending discovery results before the first search.
+- Search input with validation and optimized query flow.
+- Sort controls for score and year.
+- Responsive result grid with poster cards.
+- Diagonal shimmer/fade-in image loading for result posters.
+- Loading, error, empty, and info states.
+- Lazy-loaded details modal with poster, stats, genres, facts, synopsis, and external source link.
+- Accessible modal behavior with focus management, escape close, and focus return.
+- Mobile and tablet-specific modal layouts.
 
 ---
 
@@ -38,6 +59,8 @@ It is designed to apply performance-focused React patterns in a realistic search
 - React
 - Vite
 - CSS
+- Jikan API for anime data
+- TMDB API for movie data
 
 ---
 
@@ -46,23 +69,21 @@ It is designed to apply performance-focused React patterns in a realistic search
 ```txt
 src/
 ├── App.jsx
-├── App.css
 ├── index.css
 ├── main.jsx
+├── adapters/
+│   ├── anime-adapter.js
+│   └── movie-adapter.js
 ├── components/
+│   ├── controls/
+│   └── results/
 ├── hooks/
+│   └── useMediaSearch.js
 ├── services/
-├── utils/
-├── mocks/
-└── styles/ (optional)
-
-tests/
-├── components/
-├── hooks/
-└── services/
+│   ├── anime-api.js
+│   └── movie-api.js
+└── styles/
 ```
-
-Folder plan: create directories as needed when the first real file is added.
 
 ---
 
@@ -73,6 +94,14 @@ cd react-learning/projects/05-media-search-performance-lab
 npm install
 npm run dev
 ```
+
+Create a `.env.local` file if you want movie search support through TMDB:
+
+```bash
+VITE_TMDB_API_KEY=your_tmdb_api_key
+```
+
+Anime search works through the public Jikan API.
 
 ---
 
@@ -85,7 +114,17 @@ npm run build
 
 ---
 
+## 👤 Author
+
+**KaelSyntax**
+
+---
+
 ## 📌 Status
 
-- **Version:** v0
-- **State:** ⚪ Planned
+**v1 — Completed**
+
+Planned improvements:
+
+- Deploy live demo
+- Add optional UI screenshots

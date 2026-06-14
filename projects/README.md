@@ -12,4 +12,4 @@ Each project represents a real implementation of the concepts covered throughout
 | **02** | **Tic-Tac-Toe** | 🟢 Completed | [README](./02-tic-tac-toe/README.md) · [Live Demo](https://02-tic-tac-toe.pages.dev/) |
 | **03** | **GitHub User Finder** | 🟢 Completed | [README](./03-github-user-finder/README.md) · [Live Demo](https://03-github-user-finder.pages.dev/) |
 | **04** | **Ecommerce Cart** | 🟢 Completed | [README](./04-ecommerce-cart/README.md) · [Live Demo](https://04-ecommerce-cart.pages.dev/) |
-| **05** | **Media Search Performance Lab** | 🟡 Planned | [README](./05-media-search-performance-lab/README.md) |
+| **05** | **Media Search Performance Lab** | 🟢 Completed | [README](./05-media-search-performance-lab/README.md) |
