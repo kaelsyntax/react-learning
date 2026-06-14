@@ -40,13 +40,13 @@ Small projects built to apply and reinforce React concepts.
 | **03** | **React Data Fetching and Routing** | 🟢 Completed | Concepts, exercises, and Project 03 completed. [View Section](./sections/03-react-data-fetching-and-routing/README.md) |
 | **04** | **React Architecture and Testing** | 🟢 Completed | Concepts, exercises, and Project 04 completed. [View Section](./sections/04-react-architecture-and-testing/README.md) |
 | **05** | **Advanced Logic, Custom Hooks & Testing** | 🟢 Completed | Concepts, exercises, and applied testing on Project 04 completed. [View Section](./sections/05-react-advanced-logic-custom-hooks-and-testing/README.md) |
-| **06** | **Performance, Rendering and Optimization** | 🟡 In Progress | Concepts completed; exercises and Project 05 implementation in progress. [View Section](./sections/06-react-performance-rendering-and-optimization/README.md) |
+| **06** | **Performance, Rendering and Optimization** | 🟢 Completed | Concepts, exercises, and Project 05 completed. [View Section](./sections/06-react-performance-rendering-and-optimization/README.md) |
 
 ---
 
 ## 🎯 Current Focus
 
-- Publish Section 06 exercises and continue Project 05 implementation
+- Deploy Project 05 live demo and continue the next React learning milestone
 
 ---
 
@@ -70,7 +70,7 @@ Small projects built to apply and reinforce React concepts.
 
 - **Media Search Performance Lab**  
   → [View Project README](./projects/05-media-search-performance-lab/README.md)  
-  → Status: In Progress
+  → Status: Completed; live demo pending deployment
 
 ---
 
