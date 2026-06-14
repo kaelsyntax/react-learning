@@ -16,7 +16,8 @@
   }
 
   .results-message__loader::before,
-  .results-message__skeleton span {
+  .results-message__skeleton span,
+  .media-card__image-wrap.is-loading::before {
     animation: none;
   }
 

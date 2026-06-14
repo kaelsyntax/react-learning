@@ -6,8 +6,10 @@ const FALLBACK_POSTER =
 function ResultCard({ item = {}, isPriority = false, onSelect }) {
   const cardRef = useRef(null)
   const [hasEnteredViewport, setHasEnteredViewport] = useState(false)
+  const [loadedImage, setLoadedImage] = useState('')
   const title = item.title?.trim() || 'Untitled'
   const image = item.imageSmall?.trim() || item.image?.trim() || FALLBACK_POSTER
+  const isImageLoading = loadedImage !== image
   const year = item.year ?? 'Unknown'
   const score = item.score ?? 'N/A'
 
@@ -41,18 +43,22 @@ function ResultCard({ item = {}, isPriority = false, onSelect }) {
         onClick={() => onSelect?.(item)}
         aria-label={`View details for ${title}`}
       >
-        <img
-          className="media-card__image"
-          src={image}
-          alt={`${title} poster`}
-          loading={isPriority ? 'eager' : 'lazy'}
-          decoding="async"
-          fetchPriority={isPriority ? 'high' : 'auto'}
-          onError={(event) => {
-            event.currentTarget.onerror = null
-            event.currentTarget.src = FALLBACK_POSTER
-          }}
-        />
+        <div className={`media-card__image-wrap ${isImageLoading ? 'is-loading' : 'is-loaded'}`}>
+          <img
+            className="media-card__image"
+            src={image}
+            alt={`${title} poster`}
+            loading={isPriority ? 'eager' : 'lazy'}
+            decoding="async"
+            fetchPriority={isPriority ? 'high' : 'auto'}
+            onLoad={() => setLoadedImage(image)}
+            onError={(event) => {
+              event.currentTarget.onerror = null
+              event.currentTarget.src = FALLBACK_POSTER
+              setLoadedImage(image)
+            }}
+          />
+        </div>
         <h3 className="media-card__title">{title}</h3>
         <div className="media-card__meta-row">
           <p className="media-card__meta">Year: {year}</p>
