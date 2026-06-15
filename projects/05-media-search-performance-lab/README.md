@@ -6,7 +6,7 @@ Interactive media search experience focused on React rendering behavior, render 
 
 ## 🚀 Live Demo
 
-🔗 Live demo pending deployment.
+🔗 [Live Demo](https://05-media-search-performance-lab.pages.dev/)
 
 ---
 
@@ -126,5 +126,4 @@ npm run build
 
 Planned improvements:
 
-- Deploy live demo
 - Add optional UI screenshots
