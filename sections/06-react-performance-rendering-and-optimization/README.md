@@ -49,6 +49,7 @@ The goal is to improve performance without introducing unnecessary complexity.
 
 - **Project:** Media Search Performance Lab (`mode: anime | movies`)
 - **Description:** Search-driven media catalog with separated anime/movie modes, focused on render control, memoization strategy, and responsive perceived performance
+- **Live Demo:** [Open Demo](https://05-media-search-performance-lab.pages.dev/)
 - **Status:** 🟢 Completed (performance-focused media search implementation finished)
 
 ---
@@ -69,4 +70,4 @@ The goal is to improve performance without introducing unnecessary complexity.
 - **Completed Concepts:** 9/9
 - **Exercises Published:** 3/3
 - **Project Status:** 🟢 Completed
-- **Next:** 🚀 Deploy Project 05 live demo
+- **Next:** 🛠 Continue with Section 07
