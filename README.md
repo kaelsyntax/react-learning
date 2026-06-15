@@ -70,7 +70,7 @@ Small projects built to apply and reinforce React concepts.
 
 - **Media Search Performance Lab**  
   → [View Project README](./projects/05-media-search-performance-lab/README.md)  
-  → Status: Completed; live demo pending deployment
+  → Live: [Open Demo](https://05-media-search-performance-lab.pages.dev/)
 
 ---
 
