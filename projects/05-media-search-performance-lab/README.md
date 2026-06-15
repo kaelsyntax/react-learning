@@ -64,6 +64,26 @@ It is designed to balance render optimization, perceived performance, and polish
 
 ---
 
+## 📸 Screenshots
+
+### 🖥️ Desktop - Results
+
+![Desktop Results](./docs/desktop-results.webp)
+
+### 🖥️ Desktop - Details
+
+![Desktop Details](./docs/desktop-details.webp)
+
+### 📱 Mobile - Results
+
+![Mobile Results](./docs/mobile-results.webp)
+
+### 📱 Mobile - Details
+
+![Mobile Details](./docs/mobile-details.webp)
+
+---
+
 ## 📁 Project Structure
 
 ```txt
@@ -98,7 +118,7 @@ npm run dev
 Create a `.env.local` file if you want movie search support through TMDB:
 
 ```bash
-VITE_TMDB_API_KEY=your_tmdb_api_key
+VITE_TMDB_READ_ACCESS_TOKEN=your_tmdb_read_access_token
 ```
 
 Anime search works through the public Jikan API.
@@ -123,7 +143,3 @@ npm run build
 ## 📌 Status
 
 **v1 — Completed**
-
-Planned improvements:
-
-- Add optional UI screenshots
