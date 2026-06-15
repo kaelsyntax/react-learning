@@ -46,7 +46,7 @@ Small projects built to apply and reinforce React concepts.
 
 ## 🎯 Current Focus
 
-- Deploy Project 05 live demo and continue the next React learning milestone
+- Continue with Section 07
 
 ---
 
