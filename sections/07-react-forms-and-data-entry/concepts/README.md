@@ -7,7 +7,7 @@ Concept notes for form architecture, validation, dynamic fields, multi-step flow
 | # | Topic | Status |
 | :--- | :--- | :---: |
 | 01 | [Controlled vs Uncontrolled Inputs](./01-controlled-vs-uncontrolled-inputs.md) | [x] |
-| 02 | Form State and Submit Flow | [ ] |
+| 02 | [Form State and Submit Flow](./02-form-state-and-submit-flow.md) | [x] |
 | 03 | React Hook Form Fundamentals | [ ] |
 | 04 | Zod Schema Validation | [ ] |
 | 05 | Dynamic Fields and Field Arrays | [ ] |
