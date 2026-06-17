@@ -41,12 +41,13 @@ Small projects built to apply and reinforce React concepts.
 | **04** | **React Architecture and Testing** | 🟢 Completed | Concepts, exercises, and Project 04 completed. [View Section](./sections/04-react-architecture-and-testing/README.md) |
 | **05** | **Advanced Logic, Custom Hooks & Testing** | 🟢 Completed | Concepts, exercises, and applied testing on Project 04 completed. [View Section](./sections/05-react-advanced-logic-custom-hooks-and-testing/README.md) |
 | **06** | **Performance, Rendering and Optimization** | 🟢 Completed | Concepts, exercises, and Project 05 completed. [View Section](./sections/06-react-performance-rendering-and-optimization/README.md) |
+| **07** | **Forms and Data Entry** | 🟡 In Progress | Form architecture, validation, and data-entry UX in progress. [View Section](./sections/07-react-forms-and-data-entry/README.md) |
 
 ---
 
 ## 🎯 Current Focus
 
-- Continue with Section 07
+- Build Section 07: React Forms and Data Entry
 
 ---
 
