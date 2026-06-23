@@ -25,14 +25,14 @@ Unlike Section 03, which focused on fetching external data and route-driven asyn
 
 ---
 
-## ✅ Planned Concepts
+## ✅ Completed Concepts
 
 | Range | Area | Status |
 | :--- | :--- | :---: |
-| 01-02 | **Input Foundations** (controlled/uncontrolled inputs, form state, submit flow) | [ ] |
-| 03-04 | **Validation Toolkit** (React Hook Form, Zod schemas, error messages) | [ ] |
-| 05-06 | **Dynamic Forms** (field arrays, conditional fields, derived form state) | [ ] |
-| 07-08 | **Advanced Data Entry UX** (multi-step forms, async validation, submit states, accessibility) | [ ] |
+| 01-02 | **Input Foundations** (controlled/uncontrolled inputs, form state, submit flow) | [x] |
+| 03-04 | **Validation Toolkit** (React Hook Form, Zod schemas, error messages) | [x] |
+| 05-06 | **Dynamic Forms** (field arrays, conditional fields, derived form state) | [x] |
+| 07-08 | **Advanced Data Entry UX** (multi-step forms, async validation, submit states, accessibility) | [x] |
 
 > [Concepts workspace](./concepts/)
 
@@ -40,11 +40,9 @@ Unlike Section 03, which focused on fetching external data and route-driven asyn
 
 ## 🧩 Integrative Exercises
 
-- [ ] **01** Controlled Inputs and Validation Flow
-- [ ] **02** React Hook Form with Schema Validation
-- [ ] **03** Dynamic and Multi-Step Form Patterns
-
-> [Exercises workspace](./exercises/)
+- [x] **01** [Controlled Inputs and Validation Flow](./exercises/01-controlled-inputs-and-validation-flow-exercise.md)
+- [x] **02** [React Hook Form with Schema Validation](./exercises/02-react-hook-form-with-schema-validation-exercise.md)
+- [x] **03** [Dynamic and Multi-Step Form Patterns](./exercises/03-dynamic-and-multi-step-form-patterns-exercise.md)
 
 ---
 
@@ -53,7 +51,7 @@ Unlike Section 03, which focused on fetching external data and route-driven asyn
 - **Project:** Onboarding Form Wizard
 - **Description:** Multi-step data-entry flow with validation, dynamic fields, review step, and polished submit states
 - **Repository:** Planned at `projects/06-onboarding-form-wizard/`
-- **Status:** 🟡 Planned
+- **Status:** ⚪ Planned
 
 ---
 
@@ -71,7 +69,7 @@ Unlike Section 03, which focused on fetching external data and route-driven asyn
 ## 📌 Section Status
 
 - **Overall:** 🟡 In Progress
-- **Completed Concepts:** 0/8
-- **Exercises Published:** 0/3
+- **Completed Concepts:** 8/8
+- **Exercises Published:** 3/3
 - **Project Status:** ⚪ Planned
-- **Next:** Start input foundations and controlled/uncontrolled form notes
+- **Next:** Start the Onboarding Form Wizard section project
