@@ -12,5 +12,5 @@ Concept notes for form architecture, validation, dynamic fields, multi-step flow
 | 04 | [Zod Schema Validation](./04-zod-schema-validation.md) | [x] |
 | 05 | [Dynamic Fields and Field Arrays](./05-dynamic-fields-and-field-arrays.md) | [x] |
 | 06 | [Conditional Fields and Derived Form State](./06-conditional-fields-and-derived-form-state.md) | [x] |
-| 07 | Multi-Step Forms | [ ] |
+| 07 | [Multi-Step Forms](./07-multi-step-forms.md) | [x] |
 | 08 | Async Validation, Submit States, and Accessibility | [ ] |
